@@ -1,0 +1,39 @@
+#pragma once
+
+class IActorComponent;
+
+/*
+Actor간에 메세지를 전달한다.
+
+결국, Component간에 메세지를 전달하는 거랑 같다.
+
+*/
+struct ActorMessage
+{
+    enum
+    {
+        MoveToTarget,
+        AddToNextTarget,
+        Contacted,
+        Damaged,
+        Attack,
+    } msgType;
+
+    Actor* sender;
+    IActorComponent* senderCmp;
+
+    void* data = nullptr;
+};
+
+void SendAcotrMessage(Actor* r, ActorMessage msg);
+
+struct AMsgData_Vec2
+{
+    Vec2 pos;
+};
+
+struct AMsgData_Damage
+{
+    int damageType;
+    int damageValue;
+};
