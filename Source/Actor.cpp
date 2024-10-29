@@ -2,6 +2,31 @@
 #include "Actor.h"
 #include "SceneComp.h"
 #include "MovementComp.h"
+
+const char* getActorTypeName(ActorType type)
+{
+    switch (type)
+    {
+    case ActorType::Mouse:
+        return "None";
+    case ActorType::Farmer:
+        return "Farmer";
+    case ActorType::Soldier:
+        return "Soldier";
+    case ActorType::TownHall:
+        return "TownHall";
+    case ActorType::Torch:
+        return "Torch";
+    case ActorType::Ball:
+        return "Ball";
+    case ActorType::Skeleton:
+        return "Skeleton";
+    case ActorType::CropsGround:
+        return "CropsGround";
+    }
+    return "None";
+}
+
 Actor::Actor()
     : info(FindAnimInfo(ECharActName::Idle, ECharDir::Face))
 {

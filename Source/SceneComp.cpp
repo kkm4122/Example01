@@ -1,7 +1,11 @@
 #include "pch.h"
-#include "SceneComp.h"
 #include "Actor.h"
-#include "MainScene.h"
+#include "ActorMessage.h"
+#include "World.h"
+#include "MovementComp.h"
+#include "Aniinfo.h"
+#include "CharAnimController.h"
+#include "SceneComp.h"
 
 using namespace ax;
 
@@ -36,28 +40,50 @@ SceneComp::~SceneComp()
     mRootNode->release();
 }
 
-ax::Node* SceneComp::NewNode(NodeType type)
-{
-    ax::Node* node     = ax::Node::create();
-    Nodedata* nodeData = CreateNodedata(mActor, type);
 
-    node->setUserData(nodeData);
-    //mRootNode = node;
+ax::Node* SceneComp::NewNode(std::string_view name)
+{
+    ax::Node* node = ax::Node::create();
+    node->setName(name);
+    node->setUserData(CreateNodedata(mActor, name));
+    return node;
+}
+ax::Node* SceneComp::NewAnimNode(std::string_view name,
+                                 ECharName charName,
+                                 ECharActName actionName,
+                                 ECharDir dir,
+                                 INodeAnimationController* controller = nullptr)
+{
+    AnimInfo& info = FindAnimInfo(charName, actionName, dir);
+    info.CreateAnimation();
+
+    auto node = Sprite::createWithSpriteFrame(info.animation->getFrames().front()->getSpriteFrame());
+    node->setName(name);
+    node->setUserData(CreateNodedata(mActor, name));
+
+    if (controller == nullptr)
+        controller = NoChangeAnimController::create(mActor);
+
+    node->addComponent(controller);
+    controller->ChangeAnimation(&info, true);
+
+    AddController(controller);
+
     return node;
 }
 
 ax::Node* SceneComp::CreateRootNode()
 {
-    ax::Node* node = NewNode();
+    ax::Node* node = NewNode("RootNode");
     mRootNode      = node;
     return node;
 }
 
-Nodedata* SceneComp::CreateNodedata(Actor* actor, NodeType type)
+Nodedata* SceneComp::CreateNodedata(Actor* actor, std::string_view name)
 {
     Nodedata* nodedata  = new Nodedata;
     nodedata->mActor    = actor;
-    nodedata->mNodeType = type;
+    nodedata->mNodeName = name;
     return nodedata;
 }
 

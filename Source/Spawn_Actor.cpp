@@ -11,7 +11,7 @@
 #include "MovementComp.h"
 using namespace ax;
 
-//Vec2 getPhysicsBodySize(ECharName charName);
+Vec2 getPhysicsBodySize(ECharName charName);
 
 Actor* Spawn_Farmer1(MainScene* parent, Vec2 worldPos)
 {

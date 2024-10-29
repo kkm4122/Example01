@@ -2,6 +2,7 @@
 #include "axmol.h"
 #include "Actor.h"
 using namespace ax;
+
 enum class ECharDir
 {
     Left = 1,
@@ -20,11 +21,14 @@ enum class ECharName
     ARES,
     capguy,
     Farmer,
-    Animal,
-    HPBar,
     TownHall,
     Torch,
-    Ball
+    Ball,
+    CropsGround,
+    Explosion,
+    Skeleton,
+    HPBar,
+    Carrot
 };
 
 enum class ECharActName
@@ -33,7 +37,8 @@ enum class ECharActName
     Run,
     Attack,
     Idle,
-    Move
+    Move,
+    Die
 };
 
 
@@ -52,7 +57,8 @@ struct AnimInfo
     float perFrameTime;
     Vec2 anchor;
 
-    ax::Animation* animation = nullptr;
+    Ptr<ax::Animation> animation;
+    
     void CreateAnimation();
     //~~~~~~~~~~~~~~~~~~~~~~~~~~
     static void DestroyAll();
@@ -73,6 +79,13 @@ ax::Sprite* CreateSprite_CharAnim(AnimInfo& info);
 void Change_CharAnim(ax::Node* node, AnimInfo& info);
 void ChangeAnimation(ECharName charName, ECharActName actName, ECharDir dir);
 void ChangeAnimation(AnimInfo* ainfo);
+
+struct S_Create_AnimNode
+{
+    ax::Sprite* node;
+    AnimInfo* animInfo;
+    ax::Animate* animate;
+};
 // on "init" you need to initialize your instance
 ax::Sprite* SpawnActor_OnScene(ax::Node* scene, ECharActName action, ECharDir dir, Vec2 pos);
 ax::Sprite* SpawnHPbar_OnScene(ax::Node* scene, Vec2 pos);
@@ -87,5 +100,13 @@ AnimInfo& HpBar(int idx);
 AnimInfo& FindAnimInfoByIndex(ECharName charName, int idx);
 //ax::Sprite* SpawnActor_OnScene(ax::Node* scene, ECharActName action, ECharDir dir, Vec2 pos);
 ECharDir CalcAniDir(Vec2 mVelocity);
+
 Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos);
+Actor* Spawn_TownHall(ax::Node* parent, Vec2 worldPos);
+Actor* Spawn_Torch(ax::Node* parent, Vec2 worldPos);
+Actor* Spawn_Ball(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 targetPos);
+Actor* Spawn_CropsGround(ax::Node* parent, Vec2 worldPos);
+Actor* Spawn_Skeleton(ax::Node* parent, Vec2 worldPos);
+
+Actor* Spawn_Mouse(ax::Node* parent, Vec2 worldPos);
 

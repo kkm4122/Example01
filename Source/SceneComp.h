@@ -2,6 +2,7 @@
 #include "IActorComponent.h"
 #include "Actor.h"
 #include "preDefines.h"
+#include "StatusInfo.h"
 
 //노드에서 컴포넌트를 상속받아서 장착할수있음
 //컴포넌트 상속받으면
@@ -21,7 +22,7 @@ struct Nodedata
 {
     Actor* mActor;
     // StatusInfo* mStatusInfo;
-    NodeType mNodeType;
+    std::string_view mNodeName;
 };
 class SceneComp : public IActorComponent
 {
@@ -36,16 +37,20 @@ public:
     ~SceneComp();
     // 에니메이션 및 스프라이트
     ax::Node* NewNode(NodeType type = NodeType::Root);
+    ax::Node* NewNode(std::string_view name);
     ax::Node* NewPhysicsNode(Vec2 body_size);
-    ax::Node* NewAnimNode(ECharName charName,
-                          ECharActName action,
-                          ECharDir dir, animController* controller = nullptr);
+    ax::Node* NewAnimNode(std::string_view name,
+                          ECharName charName,
+                          ECharActName actionName,
+                          ECharDir dir,
+                          INodeAnimationController* controller);
+    ;
     
     /*
       RootNode  관련
     */
     ax::Node* CreateRootNode();
-    Nodedata* CreateNodedata(Actor* actor, NodeType type);
+    Nodedata* CreateNodedata(Actor* actor, std::string_view name);
     void addChild(ax::Node* node) { mRootNode->addChild(node); }
     // 좌표 이동계
     ax::Vec2 mtargetDir = ax::Vec2(200, 200);
@@ -72,4 +77,7 @@ public:
 
     Ptr<ax::Node> mRootNode;
 
+public:
+    void AddANController(IActorNodeController* anc){};
+    void RemoveANController(IActorNodeController* anc){};
 };

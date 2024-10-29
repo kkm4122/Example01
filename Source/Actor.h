@@ -2,27 +2,10 @@
 
 #include "preDefines.h"
 #include "Aniinfo.h"
-
+#include "ActorType.h"
 
 //노드에서 컴포넌트를 상속받아서 장착할수있음
 //컴포넌트 상속받으면
-enum class ActorType : UINT8
-{
-    None,
-    Mouse,
-    Farmer,
-    Soldier,
-    TownHall,
-    Torch,
-    Ball,
-    Skeleton,
-    Animal,
-
-    Ores,
-    Farm,
-    Tree,
-
-};
 
 enum
 {

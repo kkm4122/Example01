@@ -3,20 +3,34 @@
 #include "animController.h"
 
 
+using namespace ax;
+Vec2 getPhysicsBodySize(ECharName charName)
+{
+    switch (charName)
+    {
+    case ECharName::ARES:
+    case ECharName::capguy:
+    case ECharName::Farmer:
+        return Vec2(16, 16);
 
-#define SAFE_release(p) \
-    if (p)              \
-    {                   \
-        (p)->release(); \
-        (p) = nullptr;  \
+    case ECharName::TownHall:
+        return Vec2(48, 80);
+    case ECharName::Torch:
+        return Vec2(16, 20);
+    case ECharName::CropsGround:
+        return Vec2(48, 48);
     }
+
+    return Vec2(16, 16);
+}
+
 void Change_CharAnim(ax::Node* node, AnimInfo& info)
 {
     create_frameAnimation(info);
 
     node->stopActionByTag(20202);
 
-    ax::Action* action = RepeatForever::create(Animate::create(info.animation));
+    ax::Action* action = RepeatForever::create(Animate::create(info.animation.get()));
     action->setTag(20202);
     node->runAction(action);
 }
@@ -31,7 +45,7 @@ void ChangeAnimation(AnimInfo* ainfo) {}
 
 void create_frameAnimation(AnimInfo& info) 
 {
-    if (info.animation == nullptr)
+    if (info.animation.isNull())
     {
         auto spritecache = ax::SpriteFrameCache::getInstance();
         spritecache->addSpriteFramesWithFile(info.strPlist);
@@ -56,7 +70,7 @@ ax::Sprite* CreateSprite_CharAnim(AnimInfo& info)
 
     auto sprite = Sprite::createWithSpriteFrame(info.animation->getFrames().front()->getSpriteFrame());
 
-    ax::Action* action = RepeatForever::create(Animate::create(info.animation));
+    ax::Action* action = RepeatForever::create(Animate::create(info.animation.get()));
     action->setTag(20202);
     sprite->runAction(action);
 

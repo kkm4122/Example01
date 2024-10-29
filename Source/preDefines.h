@@ -17,7 +17,10 @@ typedef ax::Vec2 cVec2;
 typedef ax::Vec2 Vec2;
 
 class Actor;
-//class NodeComponent_Actor;
+class IActorNodeController;
+class INodeAnimationController;
+class CharAnimController;
+class NoChangeAnimController;
 class AnimInfo;
 
 // Component
