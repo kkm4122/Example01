@@ -21,6 +21,14 @@ void Change_CharAnim(ax::Node* node, AnimInfo& info)
     node->runAction(action);
 }
 
+void ChangeAnimation(ECharName charName, ECharActName actName, ECharDir dir)
+{
+    AnimInfo& info = FindAnimInfo(charName, actName, dir);
+    ChangeAnimation(&info);
+}
+
+void ChangeAnimation(AnimInfo* ainfo) {}
+
 void create_frameAnimation(AnimInfo& info) 
 {
     if (info.animation == nullptr)

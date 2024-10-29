@@ -71,6 +71,7 @@ void create_frameAnimation(AnimInfo& info);
 ax::Sprite* CreateSprite_CharAnim(AnimInfo& info);
 
 void Change_CharAnim(ax::Node* node, AnimInfo& info);
+void ChangeAnimation(ECharName charName, ECharActName actName, ECharDir dir);
 void ChangeAnimation(AnimInfo* ainfo);
 // on "init" you need to initialize your instance
 ax::Sprite* SpawnActor_OnScene(ax::Node* scene, ECharActName action, ECharDir dir, Vec2 pos);
@@ -78,6 +79,7 @@ ax::Sprite* SpawnHPbar_OnScene(ax::Node* scene, Vec2 pos);
 /*
 
 */
+AnimInfo& FindAnimInfo(ECharName charName, ECharActName action, ECharDir dir);
 AnimInfo& FindAnimInfo(ECharActName action, ECharDir dir);
 AnimInfo& HpBar();
 AnimInfo& HpBar(int idx);

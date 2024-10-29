@@ -11,6 +11,14 @@
 #define anchor_Skeleton    Vec2(0.5, 1.f - (22.f / 32.f))
 
 
+AnimInfo g_AnimInfo_Farmer_Attack[] = {{ECharName::Farmer, ECharActName::Attack, ECharDir::Face, "TestMap.plist",
+                                        "Farmer/Attack/Face/%04d.png", 1, 4, (1.f / 4), anchor_farmer, nullptr},
+                                       {ECharName::Farmer, ECharActName::Attack, ECharDir::Back, "TestMap.plist",
+                                        "Farmer/Attack/Back/%04d.png", 1, 4, (1.f / 4), anchor_farmer, nullptr},
+                                       {ECharName::Farmer, ECharActName::Attack, ECharDir::Left, "TestMap.plist",
+                                        "Farmer/Attack/Left/%04d.png", 1, 4, (1.f / 4), anchor_farmer, nullptr},
+                                       {ECharName::Farmer, ECharActName::Attack, ECharDir::Right, "TestMap.plist",
+                                        "Farmer/Attack/Right/%04d.png", 1, 4, (1.f / 4), anchor_farmer, nullptr}};
 AnimInfo g_AnimInfo_Farmer_Idle[] = {{ECharName::Farmer, ECharActName::Idle, ECharDir::Face, "TestMap.plist",
                                       "Farmer/Idle/Face/%04d.png", 1, 6, (1.f / 6), anchor_farmer, nullptr},
                                      {ECharName::Farmer, ECharActName::Idle, ECharDir::Back, "TestMap.plist",
@@ -73,6 +81,38 @@ void AnimInfo::DestroyAll()
     {
         SAFE_release(g_AnimInfo_Farmer_Move[i].animation);
     }
+}
+AnimInfo& FindAnimInfo(ECharName charName, ECharActName action, ECharDir dir)
+{
+    switch (charName)
+    {
+    case ECharName::Farmer:
+        switch (action)
+        {
+        case ECharActName::Attack:
+            for (int i = 0; i < 4; ++i)
+            {
+                if (g_AnimInfo_Farmer_Attack[i].dir == dir)
+                    return g_AnimInfo_Farmer_Attack[i];
+            }
+            break;
+        case ECharActName::Idle:
+            for (int i = 0; i < 4; ++i)
+            {
+                if (g_AnimInfo_Farmer_Idle[i].dir == dir)
+                    return g_AnimInfo_Farmer_Idle[i];
+            }
+            break;
+        case ECharActName::Move:
+            for (int i = 0; i < 4; ++i)
+            {
+                if (g_AnimInfo_Farmer_Move[i].dir == dir)
+                    return g_AnimInfo_Farmer_Move[i];
+            }
+            break;
+        };
+        return g_AnimInfo_Farmer_Attack[0];
+    }  // TODO: 여기에 return 문을 삽입합니다.
 }
 AnimInfo& FindAnimInfo(ECharActName action, ECharDir dir)
 {
