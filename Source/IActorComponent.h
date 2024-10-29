@@ -11,10 +11,10 @@ public:
 	virtual void update(float delta) = 0;
     virtual void MessageProc(ActorMessage& msg){};
 
-    //std::string_view getName() { return mCompName; }
+    std::string_view getName() { return mCompName; }
 
 
-    //std::string_view mCompName;
+    std::string_view mCompName;
 	Actor* mActor;
     bool isEnabled = true;
 };

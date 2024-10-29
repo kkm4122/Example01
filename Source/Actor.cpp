@@ -1,7 +1,7 @@
-#include"pch.h"
+#include "pch.h"
 #include "Actor.h"
 #include "SceneComp.h"
-
+#include "MovementComp.h"
 Actor::Actor()
     : info(FindAnimInfo(ECharActName::Idle, ECharDir::Face))
 {
@@ -9,6 +9,27 @@ Actor::Actor()
 }
 
 Actor::~Actor() {}
+
+void Actor::update(float delta)
+{
+    //좌표 최신화(이동)
+    //update_world(delta);
+    if (mMoveComp)
+        mMoveComp->update(delta);
+
+
+    if (currentHP > MaxHP)
+    {
+        currentHP = MaxHP;
+    }
+    else if (currentHP < 0)
+    {
+        currentHP = 0;
+    }
+    //변경한 데이터값을 화면에 최신화
+    if (mSceneComp)
+        mSceneComp->update(delta);
+}
 
 void Actor::update_world(float delta)
 {
@@ -22,30 +43,14 @@ void Actor::update_world(float delta)
     Vec2 moveDir = (Velocity * delta * mspeed);
     mPosition += moveDir;
 
-    if(mSceneComp)
-        mSceneComp->update_world(delta);
-    if (currentHP > MaxHP)
-    {
-        currentHP = MaxHP;
-    }
-    else if (currentHP < 0)
-    {
-        currentHP = 0;
-    }
-    mTimer += delta;
-    if (mTimer > 1.0f)
-    {
-        mTimer = 0;
-        AXLOG("posx %f , posy %f",mPosition.x,mPosition.y);
-    }
-    mSceneComp->mRootNode->setPosition(mPosition);
+    
+    
+    
 }
 
 void Actor::setTarget(ax::Vec2 target)
 {
-    IsTargetForce   = true;
-    mtargetDir      = target - mPosition;
-    mWorldTargetPos = target;
+    mMoveComp->setTarget(target);
 }
 
 ax::Vec2 Actor::Vec2DNormalized(ax::Vec2 target)

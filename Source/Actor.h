@@ -54,6 +54,7 @@ public:
 
     // 컴포넌트
     SceneComp* mSceneComp = nullptr;
+    MovementComp* mMoveComp = nullptr;
 
 public:
     // 좌표 이동계
@@ -63,10 +64,8 @@ public:
     bool IsTargetForce = false;
     double mspeed      = 50.f;
     ax::Vec2 mWorldTargetPos;
+    Vec2 mTarget;
     
-    AnimInfo& info;
-    
-    AnimInfo* currentAni = nullptr;
     float mTimer=0;
 
     ax::Vec2 Vec2DNormalized(ax::Vec2 target);
@@ -76,8 +75,15 @@ public:
     double length(ax::Vec2 v1, ax::Vec2 v2);
 
     double getSpeed() const { return mspeed; }
-    ax::Point getPosition() const { return mPosition; }
-    void setPosition(ax::Vec2 v1) { mPosition = v1; }
+
+    void update(float delta);
 
     void update_world(float delta);  // SceneUPdate comp호출
+
+    /**********************************************************************/
+    AnimInfo& info;
+    AnimInfo* currentAni = nullptr;
+
+    ax::Point getPosition() const { return mPosition; }
+    void setPosition(ax::Vec2 v1) { mPosition = v1; }
 };
