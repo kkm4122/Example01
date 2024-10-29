@@ -191,11 +191,7 @@ void MainScene::update(float delta)
     case GameState::update:
     {
        
-        for (Actor* act : mActorList)
-        {
-            act->update_world(delta);
-        }
-
+        
         break;
     }
 
