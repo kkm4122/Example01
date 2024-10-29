@@ -2,6 +2,8 @@
 #include "animController.h"
 #include "SceneComp.h"
 #include "Aniinfo.h"
+#include "Actor.h"
+#include "MovementComp.h"
 animController* animController::create(Actor* ac)
 {
     animController* body = new (std::nothrow) animController();
@@ -26,22 +28,23 @@ animController::~animController() {}
 
 void animController::update(float delta)
 {
-    animationUpdate(delta);
+    update_animChar(delta);
 }
-void animController::animationUpdate(float delta)
+void animController::update_animChar(float delta)
 {
-    Vec2 dirV = mActor->mWorldTargetPos - mActor->mPosition;
-                                        //getOwner()->getParent()->getPosition();
-    if (!mActor->IsArrived())
+    Vec2 dirV = mActor->mMoveComp->mCurrentFrameMovement;
+    //Vec2 dirV = mActor->mMoveComp->mWorldTargetPos - mActor->mPosition;
+    // getOwner()->getParent()->getPosition();
+    if (!mActor->mMoveComp->IsArrived())
     {
-        float a      = dirV.length();
+        // float a      = dirV.length();
         ECharDir dir = CalcAniDir(dirV);
         if (dir != mActor->currentAni->dir || mActor->currentAni->actionName != ECharActName::Move)
         {
-            AnimInfo& info = FindAnimInfo(ECharActName::Move, dir);
-            mActor->currentAni = &info;
-            mActor->currentAni->dir = dir;
-            mActor->currentAni->actionName   = ECharActName::Move;
+            AnimInfo& info                 = FindAnimInfo(ECharActName::Move, dir);
+            mActor->currentAni             = &info;
+            mActor->currentAni->dir        = dir;
+            mActor->currentAni->actionName = ECharActName::Move;
             Change_CharAnim(getOwner(), info);
         }
     }
@@ -50,12 +53,39 @@ void animController::animationUpdate(float delta)
         if (mActor->currentAni->actionName != ECharActName::Idle)
         {
             AnimInfo& info                 = FindAnimInfo(ECharActName::Idle, mActor->currentAni->dir);
-            mActor->currentAni = &info;
+            mActor->currentAni             = &info;
             mActor->currentAni->actionName = ECharActName::Idle;
             Change_CharAnim(getOwner(), info);
         }
     }
+    
+} /*
+void animController::update_animChar1(float delta)
+{
+    if (mActor->mMoveComp)
+    {
+        Vec2 dirV = mActor->mMoveComp->mCurrentFrameMovement;
+
+        ECharName charName      = mCurrentAnimInfo->charName;
+        ECharActName actionName = mCurrentAnimInfo->actionName;
+        ECharDir dir            = mCurrentAnimInfo->dir;
+        if (dirV.length() > 0.01f)
+        {
+            dir        = CalcAniDir(mActor->mMoveComp->getVelocity());
+            actionName = ECharActName::Move;
+        }
+        else
+        {
+            actionName = ECharActName::Idle;
+        }
+
+        // if (dir != mCurrentAnimInfo->dir || mCurrentAnimInfo->actionName != actionName)
+        // ChangeAnimation(charName, actionName, dir);
+    }
 }
+
+*/
+
 
 
 /*
