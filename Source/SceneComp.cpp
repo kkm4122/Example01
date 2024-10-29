@@ -87,3 +87,38 @@ Nodedata* SceneComp::CreateNodedata(Actor* actor, std::string_view name)
     return nodedata;
 }
 
+void SceneComp::AddController(IActorNodeController* anc)
+{
+    for (auto con : mControllerList)
+    {
+        if (!con)
+        {
+            con = anc;
+            return;
+        }
+    }
+    mControllerList.push_back(anc);
+}
+
+void SceneComp::RemoveController(IActorNodeController* anc)
+{
+    for (auto con : mControllerList)
+    {
+        if (con == anc)
+        {
+            con = nullptr;
+            return;
+        }
+    }
+}
+
+IActorNodeController* SceneComp::getController(std::string_view name)
+{
+    for (auto con : mControllerList)
+    {
+        if (con->getName() == name)
+            return con;
+    }
+    return nullptr;
+}
+

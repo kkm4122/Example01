@@ -74,10 +74,13 @@ public:
     
 
     //void addChild(ax::Node* node) { mRootNode->addChild(node); }
-
-    Ptr<ax::Node> mRootNode;
-
 public:
-    void AddANController(IActorNodeController* anc){};
-    void RemoveANController(IActorNodeController* anc){};
+    void AddController(IActorNodeController* anc);//mControllerList에 컨트롤러 추가 컨트롤러들은 독자적으로 작동하기때문에
+    void RemoveController(IActorNodeController* anc);//따로 관리를 하지 않아도됨
+    IActorNodeController* getController(std::string_view name);
+public:
+    Ptr<ax::Node> mRootNode;
+    Ptr<ax::Node> mAttackNode;
+    std::vector<IActorNodeController*> mControllerList;
+
 };
