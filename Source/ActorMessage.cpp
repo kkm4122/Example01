@@ -1,12 +1,12 @@
-//#include "pch.h"
+#include "pch.h"
 #include "Actor.h"
 #include "IActorComponent.h"
 #include "ActorMessage.h"
-//#include "World.h"
+#include "World.h"
 //#include "ProjectileComp.h"
-//#include "FarmerComp.h"
+#include "FarmerComp.h"
 //#include "SkeletonComp.h"
-//#include "MovementComp.h"
+#include "MovementComp.h"
 //#include "GoalComp.h"
 
 void SendAcotrMessage(Actor* r, ActorMessage msg)

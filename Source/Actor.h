@@ -38,6 +38,7 @@ public:
     // 컴포넌트
     SceneComp* mSceneComp = nullptr;
     MovementComp* mMoveComp = nullptr;
+    UnitComp* mUnitComp     = nullptr;
 
 public:
     // 좌표 이동계

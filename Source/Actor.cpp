@@ -2,7 +2,7 @@
 #include "Actor.h"
 #include "SceneComp.h"
 #include "MovementComp.h"
-
+#include "UnitComp.h"
 const char* getActorTypeName(ActorType type)
 {
     switch (type)

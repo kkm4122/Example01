@@ -1,21 +1,27 @@
 #pragma once
+#include "UnitComp.h"
+#include "SceneComp.h"
 
-class Actor;
-struct ActorMessage;
 
-class IActorComponent
+class FarmerComp : public UnitComp
 {
 public:
-	IActorComponent(Actor* actor) : mActor(actor) {}
-    virtual ~IActorComponent() {}
-	virtual void update(float delta) = 0;
-    virtual void MessageProc(ActorMessage& msg){};
+    const static std::string COMPONENT_NAME;
 
-    std::string_view getName() { return mCompName; }
+    FarmerComp(Actor* actor);
+    ~FarmerComp();
 
+public:
+    virtual void update(float delta) override;
+    virtual void MessageProc(ActorMessage& msg) override;
+    virtual void Attack() override;
+    INodeAnimationController* mItemController       = nullptr;
+    INodeAnimationController* mSelectController     = nullptr;
+    INodeAnimationController* mCharHPAnimController = nullptr;
+    Nodedata* mTargetData                           = nullptr;  //대상이 있으면 상황에 맞게 행동하기위한 포인터
 
-    std::string_view mCompName;
-	Actor* mActor;
-    bool isEnabled = true;
+public:
+    bool isDamaged = false;
+    StatusInfo* mFarmerStatusInfo;
+    float mTimer = 0;
 };
-

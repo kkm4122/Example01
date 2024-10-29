@@ -21,7 +21,7 @@ enum class NodeType
 struct Nodedata
 {
     Actor* mActor;
-    // StatusInfo* mStatusInfo;
+    StatusInfo* mStatusInfo;
     std::string_view mNodeName;
 };
 class SceneComp : public IActorComponent
@@ -46,12 +46,15 @@ public:
                           INodeAnimationController* controller);
     ;
     
-    /*
-      RootNode  관련
-    */
+    
+      //RootNode  관련
+    ax::Node* getRootNode() { return mRootNode.get(); }
+    Nodedata* getRootNodedata() { return (Nodedata*)mRootNode->getUserData(); }
+    ax::Node* getAttackNode()   { return mAttackNode.get();}
+    void addChild(ax::Node* node) { mRootNode->addChild(node); }
+    
     ax::Node* CreateRootNode();
     Nodedata* CreateNodedata(Actor* actor, std::string_view name);
-    void addChild(ax::Node* node) { mRootNode->addChild(node); }
     // 좌표 이동계
     ax::Vec2 mtargetDir = ax::Vec2(200, 200);
     ax::Vec2 Velocity;
