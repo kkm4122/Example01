@@ -1,4 +1,6 @@
+#include "pch.h"
 #include "preDefines.h"
+#include "World.h"
 #include "Actor.h"
 #include "AniInfo.h"
 #include "preDefines.h"
@@ -6,6 +8,7 @@
 #include "SceneComp.h"
 #include "animController.h"
 #include "BarComponent.h"
+#include "MovementComp.h"
 using namespace ax;
 
 //Vec2 getPhysicsBodySize(ECharName charName);
@@ -43,17 +46,20 @@ Actor* Spawn_Farmer1(MainScene* parent, Vec2 worldPos)
 }
 Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
 {
-    Actor* actor = MainScene::get()->NewActor();
+    Actor* actor = World::get()->NewActor();
     
     actor->mActorName = "Farmer";
     actor->mActorType = ActorType::Farmer;
     actor->setPosition(worldPos);
 
+   
     auto sceneComp = new SceneComp(actor);
-    auto root      = sceneComp->NewNode();
-     root->setPosition(actor->getPosition());
+    auto root      = sceneComp->CreateRootNode();
+    // auto root    = sceneComp->NewNode();
+    root->setPosition(actor->getPosition());
     parent->addChild(root);
     //컴포넌트 등록
+    auto moveComp = new MovementComp(actor);
     /*
     auto root = sceneComp->CreateRootNodeWithPhysics(getPhysicsBodySize(ECharName::Farmer));
     root->setPosition(actor->getPosition());
@@ -143,6 +149,12 @@ Actor* Spawn_Mouse(ax::Node* parent, Vec2 worldPos)
 
 
 
+//test log in Update
+if (mTimer > 1.0f)
+    {
+        mTimer = 0;
+        AXLOG("debug Test");
+    }
 */
 
 

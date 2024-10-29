@@ -25,6 +25,8 @@
 
 #include "MainScene.h"
 #include "Actor.h"
+#include "World.h"
+
 #include "SceneComp.h"
 #include "animController.h"
 #include "BarComponent.h"
@@ -304,7 +306,7 @@ void MainScene::SpawnActor()
 Actor* Spawn_Farmer1(MainScene* parent, Vec2 worldPos);
 void MainScene::SpawnActor(Vec2 pos)
 {
-    auto actor      = Spawn_Farmer1(this, pos);
+    auto actor      = Spawn_Farmer(this, pos);
     
     mSelectedActor = actor;
     
@@ -335,7 +337,7 @@ void MainScene::actorPushBack(Actor* a)
 Actor* MainScene::NewActor()
 {
     Actor* act = new Actor;  // 생성
-    //actorPushBack(act);      // 푸시
+    actorPushBack(act);      // 푸시
     mActorList.push_back(act);
     return act;              //
 }
