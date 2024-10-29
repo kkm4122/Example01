@@ -56,7 +56,7 @@ public:
     ax::Vec2 mPosition;
 
 public:
-    void update_world(float delta);
+    
 
     int MaxHP = 200;
     int currentHP = 100;
@@ -66,13 +66,7 @@ public:
     // BarComponent* mBarComp = nullptr;
     BarComponent* hpComp = nullptr;
 
-    void setTarget(ax::Vec2 target);
-    ax::Vec2 Vec2DNormalized(ax::Vec2 target);
-
-    bool IsArrived();
-    void Do_TargetForce();
-    double length(ax::Vec2 v1, ax::Vec2 v2);
-
+    
 
     //void addChild(ax::Node* node) { mRootNode->addChild(node); }
 
