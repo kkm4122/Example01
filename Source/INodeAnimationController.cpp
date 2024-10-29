@@ -6,7 +6,7 @@
 
 void IActorNodeController::RemoveSelfNode()
 {
-    mActor->mSceneComp->RemoveANController(this);
+    mActor->mSceneComp->RemoveController(this);
     getOwner()->removeFromParent();
 }
 

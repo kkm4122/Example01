@@ -1,30 +1,19 @@
 #pragma once
-#include "axmol.h"
-#include "preDefines.h"
+#include "INodeAnimationController.h"
 
+class Actor;
 
-
-
-/*
-    예전 Actor 에서
-    그래픽과 관련된 행동은 여기서 처리한다.
-
-
-*/
-
-class animController : public ax::Component
+class NoChangeAnimController : public INodeAnimationController
 {
 public:
-    static animController* create(Actor* ac);
-    animController();
-    ~animController();
+    const static std::string COMPONENT_NAME;
 
-    public:
-    virtual void update(float delta) override;
-        
-    void update_animChar(float delta);
-    Actor* mActor;
-    
-        
-    AnimInfo* mCurrentAnimInfo = nullptr;
+    static NoChangeAnimController* create(Actor* ac);
+    NoChangeAnimController() { _name = COMPONENT_NAME; }
+    ~NoChangeAnimController() {}
+
+    virtual bool init() override { return true; };
+    virtual void update(float delta) override{};
+
+public:
 };
