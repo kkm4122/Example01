@@ -28,7 +28,7 @@ animController::~animController() {}
 
 void animController::update(float delta)
 {
-    update_animChar(delta);
+    update_animChar(delta);//임시 애니메이션 및 유저스테이터스 animinfo등 여러 함수가 생기면 다시 수정 예정
 }
 void animController::update_animChar(float delta)
 {
