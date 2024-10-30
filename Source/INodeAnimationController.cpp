@@ -1,8 +1,14 @@
 #include "pch.h"
 #include "INodeAnimationController.h"
+#include "Actor.h"
 #include "MovementComp.h"
+#include "AniInfo.h"
 #include "SceneComp.h"
-//#include "UnitComp.h"
+#include "UnitComp.h"
+
+using namespace ax;
+
+
 
 void IActorNodeController::RemoveSelfNode()
 {
@@ -27,7 +33,7 @@ void INodeAnimationController::Update_CharactorAnimation(float delta) {// 캐릭
         {
             if (dirV.length() > 0.01f)
             {
-                dir        = CalcAniDir(mActor->mMoveComp->getVelocity());
+                dir        = CalcAniDir(mActor->mMoveComp->getVelocity());       
                 actionName = ECharActName::Move;
             }
             else
@@ -41,7 +47,11 @@ void INodeAnimationController::Update_CharactorAnimation(float delta) {// 캐릭
     }
 }
 
-void INodeAnimationController::ChangeAnimation(ECharName charName, ECharActName actName, ECharDir dir, bool isRepeat) {}
+void INodeAnimationController::ChangeAnimation(ECharName charName, ECharActName actName, ECharDir dir, bool isRepeat)
+{
+    AnimInfo& info = FindAnimInfo(charName, actName, dir);
+    ChangeAnimation(&info, isRepeat);
+}
 
 void INodeAnimationController::ChangeAnimation(AnimInfo* ainfo, bool isRepeat)
 {
@@ -65,9 +75,24 @@ void INodeAnimationController::ChangeAnimation(AnimInfo* ainfo, bool isRepeat)
     mAnimate         = animate;
 }
 
-void INodeAnimationController::ChangeAnimationByIndex(ECharName charName, int idx) {}
+void INodeAnimationController::ChangeAnimationByIndex(ECharName charName, int idx)
+{
+    AnimInfo& info = FindAnimInfoByIndex(charName, idx);
+    ChangeAnimation(&info, true);
+}
 
 ECharDir INodeAnimationController::CalcAniDir(Vec2 dir)
 {
-    return ECharDir();
+    float cos45 = cos(AX_DEGREES_TO_RADIANS(45));
+
+    if (dir.x > cos45)
+        return ECharDir::Right;
+
+    if (dir.x < -cos45)
+        return ECharDir::Left;
+
+    if (dir.y > 0)
+        return ECharDir::Back;
+
+    return ECharDir::Face;
 }

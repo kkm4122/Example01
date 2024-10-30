@@ -32,7 +32,7 @@ public:
     E_UnitPose mUnitPose = E_UnitPose::None;
 
     INodeAnimationController* mCharAnimController = nullptr;
-    //유닛이 가지고 있는 애니메이션
+    //유닛이 가지고 있는 애니메이션ff
 
     std::string_view getPoseName()
     {

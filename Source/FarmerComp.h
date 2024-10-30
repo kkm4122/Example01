@@ -12,7 +12,7 @@ public:
     ~FarmerComp();
 
 public:
-    virtual void update(float delta) override;
+    virtual void update(float delta) override;              //아직은 기능을 넣을 함수불필요
     virtual void MessageProc(ActorMessage& msg) override;
     virtual void Attack() override;
     INodeAnimationController* mItemController       = nullptr;
