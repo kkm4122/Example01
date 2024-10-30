@@ -19,3 +19,9 @@ FarmerComp::FarmerComp(Actor* actor) : UnitComp(actor)
 }
 
 FarmerComp::~FarmerComp() {}
+
+void FarmerComp::update(float delta) {}
+
+void FarmerComp::MessageProc(ActorMessage& msg) {}
+
+void FarmerComp::Attack() {}
