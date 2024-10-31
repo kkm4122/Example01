@@ -38,7 +38,9 @@ enum class ECharActName
     Attack,
     Idle,
     Move,
-    Die
+    Die,
+    Damaged,
+    Watering
 };
 
 
@@ -87,13 +89,13 @@ struct S_Create_AnimNode
     ax::Animate* animate;
 };
 // on "init" you need to initialize your instance
-ax::Sprite* SpawnActor_OnScene(ax::Node* scene, ECharActName action, ECharDir dir, Vec2 pos);
+
 ax::Sprite* SpawnHPbar_OnScene(ax::Node* scene, Vec2 pos);
 /*
 
 */
 AnimInfo& FindAnimInfo(ECharName charName, ECharActName action, ECharDir dir);
-AnimInfo& FindAnimInfo(ECharActName action, ECharDir dir);
+//AnimInfo& FindAnimInfo(ECharActName action, ECharDir dir);
 AnimInfo& HpBar();
 AnimInfo& HpBar(int idx);
 

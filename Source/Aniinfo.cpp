@@ -76,16 +76,7 @@ ax::Sprite* CreateSprite_CharAnim(AnimInfo& info)
 
     return sprite;
 }
-ax::Sprite* SpawnActor_OnScene(ax::Node* scene, ECharActName action, ECharDir dir, Vec2 pos)
-{
-    AnimInfo& info = FindAnimInfo(action, dir);
 
-    ax::Sprite* node = CreateSprite_CharAnim(info);
-    node->setPosition(pos);
-    scene->addChild(node);
-   
-    return node;
-}
 /*
 ax::Sprite* SpawnActor_OnScene(ax::Node* scene, Actor* actor, ECharName charName, ECharActName action, ECharDir dir)
 {

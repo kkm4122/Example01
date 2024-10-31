@@ -17,7 +17,6 @@ using namespace ax;
 AnimInfo noneAnimInfo = {
     ECharName::Torch, ECharActName::Idle, ECharDir::Face, "Torch.plist", "Torch/Face/%03d.png", 1, 8,
     (1.f / 8),        anchor_Ball,        nullptr};
-
 AnimInfo g_AnimInfo_Farmer_Attack[] = {
     {ECharName::Farmer, ECharActName::Attack, ECharDir::Face, "Farmer.plist", "Farmer/Attack/Face/1_Attack/%04d.png", 1,
      4, (1.f / 4), anchor_farmer, nullptr},
@@ -184,6 +183,7 @@ void AnimInfo::DestroyAll()
     g_AnimInfo_TownHall[0].animation.setNull();
     g_AnimInfo_Torch[0].animation.setNull();
 }
+
 AnimInfo& FindAnimInfo(ECharName charName, ECharActName action, ECharDir dir)
 {
     switch (charName)
@@ -214,28 +214,71 @@ AnimInfo& FindAnimInfo(ECharName charName, ECharActName action, ECharDir dir)
             break;
         };
         return g_AnimInfo_Farmer_Attack[0];
-    }  // TODO: 여기에 return 문을 삽입합니다.
-}
-AnimInfo& FindAnimInfo(ECharActName action, ECharDir dir)
-{
-    switch (action)
-    {
 
-    case ECharActName::Idle:
+    case ECharName::Skeleton:
+        switch (action)
+        {
+        case ECharActName::Attack:
+            for (int i = 0; i < 4; ++i)
+            {
+                if (g_AnimInfo_Skeleton_Attack[i].dir == dir)
+                    return g_AnimInfo_Skeleton_Attack[i];
+            }
+            break;
+        case ECharActName::Idle:
+            for (int i = 0; i < 4; ++i)
+            {
+                if (g_AnimInfo_Skeleton_Idle[i].dir == dir)
+                    return g_AnimInfo_Skeleton_Idle[i];
+            }
+            break;
+        case ECharActName::Move:
+            for (int i = 0; i < 4; ++i)
+            {
+                if (g_AnimInfo_Skeleton_Move[i].dir == dir)
+                    return g_AnimInfo_Skeleton_Move[i];
+            }
+            break;
+        case ECharActName::Die:
+            return g_AnimInfo_Skeleton_Die[0];
+            break;
+        }
+        return g_AnimInfo_Skeleton_Die[0];
+
+    case ECharName::TownHall:
+        return g_AnimInfo_TownHall[0];
+
+    case ECharName::HPBar:
+        return g_AnimInfo_HPBar[0];
+
+    case ECharName::Torch:
+        return g_AnimInfo_Torch[0];
+
+    case ECharName::CropsGround:
+        return g_AnimInfo_CropsGround[0];
+
+    case ECharName::Explosion:
+        return g_AnimInfo_Explosion[0];
+
+    case ECharName::Ball:
         for (int i = 0; i < 4; ++i)
         {
-            if (g_AnimInfo_Farmer_Idle[i].dir == dir)
-                return g_AnimInfo_Farmer_Idle[i];
+            if (g_AnimInfo_Ball_Move[i].dir == dir)
+                return g_AnimInfo_Ball_Move[i];
         }
         break;
-    case ECharActName::Move:
+
+    case ECharName::Carrot:
         for (int i = 0; i < 4; ++i)
         {
-            if (g_AnimInfo_Farmer_Move[i].dir == dir)
-                return g_AnimInfo_Farmer_Move[i];
+            //if (g_AnimInfo_Carrot[i].dir == dir)
+                //return g_AnimInfo_Carrot[i];
+                return noneAnimInfo;
         }
         break;
-    };
+    }
+
+    return noneAnimInfo;
 }
 AnimInfo& HpBar()
 {
