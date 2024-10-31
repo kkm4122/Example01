@@ -8,6 +8,7 @@ using namespace ax;
 #define anchor_farmer      Vec2(0.5, 1.f - (22.f / 32.f))
 #define anchor_TownHall    Vec2(0.5, 1.f - (76.f / 80.f))
 #define anchor_Torch       Vec2(0.5, 1.f - (32.f / 48.f))
+#define anchor_Cow         Vec2(0.5, 0.5)
 #define anchor_Ball        Vec2(0.5, 0.5)
 #define anchor_CropsGround Vec2(0.5, 0.5)
 #define anchor_Explosion   Vec2(0.5, 0.5)
@@ -44,8 +45,27 @@ AnimInfo g_AnimInfo_Farmer_Move[] = {{ECharName::Farmer, ECharActName::Move, ECh
                                       "Farmer/Move/Left/%04d.png", 1, 6, (1.f / 6), anchor_farmer, nullptr},
                                      {ECharName::Farmer, ECharActName::Move, ECharDir::Right, "Farmer.plist",
                                       "Farmer/Move/Right/%04d.png", 1, 6, (1.f / 6), anchor_farmer, nullptr}};
+//Cow
+AnimInfo g_AnimInfo_Cow_Idle[]    = {{ECharName::Cow, ECharActName::Idle, ECharDir::Left, "Cow.plist",
+                                   "Cow/Idle/Left/%04d.png", 1, 2, (1.f / 2), anchor_Cow, nullptr},
+                                  {ECharName::Cow, ECharActName::Idle, ECharDir::Face, "Cow.plist",
+                                   "Cow/Idle/Left/%04d.png", 1, 2, (1.f / 2), anchor_Cow, nullptr},
+                                  {ECharName::Cow, ECharActName::Idle, ECharDir::Back, "Cow.plist",
+                                   "Cow/Idle/Right/%04d.png", 1, 2, (1.f / 2), anchor_Cow, nullptr},
+                                     {ECharName::Cow, ECharActName::Idle, ECharDir::Right, "Cow.plist",
+                                   "Cow/Idle/Right/%04d.png", 1, 2, (1.f / 2), anchor_Cow, nullptr}};
 
-AnimInfo g_AnimInfo_Ball_Move[] = {{ECharName::Ball, ECharActName::Move, ECharDir::Face, "Ball.plist",
+AnimInfo g_AnimInfo_Cow_Move[]    = {{ECharName::Cow, ECharActName::Move, ECharDir::Left, "Cow.plist",
+                                   "Cow/Move/Left/%04d.png", 1, 8, (1.f / 6), anchor_Cow, nullptr},
+                                     {ECharName::Cow, ECharActName::Move, ECharDir::Face, "Cow.plist",
+                                   "Cow/Move/Left/%04d.png", 1, 8, (1.f / 6), anchor_Cow, nullptr},
+                                     {ECharName::Cow, ECharActName::Move, ECharDir::Back, "Cow.plist",
+                                   "Cow/Move/Right/%04d.png", 1, 8, (1.f / 6), anchor_Cow, nullptr},
+                                     {ECharName::Cow, ECharActName::Move, ECharDir::Right, "Cow.plist",
+                                   "Cow/Move/Right/%04d.png", 1, 8, (1.f / 6), anchor_Cow, nullptr}};
+
+AnimInfo g_AnimInfo_Ball_Move[]   = {
+    {ECharName::Ball, ECharActName::Move, ECharDir::Face, "Ball.plist",
                                     "Ball/Move/Face/%04d.png", 1, 3, (1.f / 3), anchor_Ball, nullptr},
                                    {ECharName::Ball, ECharActName::Move, ECharDir::Back, "Ball.plist",
                                     "Ball/Move/Back/%04d.png", 1, 3, (1.f / 3), anchor_Ball, nullptr},
@@ -214,7 +234,25 @@ AnimInfo& FindAnimInfo(ECharName charName, ECharActName action, ECharDir dir)
             break;
         };
         return g_AnimInfo_Farmer_Attack[0];
-
+    case ECharName::Cow:
+        switch (action)
+        {
+        case ECharActName::Idle:
+            for (int i = 0; i < 4; ++i)
+            {
+                if (g_AnimInfo_Cow_Idle[i].dir == dir)
+                    return g_AnimInfo_Cow_Idle[i];
+            }
+            break;
+        case ECharActName::Move:
+            for (int i = 0; i < 4; ++i)
+            {
+                if (g_AnimInfo_Cow_Move[i].dir == dir)
+                    return g_AnimInfo_Cow_Move[i];
+            }
+            break;
+        }
+        break;
     case ECharName::Skeleton:
         switch (action)
         {

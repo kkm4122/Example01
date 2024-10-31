@@ -23,6 +23,8 @@ const char* getActorTypeName(ActorType type)
         return "Skeleton";
     case ActorType::CropsGround:
         return "CropsGround";
+    case ActorType::Cow:
+        return "Cow";
     }
     return "None";
 }

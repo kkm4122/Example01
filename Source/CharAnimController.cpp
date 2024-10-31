@@ -23,6 +23,9 @@ CharAnimController* CharAnimController::create(Actor* ac)
 
 void CharAnimController::update(float delta)
 {
+    
     if (mActor->mMoveComp)
-        Update_CharactorAnimation(delta);
+    {
+    }
+        //Update_CharactorAnimation(delta);
 }  // INodeAnimationController 함수 호출

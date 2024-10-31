@@ -28,19 +28,26 @@ enum class ECharName
     Explosion,
     Skeleton,
     HPBar,
-    Carrot
+    Carrot,
+    Cow
 };
 
 enum class ECharActName
 {
-    Walk,
+    
     Run,
     Attack,
     Idle,
     Move,
     Die,
     Damaged,
-    Watering
+    Watering,
+    Eat,
+    Sit,
+    StandUp,
+    Sleeping,
+    StartSleep,
+    Walk
 };
 
 
@@ -104,6 +111,7 @@ AnimInfo& FindAnimInfoByIndex(ECharName charName, int idx);
 ECharDir CalcAniDir(Vec2 mVelocity);
 
 Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos);
+Actor* Spawn_Cow(ax::Node* parent, Vec2 worldPos);
 Actor* Spawn_TownHall(ax::Node* parent, Vec2 worldPos);
 Actor* Spawn_Torch(ax::Node* parent, Vec2 worldPos);
 Actor* Spawn_Ball(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 targetPos);

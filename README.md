@@ -7,7 +7,7 @@
 2. movement component 생성 및 이동 관련 함수 변수들 옮기기 [x] 
 3. animcontroller 정리 [x] 
 4. MessageProc[in IActorComponent] 완성 [ ] 
-5. Animal component 완성 [ ] 
+5. Animal component 완성 [x] 
 
 
 교육자료

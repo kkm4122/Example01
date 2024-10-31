@@ -12,20 +12,16 @@
 void SendAcotrMessage(Actor* r, ActorMessage msg)
 {
 
-    // Actor 안에
-    // Message를 받을 Component를 찿아서
-    // 전달해 준다...
-    //
-    /*
     switch (msg.msgType)
     {
     case ActorMessage::MoveToTarget:
     {
-        AMsgData_Vec2* v = (AMsgData_Vec2*)msg.data;
-        AddGoal_GotoTarget(r, v->pos);
+        // AMsgData_Vec2* v = (AMsgData_Vec2*)msg.data;
+        // r->mMoveComp->MessageProc(ActorMessage::MoveToTarget);
     }
     break;
-
+    }
+    /*}
     case ActorMessage::AddToNextTarget:
     {
         AMsgData_Vec2* v = (AMsgData_Vec2*)msg.data;

@@ -13,6 +13,8 @@ enum class ActorType : UINT8
     Ball,
     Skeleton,
     CropsGround,
+    Cow,
+
 };
 
 const char* getActorTypeName(ActorType type);
