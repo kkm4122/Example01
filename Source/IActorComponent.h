@@ -13,7 +13,7 @@ public:
 
     std::string_view getName() { return mCompName; }
 
-
+public:
     std::string_view mCompName;
 	Actor* mActor;
     bool isEnabled = true;

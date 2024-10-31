@@ -18,7 +18,7 @@ class INodeAnimationController : public IActorNodeController
 {
 public:
     void Update_CharactorAnimation(float delta);
-
+    
     
     void ChangeAnimation(ECharName charName, ECharActName actName, ECharDir dir, bool isRepeat = true);
     void ChangeAnimation(AnimInfo* ainfo, bool isRepeat);

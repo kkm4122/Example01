@@ -29,8 +29,9 @@ class SceneComp;
 class animController;
 class BarComponent;
 class FarmerComp;
-class TownHallComp;
 class AnimalComp;
+
+class TownHallComp;
 
 // 씬에다 그리기 기능,axmol node를 참조하고 mactor와 상호참조
 
@@ -42,8 +43,7 @@ class AnimalComp;
 
 
 
-class UnitComp;
-class FarmerComp;
+
 class MovementComp;
 
 

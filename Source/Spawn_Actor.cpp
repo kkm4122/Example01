@@ -12,6 +12,8 @@
 #include "animController.h"
 #include "FarmerComp.h"
 #include "FarmerCharactorNode.h"
+#include "CowCharactorNode.h"
+#include "AnimalComp.h"
 using namespace ax;
 
 Vec2 getPhysicsBodySize(ECharName charName);
@@ -33,7 +35,7 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
     parent->addChild(root);
     //컴포넌트 등록
     auto moveComp = new MovementComp(actor);
-    auto farmer   = new FarmerComp(actor);
+    auto Farmer    = new FarmerComp(actor);
     /*
     auto root = sceneComp->CreateRootNodeWithPhysics(getPhysicsBodySize(ECharName::Farmer));
     root->setPosition(actor->getPosition());
@@ -44,12 +46,56 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
     auto comp = animController::create(actor);
     node->addComponent(comp);
     */
-    farmer->mCharAnimController = FarmerCharactorNode::create(actor);
+    Farmer->mCharAnimController = FarmerCharactorNode::create(actor);
     ax::Sprite* Hnode = SpawnHPbar_OnScene(root, Vec2(0, 16));
     auto hcomp = BarComponent::create(actor);
     Hnode->addComponent(hcomp);
     
 
+    return actor;
+}
+Actor* Spawn_Cow(ax::Node* parent, Vec2 worldPos)
+{
+    Actor* actor = World::get()->NewActor();
+
+    actor->mActorName = "Farmer";
+    actor->mActorType = ActorType::Farmer;
+    actor->setPosition(worldPos);
+
+    auto sceneComp = new SceneComp(actor);
+    auto root      = sceneComp->CreateRootNode();
+    // auto root    = sceneComp->NewNode();
+    root->setPosition(actor->getPosition());
+    parent->addChild(root);
+    // 컴포넌트 등록
+    auto moveComp = new MovementComp(actor);
+    auto Animal   = new AnimalComp(actor);
+  
+    /*
+    auto root = sceneComp->CreateRootNodeWithPhysics(getPhysicsBodySize(ECharName::Farmer));
+    root->setPosition(actor->getPosition());
+    parent->addChild(root);
+
+    ax::Sprite* node = SpawnActor_OnScene(root, ECharActName::Idle, ECharDir::Face, Vec2(0, 0));
+
+    auto comp = animController::create(actor);
+    node->addComponent(comp);
+    */
+    Animal->mCharAnimController = CowCharactorNode::create(actor);
+    ax::Sprite* Hnode           = SpawnHPbar_OnScene(root, Vec2(0, 16));
+    auto hcomp                  = BarComponent::create(actor);
+    Hnode->addComponent(hcomp);
+    /*
+    auto root = sceneComp->CreateRootNodeWithPhysics(getPhysicsBodySize(ECharName::Farmer));
+    root->setPosition(actor->getPosition());
+    parent->addChild(root);
+
+    ax::Sprite* node = SpawnActor_OnScene(root, ECharActName::Idle, ECharDir::Face, Vec2(0, 0));
+
+    auto comp = animController::create(actor);
+    node->addComponent(comp);
+    */
+    
     return actor;
 }
 /*

@@ -31,6 +31,7 @@
 #include "animController.h"
 #include "BarComponent.h"
 #include "MovementComp.h"
+#include "ActorMessage.h"
 using namespace ax;
 class AnimInfo;
     // Print useful error message instead of segfaulting when files are not there.
@@ -130,7 +131,7 @@ void MainScene::onMouseDown(Event* event)
         if (mSelectedActor!=nullptr)
         {
 
-        
+       // SendAcotrMessage(mSelectedActor, ActorMessage::MoveToTarget);
             mSelectedActor->mMoveComp->setTarget(Pos);
         }
     }
@@ -303,8 +304,8 @@ void MainScene::SpawnActor()
 Actor* Spawn_Farmer1(MainScene* parent, Vec2 worldPos);
 void MainScene::SpawnActor(Vec2 pos)
 {
-    auto actor      = Spawn_Farmer(this, pos);
-    
+    //auto actor      = Spawn_Farmer(this, pos);
+    auto actor     = Spawn_Cow(this, pos);
     mSelectedActor = actor;
     
 

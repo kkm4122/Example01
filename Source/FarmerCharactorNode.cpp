@@ -7,6 +7,8 @@
 #include "UnitComp.h"
 #include "SceneComp.h"
 
+using namespace ax;
+
 const std::string FarmerCharactorNode::COMPONENT_NAME = "FarmerCharactorNode";
 
 FarmerCharactorNode* FarmerCharactorNode::create(Actor* ac)

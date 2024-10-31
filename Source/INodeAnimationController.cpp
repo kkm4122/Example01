@@ -16,9 +16,15 @@ void IActorNodeController::RemoveSelfNode()
     getOwner()->removeFromParent();
 }
 
-void INodeAnimationController::Update_CharactorAnimation(float delta) {// 캐릭터가 바라보고 있는 방향을
+
+
+
+
+void INodeAnimationController::Update_CharactorAnimation(float delta)
+{  // 캐릭터가 바라보고 있는 방향을
     // 위동하려는 위치를 기준으로
     // 변경한다.
+
     if (mActor->mMoveComp)
     {
         Vec2 dirV = mActor->mMoveComp->mCurrentFrameMovement;
@@ -33,7 +39,7 @@ void INodeAnimationController::Update_CharactorAnimation(float delta) {// 캐릭
         {
             if (dirV.length() > 0.01f)
             {
-                dir        = CalcAniDir(mActor->mMoveComp->getVelocity());       
+                dir        = CalcAniDir(mActor->mMoveComp->getVelocity());
                 actionName = ECharActName::Move;
             }
             else
@@ -46,6 +52,7 @@ void INodeAnimationController::Update_CharactorAnimation(float delta) {// 캐릭
         }
     }
 }
+
 
 void INodeAnimationController::ChangeAnimation(ECharName charName, ECharActName actName, ECharDir dir, bool isRepeat)
 {

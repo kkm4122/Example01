@@ -35,6 +35,19 @@ void MovementComp::update(float delta)
         mActor->mUnitComp->mUnitPose = E_UnitPose::Move;
 }
 
+void MovementComp::MessageProc(ActorMessage& msg)
+{
+    switch (msg.msgType)
+    {
+    case ActorMessage::MoveToTarget:
+    {
+        AMsgData_Vec2* data = (AMsgData_Vec2*)msg.data;
+        setTarget(data->pos);
+    }
+    break;
+    }
+}
+
 void MovementComp::Do_TargetForce()
 {
     if (IsArrived())
