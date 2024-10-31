@@ -19,12 +19,24 @@ enum
 class Actor
 {
 public:
+    enum
+    {//엑터 상태
+        E_Died,
+        E_Active,
+        E_InActive,
+    } mStatus;
     Actor();
     ~Actor();
     // 에니메이션 및 스프라이트
+    void update(float delta);
 
+    //~~ Property ~~~~~~~~~~~~~~~~~~
+    ax::Point getPosition() { return mPosition; }
+    void setPosition(ax::Vec2 v1) { mPosition = v1; }
+    const char* getActorTypeStr() { return getActorTypeName(mActorType); }
     // Actor 정보
-    unsigned int mActorID = 0;
+
+    unsigned int mActorID = UINT32_MAX;
     std::string mActorName;
     std::string mTag;
     std::string mMapName;
@@ -36,38 +48,25 @@ public:
     int getCur() const { return currentHP; }
 
     // 컴포넌트
+public:
     SceneComp* mSceneComp = nullptr;
     MovementComp* mMoveComp = nullptr;
     UnitComp* mUnitComp     = nullptr;
 
-public:
     // 좌표 이동계
     ax::Vec2 mPosition;
-    ax::Vec2 mtargetDir = ax::Vec2(200, 200);
-    ax::Vec2 Velocity;
-    bool IsTargetForce = false;
-    double mspeed      = 50.f;
-    ax::Vec2 mWorldTargetPos;
     Vec2 mTarget;
+
+  
     
     float mTimer=0;
 
-    ax::Vec2 Vec2DNormalized(ax::Vec2 target);
-    void setTarget(ax::Vec2 target);
-    bool IsArrived();
-    void Do_TargetForce();
-    double length(ax::Vec2 v1, ax::Vec2 v2);
 
-    double getSpeed() const { return mspeed; }
 
-    void update(float delta);
-
-    void update_world(float delta);  // SceneUPdate comp호출
 
     /**********************************************************************/
-    AnimInfo& info;
-    AnimInfo* currentAni = nullptr;
+    //AnimInfo& info;
+    //AnimInfo* currentAni = nullptr;
 
-    ax::Point getPosition() const { return mPosition; }
-    void setPosition(ax::Vec2 v1) { mPosition = v1; }
+    
 };
