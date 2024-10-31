@@ -1,5 +1,11 @@
 #include "CharAnimController.h"
 
+
+
+using namespace ax;
+
+const std::string CharAnimController::COMPONENT_NAME = "CharAnimController";
+
 CharAnimController* CharAnimController::create(Actor* ac)
 {
     auto body    = new (std::nothrow) CharAnimController();

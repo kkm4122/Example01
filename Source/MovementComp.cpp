@@ -2,7 +2,7 @@
 #include "MovementComp.h"
 #include "Actor.h"
 #include "ActorMessage.h"
-
+#include "UnitComp.h"
 
 const std::string MovementComp::COMPONENT_NAME = "MovementComp";
 
@@ -31,6 +31,8 @@ void MovementComp::update(float delta)
 
     mCurrentFrameMovement = mVelocity * delta * getSpeed();
     mActor->mPosition += mCurrentFrameMovement;
+    if (mCurrentFrameMovement.length() > 0.01f)
+        mActor->mUnitComp->mUnitPose = E_UnitPose::Move;
 }
 
 void MovementComp::Do_TargetForce()

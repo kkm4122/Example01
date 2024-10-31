@@ -30,6 +30,7 @@
 #include "SceneComp.h"
 #include "animController.h"
 #include "BarComponent.h"
+#include "MovementComp.h"
 using namespace ax;
 class AnimInfo;
     // Print useful error message instead of segfaulting when files are not there.
@@ -130,7 +131,7 @@ void MainScene::onMouseDown(Event* event)
         {
 
         
-            mSelectedActor->setTarget(Pos);
+            mSelectedActor->mMoveComp->setTarget(Pos);
         }
     }
     if (e->getMouseButton() == EventMouse::MouseButton::BUTTON_RIGHT)

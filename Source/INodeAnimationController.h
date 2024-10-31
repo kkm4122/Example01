@@ -7,9 +7,10 @@ class IActorNodeController : public ax::Component
 {
 
 public:
-    std::string_view getName() const { return getOwner()->getName(); }
     Actor* getActor() { return mActor; }
     void RemoveSelfNode();
+    std::string_view getName() const { return getOwner()->getName(); }
+
     Actor* mActor = nullptr;
 };
 

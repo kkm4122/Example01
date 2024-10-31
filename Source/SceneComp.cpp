@@ -6,7 +6,7 @@
 #include "Aniinfo.h"
 #include "CharAnimController.h"
 #include "SceneComp.h"
-
+#include "NoChangeAnimController.h"
 using namespace ax;
 
 const std::string SceneComp::COMPONENT_NAME = "SceneComp";

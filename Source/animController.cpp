@@ -32,32 +32,7 @@ void animController::update(float delta)
 }
 void animController::update_animChar(float delta)
 {
-    Vec2 dirV = mActor->mMoveComp->mCurrentFrameMovement;
-    //Vec2 dirV = mActor->mMoveComp->mWorldTargetPos - mActor->mPosition;
-    // getOwner()->getParent()->getPosition();
-    if (!mActor->mMoveComp->IsArrived())
-    {
-        // float a      = dirV.length();
-        ECharDir dir = CalcAniDir(dirV);
-        if (dir != mActor->currentAni->dir || mActor->currentAni->actionName != ECharActName::Move)
-        {
-            AnimInfo& info                 = FindAnimInfo(ECharActName::Move, dir);
-            mActor->currentAni             = &info;
-            mActor->currentAni->dir        = dir;
-            mActor->currentAni->actionName = ECharActName::Move;
-            Change_CharAnim(getOwner(), info);
-        }
-    }
-    else
-    {
-        if (mActor->currentAni->actionName != ECharActName::Idle)
-        {
-            AnimInfo& info                 = FindAnimInfo(ECharActName::Idle, mActor->currentAni->dir);
-            mActor->currentAni             = &info;
-            mActor->currentAni->actionName = ECharActName::Idle;
-            Change_CharAnim(getOwner(), info);
-        }
-    }
+   
     
 } /*
 void animController::update_animChar1(float delta)
