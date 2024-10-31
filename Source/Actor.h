@@ -47,10 +47,9 @@ public:
     int getMax() const { return MaxHP; }
     int getCur() const { return currentHP; }
 
-    // 컴포넌트
-public:
+public:// 컴포넌트
     SceneComp* mSceneComp = nullptr;
-    MovementComp* mMoveComp = nullptr;
+    MovementComp* mMoveComp = nullptr;//좌표이동계
     UnitComp* mUnitComp     = nullptr;
 
     // 좌표 이동계
