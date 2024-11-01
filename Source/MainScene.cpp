@@ -303,11 +303,11 @@ void MainScene::SpawnActor()
     
     SpawnActor(Vec2(100, 200));
 }
-Actor* Spawn_Farmer1(MainScene* parent, Vec2 worldPos);
+
 void MainScene::SpawnActor(Vec2 pos)
 {
     //auto actor      = Spawn_Farmer(this, pos);
-    auto actor     = Spawn_Cow(this, pos);
+    auto actor     = Spawn_Farmer(this, pos);
     mSelectedActor = actor;
     
 

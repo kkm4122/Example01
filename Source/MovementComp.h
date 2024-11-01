@@ -30,7 +30,7 @@ public:
     void CheckTargetList();
 
     double getSpeed() const { return mSpeed; }
-    ax::Vec2 getVelocity() { return mVelocity; }
+    ax::Vec2 getVelocity() const { return mVelocity; }
 
 public:
     float mSpeed     = 50.f;
