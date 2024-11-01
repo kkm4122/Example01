@@ -4,6 +4,9 @@
 #include "UnitDefines.h"
 
 
+
+
+
 class CowCharactorNode : public INodeAnimationController
 {
 public:

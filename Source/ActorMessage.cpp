@@ -3,7 +3,7 @@
 #include "IActorComponent.h"
 #include "ActorMessage.h"
 #include "World.h"
-//#include "ProjectileComp.h"
+//#include "ProjectileComp.h"//투사체 컴포넌트
 #include "FarmerComp.h"
 //#include "SkeletonComp.h"
 #include "MovementComp.h"
@@ -16,7 +16,7 @@ void SendAcotrMessage(Actor* r, ActorMessage msg)
     {
     case ActorMessage::MoveToTarget:
     {
-         //AMsgData_Vec2* v = (AMsgData_Vec2*)msg.data;
+         
          r->mMoveComp->MessageProc(msg);
     }
     break;
