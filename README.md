@@ -8,8 +8,8 @@
 3. animcontroller 정리 [x] 
 4. MessageProc[in IActorComponent] 완성 [ ] 
 5. Animal component 완성 [x] 
-
-
+6. 소 도축 하기[ ]
+7. goal 만들고 움직이는 ai 구현[ ]
 교육자료
 -------------  
 
