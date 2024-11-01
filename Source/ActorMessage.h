@@ -37,3 +37,9 @@ struct AMsgData_Damage
     int damageType;
     int damageValue;
 };
+struct AMsgData_PlayAnimation
+{
+    ECharName mCharName;
+    ECharActName mActionName;
+    ECharDir mDirName;
+};

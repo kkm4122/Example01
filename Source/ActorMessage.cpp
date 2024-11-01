@@ -16,8 +16,8 @@ void SendAcotrMessage(Actor* r, ActorMessage msg)
     {
     case ActorMessage::MoveToTarget:
     {
-        // AMsgData_Vec2* v = (AMsgData_Vec2*)msg.data;
-        // r->mMoveComp->MessageProc(ActorMessage::MoveToTarget);
+         //AMsgData_Vec2* v = (AMsgData_Vec2*)msg.data;
+         r->mMoveComp->MessageProc(msg);
     }
     break;
     }

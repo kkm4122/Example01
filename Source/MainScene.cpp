@@ -132,7 +132,9 @@ void MainScene::onMouseDown(Event* event)
         {
 
        // SendAcotrMessage(mSelectedActor, ActorMessage::MoveToTarget);
-            mSelectedActor->mMoveComp->setTarget(Pos);
+            AMsgData_Vec2 msgData = {Pos};//msgData의 데이터 타입 vec2
+            ActorMessage msg      = {ActorMessage::MoveToTarget, nullptr, nullptr, &msgData};//voidpointer를 받아 참조자를 받아야한다.
+            SendAcotrMessage(mSelectedActor, msg);
         }
     }
     if (e->getMouseButton() == EventMouse::MouseButton::BUTTON_RIGHT)
