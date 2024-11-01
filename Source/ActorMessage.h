@@ -1,5 +1,5 @@
 #pragma once
-
+#include"Aniinfo.h"
 class IActorComponent;
 
 /*
