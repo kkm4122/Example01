@@ -38,13 +38,12 @@ public:
     // 에니메이션 및 스프라이트
     ax::Node* NewNode(NodeType type = NodeType::Root);
     ax::Node* NewNode(std::string_view name);
-    ax::Node* NewPhysicsNode(Vec2 body_size);
+    ax::Node* NewPhysicsNode(std::string_view name, Vec2 body_size);
     ax::Node* NewAnimNode(std::string_view name,
                           ECharName charName,
                           ECharActName actionName,
                           ECharDir dir,
                           INodeAnimationController* controller);
-    ;
     
     
       //RootNode  관련
@@ -54,6 +53,7 @@ public:
     void addChild(ax::Node* node) { mRootNode->addChild(node); }
     
     ax::Node* CreateRootNode();
+    ax::Node* CreateRootNodeWithPhysics(Vec2 body_size);
     Nodedata* CreateNodedata(Actor* actor, std::string_view name);
     // 좌표 이동계
     ax::Vec2 mtargetDir = ax::Vec2(200, 200);

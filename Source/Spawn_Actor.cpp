@@ -29,7 +29,7 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
 
    
     auto sceneComp = new SceneComp(actor);
-    auto root      = sceneComp->CreateRootNode();
+    auto root      = sceneComp->CreateRootNodeWithPhysics(Vec2(16, 16));
     // auto root    = sceneComp->NewNode();
     root->setPosition(actor->getPosition());
     parent->addChild(root);
@@ -63,7 +63,7 @@ Actor* Spawn_Cow(ax::Node* parent, Vec2 worldPos)
     actor->setPosition(worldPos);
 
     auto sceneComp = new SceneComp(actor);
-    auto root      = sceneComp->CreateRootNode();
+    auto root      = sceneComp->CreateRootNodeWithPhysics(Vec2(16, 16));
     // auto root    = sceneComp->NewNode();
     root->setPosition(actor->getPosition());
     parent->addChild(root);

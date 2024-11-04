@@ -48,6 +48,22 @@ ax::Node* SceneComp::NewNode(std::string_view name)
     node->setUserData(CreateNodedata(mActor, name));
     return node;
 }
+ax::Node* SceneComp::NewPhysicsNode(std::string_view name, Vec2 body_size)
+{
+    ax::Node* node = NewNode(name);
+
+    auto body = ax::PhysicsBody::createBox(body_size);
+    body->setContactTestBitmask(0xFFFFFFFF);
+    body->setDynamic(false);
+    node->setPhysicsBody(body);
+    auto bodysize = body_size /2;
+   auto drawNode = ax::DrawNode::create();
+    drawNode->setPosition(Vec2(0, 0));
+   drawNode->drawRect(-bodysize, bodysize, ax::Color4F::RED);
+    node->addChild(drawNode);
+
+    return node;
+}
 ax::Node* SceneComp::NewAnimNode(std::string_view name,
                                  ECharName charName,
                                  ECharActName actionName,
@@ -75,6 +91,13 @@ ax::Node* SceneComp::NewAnimNode(std::string_view name,
 ax::Node* SceneComp::CreateRootNode()
 {
     ax::Node* node = NewNode("RootNode");
+    mRootNode      = node;
+    return node;
+}
+
+ax::Node* SceneComp::CreateRootNodeWithPhysics(Vec2 body_size)
+{
+    ax::Node* node = NewPhysicsNode("RootNode", body_size);
     mRootNode      = node;
     return node;
 }

@@ -79,7 +79,10 @@ bool MainScene::init()
     {
         return false;
     }
-
+    if (!Scene::initWithPhysics())
+    {
+        return false;
+    }
     auto visibleSize = _director->getVisibleSize();
     auto origin = _director->getVisibleOrigin();
     auto safeArea = _director->getSafeAreaRect();
@@ -308,6 +311,7 @@ void MainScene::SpawnActor(Vec2 pos)
 {
     //auto actor      = Spawn_Farmer(this, pos);
     auto actor     = Spawn_Farmer(this, pos);
+    auto actor2     = Spawn_Cow(this, pos);
     mSelectedActor = actor;
     
 

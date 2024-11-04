@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "World.h"
 #include "Actor.h"
-
+#include "MovementComp.h"
 //#include "2dGeometryFunc.h"
 
 USING_NS_AX;
