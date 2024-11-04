@@ -8,7 +8,7 @@ using namespace ax;
 #define anchor_farmer      Vec2(0.5, 1.f - (22.f / 32.f))
 #define anchor_TownHall    Vec2(0.5, 1.f - (76.f / 80.f))
 #define anchor_Torch       Vec2(0.5, 1.f - (32.f / 48.f))
-#define anchor_Cow         Vec2(0.5, 0.5)
+#define anchor_Cow         Vec2(0.5, 1.f - (22.f / 32.f))
 #define anchor_Ball        Vec2(0.5, 0.5)
 #define anchor_CropsGround Vec2(0.5, 0.5)
 #define anchor_Explosion   Vec2(0.5, 0.5)

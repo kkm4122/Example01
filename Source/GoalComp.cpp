@@ -2,6 +2,9 @@
 #include "Actor.h"
 #include "ActorMessage.h"
 #include "GoalComp.h"
+
+
+
 const std::string GoalComp::COMPONENT_NAME = "GoalComp";
 
 GoalComp::GoalComp(Actor* actor) : IActorComponent(actor)
