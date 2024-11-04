@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "SceneComp.h"
 #include "MovementComp.h"
+#include "GoalComp.h"
 #include "UnitComp.h"
 const char* getActorTypeName(ActorType type)
 {
@@ -34,12 +35,26 @@ Actor::Actor()
    // currentAni = &info;
 }
 
-Actor::~Actor() {}
+Actor::~Actor()
+{
+    if (mSceneComp)
+        delete mSceneComp;
+
+    if (mMoveComp)
+        delete mMoveComp;
+    if (mUnitComp)
+        delete mUnitComp;
+    if (mGoalComp)
+        delete mGoalComp;
+    
+}
 
 void Actor::update(float delta)
 {
     //좌표 최신화(이동)
     //update_world(delta);
+    if (mGoalComp)
+        mGoalComp->update(delta);
     if (mMoveComp)
         mMoveComp->update(delta);
 

@@ -24,7 +24,7 @@ public:
         E_Died,
         E_Active,
         E_InActive,
-    } mStatus;
+    } mStatus=E_Active;
     Actor();
     ~Actor();
     // 에니메이션 및 스프라이트
@@ -51,7 +51,7 @@ public:// 컴포넌트
     SceneComp* mSceneComp = nullptr;
     MovementComp* mMoveComp = nullptr;//좌표이동계
     UnitComp* mUnitComp     = nullptr;
-
+    GoalComp* mGoalComp     = nullptr;
     // 좌표 이동계
     ax::Vec2 mPosition;
     Vec2 mTarget;
