@@ -29,6 +29,8 @@ class SceneComp;
 class animController;
 class BarComponent;
 class FarmerComp;
+class MovementComp;
+class GoalComp;
 class AnimalComp;
 
 class TownHallComp;
