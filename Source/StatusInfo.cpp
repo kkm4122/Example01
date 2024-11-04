@@ -9,7 +9,9 @@ StatusInfo* CreateStatusInfo(ActorType actortype)
     case ActorType::Farmer:
         SetFarmerStatus(status);
         break;
-
+    case ActorType::Cow:
+        SetCowStatus(status);
+        break;
     }
     return status;
 }
@@ -22,3 +24,10 @@ void SetFarmerStatus(StatusInfo* status)//최초 농부 스탯
 }
 
 void SetSkeletonStatus(StatusInfo* status) {}
+
+void SetCowStatus(StatusInfo* status)
+{
+    status->maxHp = 100;
+    status->at    = 10;
+    status->hp    = 100;
+}

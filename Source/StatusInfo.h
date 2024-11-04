@@ -16,3 +16,5 @@ StatusInfo* CreateStatusInfo(ActorType actortype);
 void SetFarmerStatus(StatusInfo* status);
 
 void SetSkeletonStatus(StatusInfo* status);
+
+void SetCowStatus(StatusInfo* status);
