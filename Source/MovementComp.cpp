@@ -70,9 +70,8 @@ bool MovementComp::IsArrived()
 
 void MovementComp::setTarget(ax::Vec2 target)
 {
-    IsTargetForce   = true;
-    mWorldTargetPos = target;
-    mActor->mTarget = mWorldTargetPos - mActor->getPosition();
+    mTargetList.clear();
+    _setTarget(target);
 }
 
 void MovementComp::CheckTargetList()
