@@ -44,6 +44,10 @@ void MovementComp::MessageProc(ActorMessage& msg)
         AMsgData_Vec2* data = (AMsgData_Vec2*)msg.data;
         setTarget(data->pos);
     }
+    case ActorMessage::AddToNextTarget:
+    {
+        PushTargetList(((AMsgData_Vec2*)msg.data)->pos);
+    }
     break;
     }
 }
@@ -74,6 +78,16 @@ void MovementComp::setTarget(ax::Vec2 target)
     _setTarget(target);
 }
 
+void MovementComp::SetTargetList(std::list<Vec2>& list)
+{
+    mTargetList = list;
+}
+
+void MovementComp::PushTargetList(Vec2 v1)
+{
+    mTargetList.push_back(v1);
+}
+
 void MovementComp::CheckTargetList()
 {
     if (mTargetList.size() < 1)
@@ -85,6 +99,13 @@ void MovementComp::CheckTargetList()
         mTargetList.pop_front();
         _setTarget(pos);
     }
+}
+
+double MovementComp::getTimeToReachTarget()
+{
+    double dist = length(mActor->getPosition(), mActor->mTarget);
+    double T    = dist / mSpeed;
+    return T;
 }
 
 ax::Vec2 MovementComp::Vec2DNormalized(ax::Vec2 target)
