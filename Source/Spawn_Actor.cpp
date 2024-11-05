@@ -14,6 +14,7 @@
 #include "FarmerCharactorNode.h"
 #include "CowCharactorNode.h"
 #include "AnimalComp.h"
+#include "GoalComp.h"
 using namespace ax;
 
 Vec2 getPhysicsBodySize(ECharName charName);
@@ -36,6 +37,7 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
     //컴포넌트 등록
     auto moveComp = new MovementComp(actor);
     auto Farmer    = new FarmerComp(actor);
+    auto goalComp = new GoalComp(actor);
     /*
     auto root = sceneComp->CreateRootNodeWithPhysics(getPhysicsBodySize(ECharName::Farmer));
     root->setPosition(actor->getPosition());
@@ -70,7 +72,7 @@ Actor* Spawn_Cow(ax::Node* parent, Vec2 worldPos)
     // 컴포넌트 등록
     auto moveComp = new MovementComp(actor);
     auto Animal   = new AnimalComp(actor);
-  
+    auto goalComp = new GoalComp(actor);
     /*
     auto root = sceneComp->CreateRootNodeWithPhysics(getPhysicsBodySize(ECharName::Farmer));
     root->setPosition(actor->getPosition());
@@ -95,7 +97,7 @@ Actor* Spawn_Cow(ax::Node* parent, Vec2 worldPos)
     auto comp = animController::create(actor);
     node->addComponent(comp);
     */
-    
+    actor->mMoveComp->setSpeed(30.f);
     return actor;
 }
 /*
