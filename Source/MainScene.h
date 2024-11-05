@@ -56,7 +56,8 @@ public:
     Actor* NewActor();
     void SpawnActor();
     void SpawnActor(ax::Vec2 pos);
-
+    void SpawnFamer(ax::Vec2 pos);
+    void SpawnCow(ax::Vec2 pos);
 
 
 
