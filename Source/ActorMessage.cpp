@@ -7,7 +7,8 @@
 #include "FarmerComp.h"
 //#include "SkeletonComp.h"
 #include "MovementComp.h"
-//#include "GoalComp.h"
+
+#include "GoalComp.h"
 
 void SendAcotrMessage(Actor* r, ActorMessage msg)
 {
@@ -16,8 +17,13 @@ void SendAcotrMessage(Actor* r, ActorMessage msg)
     {
     case ActorMessage::MoveToTarget:
     {
-         
-         r->mMoveComp->MessageProc(msg);
+
+        r->mMoveComp->MessageProc(msg);
+    }
+    break;
+    case ActorMessage::AddToNextTarget:
+    {
+        r->mMoveComp->MessageProc(msg);
     }
     break;
     }
