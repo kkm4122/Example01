@@ -2,7 +2,7 @@
 #include "Actor.h"
 #include "ActorMessage.h"
 #include "GoalComp.h"
-
+#include "A_GotoTarget.h"
 
 
 const std::string GoalComp::COMPONENT_NAME = "GoalComp";
@@ -25,4 +25,19 @@ GoalComp::~GoalComp()
 void GoalComp::update(float delta)
 {
     mThink->Do();
+}
+
+void AddGoal_GotoTarget(Actor* actor, Vec2 target)
+{
+    if (actor->mGoalComp)
+    {
+        actor->mGoalComp->mThink->End();
+        actor->mGoalComp->mThink->AddSubgoal(new A_GotoTarget(actor, target));
+    }
+}
+
+void PushGoal_GotoTarget(Actor* actor, Vec2 target)
+{
+    if (actor->mGoalComp)
+        actor->mGoalComp->mThink->PushSubgoal(new A_GotoTarget(actor, target));
 }
