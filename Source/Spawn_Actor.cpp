@@ -60,7 +60,7 @@ Actor* Spawn_Cow(ax::Node* parent, Vec2 worldPos)
 {
     Actor* actor = World::get()->NewActor();
 
-    actor->mActorName = "Farmer";
+    actor->mActorName = "Cow";
     actor->mActorType = ActorType::Farmer;
     actor->setPosition(worldPos);
 
