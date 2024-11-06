@@ -46,11 +46,22 @@ public:
 
     static MainScene* get();
 
+    cSize visibleSize;
+    cSize halfVisibleSize;
+    cPoint origin;
+
     bool init() override;
     void update(float delta) override;
     void createCharactorAni(ax::Vec2 pos);
     void createCharactorPlist(ax::Vec2 pos);
     Actor* mSelectedActor=nullptr;
+
+    Actor* mContactedActor = nullptr;
+
+    Actor* mPlayerActor = nullptr;
+    Actor* mMouseActor  = nullptr;
+    Vec2 mMouseDownWorldPos;
+    Vec2 mMouseWorldPos;
 
     std::vector<Actor*> mActorList;
     Actor* NewActor();
@@ -80,6 +91,17 @@ public:
 
     // a selector callback
     void menuCloseCallback(ax::Object* sender);
+
+
+    // ImGUI ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    void onEnter() override;
+    void onDrawImGui();
+    void onExit() override;
+    bool show_test_window          = false;
+    bool show_another_window       = true;
+    bool show_create_window        = false;
+    bool show_select_player_window = false;
+    bool show_select_window        = false;
 
 
     void actorPushBack(Actor* a);

@@ -34,6 +34,9 @@
 #include "GoalComp.h"
 #include "A_RandomMoving.h"
 #include "ActorMessage.h"
+#include "ImGui/ImGuiPresenter.h"
+
+using namespace ax::extension;
 using namespace ax;
 class AnimInfo;
     // Print useful error message instead of segfaulting when files are not there.
@@ -85,11 +88,14 @@ bool MainScene::init()
     {
         return false;
     }
-    auto visibleSize = _director->getVisibleSize();
-    auto origin = _director->getVisibleOrigin();
-    auto safeArea = _director->getSafeAreaRect();
+    visibleSize     = _director->getVisibleSize();
+    origin          = _director->getVisibleOrigin();
+    halfVisibleSize = visibleSize / 2;
+    auto safeArea   = _director->getSafeAreaRect();
     auto safeOrigin = safeArea.origin;
 
+
+    //입력 리스너들
     auto mouseListener           = EventListenerMouse::create();
     mouseListener->onMouseDown   = AX_CALLBACK_1(MainScene::onMouseDown, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
@@ -388,6 +394,31 @@ void MainScene::menuCloseCallback(ax::Object* sender)
 
      // EventCustom customEndEvent("game_scene_close_event");
      //_eventDispatcher->dispatchEvent(&customEndEvent);
+}
+
+void MainScene::onEnter()
+{
+    __super::onEnter();
+
+    ax::extension::ImGuiPresenter::getInstance()->setViewResolution(visibleSize.x, visibleSize.y);
+    ax::extension::ImGuiPresenter::getInstance()->addFont("fonts/arial.ttf");
+    ax::extension::ImGuiPresenter::getInstance()->enableDPIScale();
+    ax::extension::ImGuiPresenter::getInstance()->addRenderLoop("#test", AX_CALLBACK_0(MainScene::onDrawImGui, this),
+                                                                this);
+
+    //CreatMouseActor();
+}
+
+void MainScene::onDrawImGui() {}
+
+void MainScene::onExit()
+{
+    ImGuiPresenter::getInstance()->removeRenderLoop("#test");
+    ImGuiPresenter::getInstance()->clearFonts();
+
+    ImGuiPresenter::destroyInstance();
+
+    __super::onExit();
 }
 
 void MainScene::actorPushBack(Actor* a)
