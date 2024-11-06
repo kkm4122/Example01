@@ -93,10 +93,18 @@ bool MainScene::init()
     auto mouseListener           = EventListenerMouse::create();
     mouseListener->onMouseDown   = AX_CALLBACK_1(MainScene::onMouseDown, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
+
+    auto contactListener               = EventListenerPhysicsContact::create();
+    contactListener->onContactBegin    = AX_CALLBACK_1(MainScene::onContactBegin, this);
+    contactListener->onContactSeparate = AX_CALLBACK_1(MainScene::onContactSeparate, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
+
     auto keyboardListener = EventListenerKeyboard::create();
     keyboardListener->onKeyPressed  = AX_CALLBACK_2(MainScene::onKeyPressed, this);
     
     _eventDispatcher->addEventListenerWithFixedPriority(keyboardListener, 11);
+
+
     SpawnActor();
     // scheduleUpdate() is required to ensure update(float) is called on every loop
     scheduleUpdate();
@@ -165,6 +173,44 @@ void MainScene::onMouseScroll(Event* event)
 {
     EventMouse* e = static_cast<EventMouse*>(event);
     AXLOG("onMouseScroll detected, X:%f  Y:%f", e->getScrollX(), e->getScrollY());
+}
+
+bool MainScene::onContactBegin(ax::PhysicsContact& contact)
+{
+
+    auto bodyA = contact.getShapeA()->getBody();
+    auto bodyB = contact.getShapeB()->getBody();
+
+    auto nodeDataA = (Nodedata*)bodyA->getOwner()->getUserData();
+    auto nodeDataB = (Nodedata*)bodyB->getOwner()->getUserData();
+
+    auto nodeActorA = nodeDataA->mActor;
+    auto nodeActorB = nodeDataB->mActor;
+
+    ActorMessage amsgA = {ActorMessage::Contacted, nodeActorB, nullptr, nodeDataB};
+    SendAcotrMessage(nodeActorA, amsgA);
+
+    ActorMessage amsgB = {ActorMessage::Contacted, nodeActorA, nullptr, nodeDataA};
+    SendAcotrMessage(nodeActorB, amsgB);
+
+    return true;
+}
+
+bool MainScene::onContactSeparate(ax::PhysicsContact& contact)
+{
+    auto bodyA = contact.getShapeA()->getBody();
+    auto bodyB = contact.getShapeB()->getBody();
+
+    auto nodeDataA = (Nodedata*)bodyA->getOwner()->getUserData();
+    auto nodeDataB = (Nodedata*)bodyB->getOwner()->getUserData();
+
+    auto nodeActorA = nodeDataA->mActor;
+    auto nodeActorB = nodeDataB->mActor;
+
+    if (nodeActorA == nullptr || nodeActorB == nullptr)
+        return true;
+
+    return true;
 }
 
 void MainScene::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
