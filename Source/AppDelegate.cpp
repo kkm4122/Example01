@@ -33,7 +33,7 @@
 #endif
 
 using namespace ax;
-
+//1280720
 static ax::Size designResolutionSize = ax::Size(1280, 720);
 
 AppDelegate::AppDelegate() {}
@@ -75,10 +75,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0f / 60);
 
-    // Set the design resolution
-    glView->setDesignResolutionSize(designResolutionSize.width/2, designResolutionSize.height/2,
-                                    ResolutionPolicy::EXACT_FIT);
+    // glView->setFrameSize(designResolutionSize.width , designResolutionSize.height );
 
+    // Set the design resolution
+    glView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height,
+                                    ResolutionPolicy::EXACT_FIT);
     // create a scene. it's an autorelease object
     auto scene = utils::createInstance<MainScene>();
 

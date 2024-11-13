@@ -22,6 +22,9 @@ FarmerComp::~FarmerComp() {}
 
 void FarmerComp::update(float delta) {}
 
-void FarmerComp::MessageProc(ActorMessage& msg) {}
+void FarmerComp::MessageProc(ActorMessage& msg)
+{
+
+}
 
 void FarmerComp::Attack() {}
