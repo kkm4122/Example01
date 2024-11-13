@@ -3,7 +3,7 @@
 #include "Actor.h"
 #include "MovementComp.h"
 #include "A_GotoTarget.h"
-//#include "A_WaitTime.h"
+#include "A_WaitTime.h"
 #include "A_RandomMoving.h"
 
 
@@ -29,7 +29,7 @@ void A_RandomMoving::Start()
         gg.y *= -1.f;
     }
 
-   // AddSubgoal(new A_WaitTime(m_pOwner, 2.f));
+    AddSubgoal(new A_WaitTime(m_pOwner, 2.f));
     AddSubgoal(new A_GotoTarget(m_pOwner, mOrgPosition + gg));
 }
 int A_RandomMoving::Do()
