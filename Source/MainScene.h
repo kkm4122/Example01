@@ -52,6 +52,10 @@ public:
 
     bool init() override;
     void update(float delta) override;
+    float mSceneTime            = 0;
+    long long mSceneUpdateCount = 0;
+
+
     void createCharactorAni(ax::Vec2 pos);
     void createCharactorPlist(ax::Vec2 pos);
     Actor* mSelectedActor=nullptr;
@@ -70,7 +74,11 @@ public:
     void SpawnFamer(ax::Vec2 pos);
     void SpawnCow(ax::Vec2 pos);
 
-
+    //screen
+    ExLayer* mExLayer=nullptr;
+    void setGameScale(float s);
+    
+    float mGameScale;
 
     // touch
     void onTouchesBegan(const std::vector<ax::Touch*>& touches, ax::Event* event);
@@ -88,7 +96,10 @@ public:
     // Keyboard
     void onKeyPressed(ax::EventKeyboard::KeyCode code, ax::Event* event);
     void onKeyReleased(ax::EventKeyboard::KeyCode code, ax::Event* event);
-
+    bool isCtrl         = false;
+    bool isAlt          = false;
+    bool isShift        = false;
+    bool isPhysicsDebug = false;
     // a selector callback
     void menuCloseCallback(ax::Object* sender);
 

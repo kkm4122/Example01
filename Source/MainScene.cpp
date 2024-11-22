@@ -26,6 +26,8 @@
 #include "MainScene.h"
 #include "Actor.h"
 #include "World.h"
+#include "ExLayer.h"
+
 
 #include "SceneComp.h"
 #include "animController.h"
@@ -98,6 +100,7 @@ bool MainScene::init()
     //입력 리스너들
     auto mouseListener           = EventListenerMouse::create();
     mouseListener->onMouseDown   = AX_CALLBACK_1(MainScene::onMouseDown, this);
+    mouseListener->onMouseScroll = AX_CALLBACK_1(MainScene::onMouseScroll, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
     auto contactListener               = EventListenerPhysicsContact::create();
@@ -109,6 +112,13 @@ bool MainScene::init()
     keyboardListener->onKeyPressed  = AX_CALLBACK_2(MainScene::onKeyPressed, this);
     
     _eventDispatcher->addEventListenerWithFixedPriority(keyboardListener, 11);
+
+    mExLayer                = ExLayer::create();
+    mExLayer->mPhysicsWorld = getPhysicsWorld();
+    this->addChild(mExLayer);
+
+    setGameScale(mExLayer->getScale());
+
 
 
     SpawnActor();
@@ -144,14 +154,17 @@ void MainScene::onMouseDown(Event* event)
 {
     EventMouse* e = static_cast<EventMouse*>(event);
     Vec2 Pos(e->getCursorX(), e->getCursorY());
-    AXLOG("onMouseDown detected, Key: %d", static_cast<int>(e->getMouseButton()));
+    Vec2 mouseWorldPos = Pos - mExLayer->getPosition();
+    mouseWorldPos      = mouseWorldPos / mGameScale;
+    AXLOG("onMouseDown detected, Key: %d %f,%f\n%f,%f", static_cast<int>(e->getMouseButton()), e->getCursorX(),
+          e->getCursorY(),mouseWorldPos.x,mouseWorldPos.y);
     if (e->getMouseButton() == EventMouse::MouseButton::BUTTON_LEFT)
     {
         if (mSelectedActor!=nullptr)
         {
 
        // SendAcotrMessage(mSelectedActor, ActorMessage::MoveToTarget);
-            AMsgData_Vec2 msgData = {Pos};//msgData의 데이터 타입 vec2
+            AMsgData_Vec2 msgData = {mouseWorldPos};  // msgData의 데이터 타입 vec2
        ActorMessage msg      = {ActorMessage::MoveToTarget, nullptr, nullptr,
                                 &msgData};  // voidpointer를 받아 참조자를 받아야한다.
             SendAcotrMessage(mSelectedActor, msg);
@@ -159,7 +172,7 @@ void MainScene::onMouseDown(Event* event)
     }
     if (e->getMouseButton() == EventMouse::MouseButton::BUTTON_RIGHT)
     {
-        SpawnCow(Pos);
+        SpawnCow(mouseWorldPos);
     }
 }
 
@@ -179,6 +192,10 @@ void MainScene::onMouseScroll(Event* event)
 {
     EventMouse* e = static_cast<EventMouse*>(event);
     AXLOG("onMouseScroll detected, X:%f  Y:%f", e->getScrollX(), e->getScrollY());
+    if (e->getScrollY() < 0)
+        setGameScale(mGameScale + 0.1f);
+    else if (e->getScrollY() > 0)
+        setGameScale(mGameScale - 0.1f);
 }
 
 bool MainScene::onContactBegin(ax::PhysicsContact& contact)
@@ -242,6 +259,19 @@ void MainScene::onKeyReleased(EventKeyboard::KeyCode code, Event* event)
 
 void MainScene::update(float delta)
 {
+    ++mSceneUpdateCount;
+    mSceneTime += delta;
+    if (mSceneTime > 2.0f)
+    {
+        AXLOG("초당 %d번 update 호출", mSceneUpdateCount / 5);
+        if (mSelectedActor)
+        {
+            Vec2 spos = mSelectedActor->getPosition();
+            AXLOG("액터 위치%f ,%f\n", spos.x, spos.y);
+        }
+        mSceneUpdateCount = 0;
+        mSceneTime        = 0;
+    }
     switch (_gameState)
     {
     case GameState::init:
@@ -291,8 +321,14 @@ void MainScene::update(float delta)
         menuCloseCallback(this);
         break;
     }
-
+        
     } //switch
+    if (mSelectedActor)
+    {
+        Vec2 pos = halfVisibleSize - (mSelectedActor->getPosition() * mGameScale);
+        mExLayer->setPosition(pos);
+    }
+    mExLayer->update(delta);
 }
 
 void MainScene::createCharactorAni(ax::Vec2 pos)
@@ -358,17 +394,20 @@ void MainScene::createCharactorPlist(ax::Vec2 pos)
 
 void MainScene::SpawnActor()
 {
-    
-    SpawnActor(Vec2(100, 200));
+    Vec2 pos = halfVisibleSize - mExLayer->getPosition();
+    SpawnActor(Vec2(pos));
 }
 
 void MainScene::SpawnActor(Vec2 pos)
 {
     //auto actor      = Spawn_Farmer(this, pos);
-    auto actor     = Spawn_Farmer(this, pos);
+    auto actor     = Spawn_Farmer(mExLayer, pos);
     
     mSelectedActor = actor;
-    
+    World::get()->SetSelectActor(actor);
+    if (mGameScale == 1.f)
+        setGameScale(2.f);
+
 
     //auto excomp          = new ExComponent(act);
     
@@ -378,10 +417,18 @@ void MainScene::SpawnFamer(ax::Vec2 pos) {}
 
 void MainScene::SpawnCow(ax::Vec2 pos)
 {
-    auto actor2 = Spawn_Cow(this, pos);
+    auto actor2 = Spawn_Cow(mExLayer, pos);
     PushGoal<A_RandomMoving>(actor2);
 }
 
+void MainScene::setGameScale(float s)
+{
+    mGameScale = s;
+    if (mGameScale < 1.f)
+        mGameScale = 1.0f;
+
+    mExLayer->setScale(mGameScale);
+}
 
 void MainScene::menuCloseCallback(ax::Object* sender)
 {
