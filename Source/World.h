@@ -18,6 +18,9 @@ public:
     void Delete_Actors();
 
     Actor* NewActor();
+    void SetSelectActor(Actor* act) { WSeletedActer = act; }
+    Actor* GetSeletedActor() { return WSeletedActer; }
+
 
 public:
     bool mIsRunning = true;
@@ -30,6 +33,6 @@ public:
 
     std::vector<Actor*> mDeleteActorList;
     //std::vector<Wall2D*> m_Walls;
-
+    Actor* WSeletedActer=nullptr;
     std::vector<Actor*> mUpdateList_Extra;
 };
