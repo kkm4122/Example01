@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="6">
+ <tileset firstgid="1" source="../Cute_Fantasy/Tiles/Grass/Grass_1_Middle.tsx"/>
+ <tileset firstgid="2" source="../Cute_Fantasy/Tiles/Water/Water_Stone_Tile_1.tsx"/>
+ <tileset firstgid="17" source="../Cute_Fantasy/Tiles/Grass/Grass_Tiles_1.tsx"/>
+ <tileset firstgid="97" source="../Cute_Fantasy/Tiles/Bridge/Bridge_Wood.tsx"/>
+ <tileset firstgid="133" source="../Cute_Fantasy/Tiles/Cave/Cave_Floor.tsx"/>
+ <layer id="1" name="Sea" width="200" height="200">
+  <data encoding="base64" compression="zlib">
+   eJzt2rENACEMADEqGhDsv+1nAcqI8HLh/ga43lrrAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDzRpgFOqCiFXaBDgAAAAAAAAAAcvin4Mw/BQAAAAAAAAAAAAB3eN3hzOsOAAAAAAAAAABwX8br6J/kLzJeR/8kAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANQzwizQARWtsAt0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPCGD1tMqlY=
+  </data>
+ </layer>
+ <layer id="2" name="Ground" width="200" height="200">
+  <data encoding="base64" compression="zlib">
+   eJzt2lFy21YQBEDn/pfOhyoVx+GTSOKBMwt0V823gN0d2aL06xcAAAAAAAAAAAAAAAAAAADQ5q9F4M5WvdAT7uzZXugId/NON/SDT0ne37vd0BHO1HCHR7uhH+zWdI/6QZMd97jjJnc9h36wy86bPHKnqa8L3zm7H6nAUekb1g9ape9XR2iXvl/9oFn6fnWEdun71Q/apW9YR2iXvmH9YIL0LesKU6RvWVeYJH3P+sIE6TvWESZI37J+0C59zzpCu/Q96wfN0vesH7RL37R+0Cx9n+mvD99pucuGZ4A/Nd1ky3PA79pusuU54B/uEX6mGwAAAHBdft6H//KZMTzW9jtHaODvqOCxo93QFa5sdz/0hCvRD1jTD1jTj35mmqMb3cw1Tz86mWsPvehhvp30Is+cYU0/4P/8Ow2P+X8sPObnvM8w11l8DvI5ZjyLzwk/p/33FXb8ryO7uvvsfnJ0tomd2PWXhl1cTaoPO/Zi11/Se7iC9O3v3I1d53dwFel7370ju+74HnUF6RvftSd7/pL+3nQ16ftu6NZVmN1e6fvUiz3M8BzpO7XXPczxHOlbtdPjzPIc6Vu10+PM8jzpW7XTY8zyXOn52ukxZnmu9HwbMlV6bpNn96z0fJsyTXpeE2f2ivRs2zJJelYTZ/aq9GwbM0V6TtPm9Y70bBszQXpG0+b1rvRsGzNBekbT5vWu9GwbM0F6RtPm9a70bBszQXpG0+Z1RHq+bZkgPaNp8zoiPd+2TJCe0bR5HZWe8Y5d3Gnf6T1Mm9cO6TnvmP1ddp3ey8SZ7TJ91nfYc7oTU+e22+TZNjzDWdKdmD6/nSbPsuU5zpDuxZVmuYPZdUn3wo5/ZmZZ6W7YNc3S3dAPmqW7oR+00w9Y0w9Y0w9Y0w/4nn7Amn7Amn7Amn7Amn7Amn7Amn7Amn7Amn7Amn7Amn7Amn7Amn7Amn7Amn7Amn7AY8lu6Aft9APW9APW9AMeS3dDP2iW7oZ+0CzdDf2gWbob+kGrdC/0g1bpTugHzdKd0A9apfugH7RKd0E/aJbugn7QKt0D/aBVugP6QbN0B/SDVun71w+ape9fP2iVvn39oFX67vWDVumb1w+apW9eP2iUvnX9oFX6zvWDRun71g9apW9bP2iVvmv9oFH6nvWDVulb1g/apO9XP2iTvln9oEX6PtOB9A02h3tK392UcH3pG5scrid9U1cK15G+pSuG+dI3dOUwV/p27hBmSt/NXcI86Zu5U5gjfSt3DDOk7+SuoV/6Ru4ceqVvQ2iUvgnRj1bpexD9aJS+A9GPRun9i340Su9d9KNRet+iH63Suxb9aJXes+hHo/R+5dr9SM/n3Tmln1cyez9beh4iv6dJehYif6ZBegYiqzRIz0BklbT0+4t8l7T0+4t8l6T0u4v8lJT0e4s8k5T0e4s8k4T0O4s8m4T0O4s8m09Lv6/IK/m09PuKvJJPS7+vyCv5pPS7iryaT0u/r8gr+bT0+4q8kr8BOH0sLQ==
+  </data>
+ </layer>
+ <objectgroup id="6" name="Object">
+  <object id="5" name="SpawnPoint" x="1056" y="1376" width="16" height="16"/>
+ </objectgroup>
+ <layer id="3" name="Wall" width="200" height="200">
+  <data encoding="base64" compression="zlib">
+   eJzt3dFq2zAYgNE82NqrZlfrrra77S33gItgAqHIjmJJ9mKdA4bCRppCv/5qkezLBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAODej9v1Wbh+Hvmm4EBpE9+zf7v+u75ddMJ8QhuxiWvF/9cJM4gzI58XtUInGuGM0pnRIs4S84Qz+TrgNa27OIsRfUQfA18b9tCjj2vhCvTBq2vpY6mLSB+8OusrWDaqjy+36/eg14a9/Lpd7wNe1+zgLHo2EubG28Xs4FxaG9EFZxcaedt46QIAOJuls0z2DDK7mj249tcyoy370/dspTTX9ElvS+unlrMb6VnZEWuzpXaX9r/XnFmEIO+hxxmmrZ49H1hzHjG08JF8rA1KRsyFEWoaeeacbuxDG5S0nvk+wtq5wGd/D0r7gFSvM99HibNk7V5Aj6TrK0iNPHOxl9BIS+P2v1Py6rOjB22w5AyzYyt7fHlk1j7MDB6ZdW2lDWrMOjv8nYoa+oBls/aR7/GyP5GSWfvIuT8vuVl/N19j3UVkdtzz3BAifZSZIQT6KNMHgT7K9EGgjzJ9EOijTB8Eo+6TPsKfHT+XPojMkHv6IHqlGRLE8xr51etrcMaW3P/cSN7D0p70Xl+Dfe+UxOcIHN1JbQ8lPZ4Xog3WpM/b2KOVUg8t99fZ0rkztmwxYt3VMh+e8ei9p+9DF2zVuu7aq4eStWdPaYKeSt9rNT+ffR8yq9afz+7jCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANDmL3EPYq4=
+  </data>
+ </layer>
+ <layer id="4" name="Bridge" width="200" height="200">
+  <data encoding="base64" compression="zlib">
+   eJzt2zsKwlAQBdDZnDuxE7+NqNioC3GpTjCBgJn6PeQcuOSV09wixY0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGDJugjwdcgcx5wa3wK9uUe8r/kdssl343OgK/oBNf2A2tCPc+gHLNEPqOkH1PQDavN+3FofAx1ZZR6Z55hX23MAAAAAAAAAAAAA4C9tM7vMvvUh0KFL2HtAZdpE2QvCL/2Amn5Azf8H1KbNub05AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcx9TGyw7
+  </data>
+ </layer>
+</map>
