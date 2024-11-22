@@ -16,6 +16,10 @@ typedef ax::Node cNode;
 typedef ax::Vec2 cVec2;
 typedef ax::Vec2 Vec2;
 
+
+//map
+class ExLayer;
+
 class Actor;
 class IActorNodeController;
 class INodeAnimationController;
