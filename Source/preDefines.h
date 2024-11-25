@@ -36,7 +36,7 @@ class FarmerComp;
 class MovementComp;
 class GoalComp;
 class AnimalComp;
-
+class InputKeyComp;
 class TownHallComp;
 
 // 씬에다 그리기 기능,axmol node를 참조하고 mactor와 상호참조

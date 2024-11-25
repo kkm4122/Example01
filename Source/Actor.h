@@ -52,6 +52,7 @@ public:// 컴포넌트
     MovementComp* mMoveComp = nullptr;//좌표이동계
     UnitComp* mUnitComp     = nullptr;
     GoalComp* mGoalComp     = nullptr;
+    InputKeyComp* mInputComp = nullptr;
     // 좌표 이동계
     ax::Vec2 mPosition;
     Vec2 mTarget;

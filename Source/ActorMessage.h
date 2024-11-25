@@ -17,7 +17,8 @@ struct ActorMessage
         Contacted,
         Damaged,
         Attack,
-        StopMoving
+        StopMoving,
+        Key
     } msgType;
 
     Actor* sender;
@@ -31,6 +32,11 @@ void SendAcotrMessage(Actor* r, ActorMessage msg);
 struct AMsgData_Vec2
 {
     Vec2 pos;
+};
+struct AMsgData_InputKey
+{
+    EventKeyboard::KeyCode KEY;
+    bool able;
 };
 
 struct AMsgData_Damage
