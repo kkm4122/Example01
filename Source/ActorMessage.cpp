@@ -26,7 +26,14 @@ void SendAcotrMessage(Actor* r, ActorMessage msg)
         r->mMoveComp->MessageProc(msg);
     }
     break;
+    case ActorMessage::StopMoving:
+    {
+        r->mMoveComp->MessageProc(msg);
     }
+    break;
+    }
+}
+
     /*}
     case ActorMessage::AddToNextTarget:
     {
@@ -55,4 +62,4 @@ void SendAcotrMessage(Actor* r, ActorMessage msg)
     // 자동 삭제해야 할까?
     // if (msg.data)
     //    delete msg.data;
-}
+

@@ -110,7 +110,7 @@ bool MainScene::init()
 
     auto keyboardListener = EventListenerKeyboard::create();
     keyboardListener->onKeyPressed  = AX_CALLBACK_2(MainScene::onKeyPressed, this);
-    
+    keyboardListener->onKeyReleased = AX_CALLBACK_2(MainScene::onKeyReleased, this);
     _eventDispatcher->addEventListenerWithFixedPriority(keyboardListener, 11);
 
     mExLayer                = ExLayer::create();
@@ -248,6 +248,19 @@ void MainScene::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
         mSelectedActor->currentHP += 10;
         
         break;
+    case ax::EventKeyboard::KeyCode::KEY_W:
+        break;
+    case ax::EventKeyboard::KeyCode::KEY_S:
+        break;
+    case ax::EventKeyboard::KeyCode::KEY_A:
+        break;
+    case ax::EventKeyboard::KeyCode::KEY_D:
+        break;
+    case ax::EventKeyboard::KeyCode::KEY_SPACE:
+        ActorMessage msg = {ActorMessage::StopMoving, nullptr, nullptr,
+                            nullptr};  // voidpointer를 받아 참조자를 받아야한다.
+        SendAcotrMessage(mSelectedActor, msg);
+        break;
     }
     AXLOG("onKeyPressed, keycode: %d", static_cast<int>(code));
 }
@@ -263,7 +276,7 @@ void MainScene::update(float delta)
     mSceneTime += delta;
     if (mSceneTime > 2.0f)
     {
-        AXLOG("초당 %d번 update 호출", mSceneUpdateCount / 5);
+        
         if (mSelectedActor)
         {
             Vec2 spos = mSelectedActor->getPosition();

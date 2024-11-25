@@ -44,9 +44,15 @@ void MovementComp::MessageProc(ActorMessage& msg)
         AMsgData_Vec2* data = (AMsgData_Vec2*)msg.data;
         setTarget(data->pos);
     }
+    break;
     case ActorMessage::AddToNextTarget:
     {
         PushTargetList(((AMsgData_Vec2*)msg.data)->pos);
+    }
+    break;
+    case ActorMessage::StopMoving:
+    {
+        setTarget(mActor->getPosition());
     }
     break;
     }

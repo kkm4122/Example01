@@ -17,6 +17,7 @@ struct ActorMessage
         Contacted,
         Damaged,
         Attack,
+        StopMoving
     } msgType;
 
     Actor* sender;
