@@ -36,6 +36,7 @@ class FarmerComp;
 class MovementComp;
 class GoalComp;
 class AnimalComp;
+class WeaponComp;
 class InputKeyComp;
 class TownHallComp;
 
