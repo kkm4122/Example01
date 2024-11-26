@@ -52,14 +52,20 @@ ax::Node* SceneComp::NewPhysicsNode(std::string_view name, Vec2 body_size)
 {
     ax::Node* node = NewNode(name);
 
-    auto body = ax::PhysicsBody::createBox(body_size);
+    //auto ma = ax::PhysicsMaterial()
+    //auto body = ax::PhysicsBody::createPolygon();
+   
+    auto body = ax::PhysicsBody::createCircle(body_size.x/2);
+    //auto bodyp = AutoPolygon::generatePolygon("");
     body->setContactTestBitmask(0xFFFFFFFF);
     body->setDynamic(false);
     node->setPhysicsBody(body);
     auto bodysize = body_size /2;
    auto drawNode = ax::DrawNode::create();
+    Vec2 pos(0, 0);
     drawNode->setPosition(Vec2(0, 0));
-   drawNode->drawRect(-bodysize, bodysize, ax::Color4F::RED);
+    drawNode->drawCircle(pos, body_size.x*5, 0, 16, 5, ax::Color4F::RED);
+   // drawNode->drawRect(-bodysize, bodysize, ax::Color4F::RED);
     node->addChild(drawNode);
 
     return node;
@@ -74,6 +80,8 @@ ax::Node* SceneComp::NewAnimNode(std::string_view name,
     info.CreateAnimation();
 
     auto node = Sprite::createWithSpriteFrame(info.animation->getFrames().front()->getSpriteFrame());
+    auto pol  = ax::PolygonInfo::PolygonInfo(info.animation->getFrames().front()->getSpriteFrame()->getPolygonInfo());
+    
     node->setName(name);
     node->setUserData(CreateNodedata(mActor, name));
 
