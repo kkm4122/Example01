@@ -17,6 +17,7 @@ public:
     void SetKey(EventKeyboard::KeyCode a,bool b);
 
 public:
+    
     bool Key_a=false;
     bool Key_s=false;
     bool Key_w=false;

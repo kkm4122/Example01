@@ -238,6 +238,8 @@ bool MainScene::onContactSeparate(ax::PhysicsContact& contact)
 
 void MainScene::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
 {
+    AMsgData_InputKey Inpu{code, true};
+    ActorMessage msg = {ActorMessage::Key, nullptr, nullptr, &Inpu};
     switch (code)
     {
     case ax::EventKeyboard::KeyCode::KEY_Z:
@@ -249,17 +251,29 @@ void MainScene::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
         
         break;
     case ax::EventKeyboard::KeyCode::KEY_W:
+        
+        
+        SendAcotrMessage(mSelectedActor, msg);
         break;
     case ax::EventKeyboard::KeyCode::KEY_S:
+        
+        
+        SendAcotrMessage(mSelectedActor, msg);
         break;
     case ax::EventKeyboard::KeyCode::KEY_A:
+        
+        
+        SendAcotrMessage(mSelectedActor, msg);
         break;
     case ax::EventKeyboard::KeyCode::KEY_D:
+        
+        
+        SendAcotrMessage(mSelectedActor, msg);
         break;
     case ax::EventKeyboard::KeyCode::KEY_SPACE:
-        ActorMessage msg = {ActorMessage::StopMoving, nullptr, nullptr,
+        ActorMessage msg1 = {ActorMessage::StopMoving, nullptr, nullptr,
                             nullptr};  // voidpointer를 받아 참조자를 받아야한다.
-        SendAcotrMessage(mSelectedActor, msg);
+        SendAcotrMessage(mSelectedActor, msg1);
         break;
     }
     AXLOG("onKeyPressed, keycode: %d", static_cast<int>(code));
@@ -267,6 +281,33 @@ void MainScene::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
 
 void MainScene::onKeyReleased(EventKeyboard::KeyCode code, Event* event)
 {
+    AMsgData_InputKey Inpu{code, false};
+    ActorMessage msg = {ActorMessage::Key, nullptr, nullptr, &Inpu};
+    switch (code)
+    {
+   
+    case ax::EventKeyboard::KeyCode::KEY_W:
+        
+        
+        SendAcotrMessage(mSelectedActor, msg);
+        break;
+    case ax::EventKeyboard::KeyCode::KEY_S:
+        
+       
+        SendAcotrMessage(mSelectedActor, msg);
+        break;
+    case ax::EventKeyboard::KeyCode::KEY_A:
+        
+       
+        SendAcotrMessage(mSelectedActor, msg);
+        break;
+    case ax::EventKeyboard::KeyCode::KEY_D:
+       
+        
+        SendAcotrMessage(mSelectedActor, msg);
+        break;
+    
+    }
     AXLOG("onKeyReleased, keycode: %d", static_cast<int>(code));
 }
 
@@ -290,6 +331,7 @@ void MainScene::update(float delta)
     case GameState::init:
     {
         _gameState = GameState::update;
+
         break;
     }
 
@@ -415,7 +457,7 @@ void MainScene::SpawnActor(Vec2 pos)
 {
     //auto actor      = Spawn_Farmer(this, pos);
     auto actor     = Spawn_Farmer(mExLayer, pos);
-    
+    auto a = actor->mSceneComp->mRootNode->getParent();
     mSelectedActor = actor;
     World::get()->SetSelectActor(actor);
     if (mGameScale == 1.f)
@@ -439,7 +481,8 @@ void MainScene::setGameScale(float s)
     mGameScale = s;
     if (mGameScale < 1.f)
         mGameScale = 1.0f;
-
+    if (mGameScale > 2.f)
+        mGameScale = 2.0f;
     mExLayer->setScale(mGameScale);
 }
 
