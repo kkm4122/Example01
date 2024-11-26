@@ -9,12 +9,13 @@
 
 #include "BarComponent.h"
 #include "MovementComp.h"
-#include "animController.h"
 #include "FarmerComp.h"
+#include "InputKeyComp.h"
+#include "GoalComp.h"
+#include "AnimalComp.h"
+#include "animController.h"
 #include "FarmerCharactorNode.h"
 #include "CowCharactorNode.h"
-#include "AnimalComp.h"
-#include "GoalComp.h"
 using namespace ax;
 
 Vec2 getPhysicsBodySize(ECharName charName);
@@ -36,6 +37,7 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
     parent->addChild(root);
     //컴포넌트 등록
     auto moveComp = new MovementComp(actor);
+    auto inputkey = new InputKeyComp(actor);
     auto Farmer    = new FarmerComp(actor);
     auto goalComp = new GoalComp(actor);
     /*
@@ -49,6 +51,21 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
     node->addComponent(comp);
     */
     Farmer->mCharAnimController = FarmerCharactorNode::create(actor);
+    
+    /////////
+    auto noded = Sprite::createWithSpriteFrame(
+        Farmer->mCharAnimController->mCurrentAnimInfo->animation->getFrames().front()->getSpriteFrame());
+    auto pol = ax::PolygonInfo::PolygonInfo(Farmer->mCharAnimController->mCurrentAnimInfo->animation->getFrames().front()->getSpriteFrame()->
+            getPolygonInfo());
+    auto pol2 = AutoPolygon::AutoPolygon("");
+    
+    auto dr   = DrawNode::create();
+    dr->setPosition(actor->getPosition());
+    //dr->drawPoly
+    //dr->drawPolygon(, pol.getVertCount(),1.f, Color4B::RED);
+    root->addChild(dr);
+    //auto body = ax::PhysicsBody::createEdgePolygon(&pos, pol.getVertCount());
+    ////////////////
     ax::Sprite* Hnode = SpawnHPbar_OnScene(root, Vec2(0, 16));
     auto hcomp = BarComponent::create(actor);
     Hnode->addComponent(hcomp);
