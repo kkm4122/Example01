@@ -7,6 +7,7 @@
 #include "FarmerComp.h"
 //#include "SkeletonComp.h"
 #include "MovementComp.h"
+#include "InputKeyComp.h"
 
 #include "GoalComp.h"
 
@@ -31,6 +32,8 @@ void SendAcotrMessage(Actor* r, ActorMessage msg)
         r->mMoveComp->MessageProc(msg);
     }
     break;
+    case ActorMessage::Key:
+        r->mInputComp->MessageProc(msg);
     }
 }
 
