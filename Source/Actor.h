@@ -41,7 +41,8 @@ public:
     std::string mTag;
     std::string mMapName;
     ActorType mActorType = ActorType::None;
-
+    
+    ax::Rect visibleRect;
     int MaxHP     = 200;
     int currentHP = 100;
     int getMax() const { return MaxHP; }
@@ -53,6 +54,7 @@ public:// 컴포넌트
     UnitComp* mUnitComp     = nullptr;
     GoalComp* mGoalComp     = nullptr;
     InputKeyComp* mInputComp = nullptr;
+    WeaponComp* mWeaponComp  = nullptr;
     // 좌표 이동계
     ax::Vec2 mPosition;
     Vec2 mTarget;

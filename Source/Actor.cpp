@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "SceneComp.h"
 #include "MovementComp.h"
+#include "InputKeyComp.h"
 #include "GoalComp.h"
 #include "UnitComp.h"
 const char* getActorTypeName(ActorType type)
@@ -53,6 +54,8 @@ void Actor::update(float delta)
 {
     //좌표 최신화(이동)
     //update_world(delta);
+    if (mInputComp)
+        mInputComp->update(delta);
     if (mGoalComp)
         mGoalComp->update(delta);
     if (mMoveComp)
