@@ -74,7 +74,7 @@ void World::updateActors(float dt)
 
 void World::eraseActor(Actor* act)
 {
-    //act->mStatus = Actor::E_Died;
+    act->mStatus = Actor::E_Died;
     mDeleteActorList.push_back(act);
 }
 
@@ -97,4 +97,10 @@ Actor* World::NewActor()
     Actor* act    = new Actor;
     act->mActorID = mIdList.Add(act);//return unsigned int idx(몇번째 액터인지)
     return act;
+}
+
+void World::EraseActor(Actor* act)
+{
+    act->mStatus = Actor::E_Died;
+    mDeleteActorList.push_back(act);
 }

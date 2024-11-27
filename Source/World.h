@@ -18,6 +18,7 @@ public:
     void Delete_Actors();
 
     Actor* NewActor();
+    void EraseActor(Actor* act);
     void SetSelectActor(Actor* act) { WSeletedActer = act; }
     Actor* GetSeletedActor() { return WSeletedActer; }
 
@@ -31,8 +32,8 @@ public:
 
     IDsystem<Actor> mIdList;
 
-    std::vector<Actor*> mDeleteActorList;
     //std::vector<Wall2D*> m_Walls;
     Actor* WSeletedActer=nullptr;
+    std::vector<Actor*> mDeleteActorList;
     std::vector<Actor*> mUpdateList_Extra;
 };
