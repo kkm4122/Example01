@@ -53,11 +53,9 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
     Farmer->mCharAnimController = FarmerCharactorNode::create(actor);
     
     /////////
-    auto noded = Sprite::createWithSpriteFrame(
-        Farmer->mCharAnimController->mCurrentAnimInfo->animation->getFrames().front()->getSpriteFrame());
-    auto pol = ax::PolygonInfo::PolygonInfo(Farmer->mCharAnimController->mCurrentAnimInfo->animation->getFrames().front()->getSpriteFrame()->
-            getPolygonInfo());
-    auto pol2 = AutoPolygon::AutoPolygon("");
+    //auto noded = Sprite::createWithSpriteFrame(Farmer->mCharAnimController->mCurrentAnimInfo->animation->getFrames().front()->getSpriteFrame());
+    //auto pol = ax::PolygonInfo::PolygonInfo(Farmer->mCharAnimController->mCurrentAnimInfo->animation->getFrames().front()->getSpriteFrame()->getPolygonInfo());
+//    auto pol2 = AutoPolygon::AutoPolygon("");
     
     auto dr   = DrawNode::create();
     dr->setPosition(actor->getPosition());

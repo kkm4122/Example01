@@ -64,7 +64,7 @@ ax::Node* SceneComp::NewPhysicsNode(std::string_view name, Vec2 body_size)
    auto drawNode = ax::DrawNode::create();
     Vec2 pos(0, 0);
     drawNode->setPosition(Vec2(0, 0));
-    drawNode->drawCircle(pos, body_size.x*5, 0, 16, 5, ax::Color4F::RED);
+    drawNode->drawCircle(pos, body_size.x/2, 0, 16, 5, ax::Color4F::RED);
    // drawNode->drawRect(-bodysize, bodysize, ax::Color4F::RED);
     node->addChild(drawNode);
 
@@ -80,7 +80,7 @@ ax::Node* SceneComp::NewAnimNode(std::string_view name,
     info.CreateAnimation();
 
     auto node = Sprite::createWithSpriteFrame(info.animation->getFrames().front()->getSpriteFrame());
-    auto pol  = ax::PolygonInfo::PolygonInfo(info.animation->getFrames().front()->getSpriteFrame()->getPolygonInfo());
+    //auto pol  = ax::PolygonInfo::PolygonInfo(info.animation->getFrames().front()->getSpriteFrame()->getPolygonInfo());
     
     node->setName(name);
     node->setUserData(CreateNodedata(mActor, name));
