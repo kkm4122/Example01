@@ -1,6 +1,7 @@
 #pragma once
+#include "preDefines.h"
 #include "IActorComponent.h"
-#include "Actor.h"
+#include "IDsystem.h"
 
 class WeaponComp : public IActorComponent
 {
@@ -16,5 +17,5 @@ public:
     void update(float delta);
     virtual void MessageProc(ActorMessage& msg) override;
 
-    
+    std::vector<Weapon*> mWeaponList;
 };

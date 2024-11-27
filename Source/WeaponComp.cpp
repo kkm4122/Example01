@@ -16,6 +16,10 @@ WeaponComp::~WeaponComp() {}
 
 void WeaponComp::update(float delta)
 {
+    for (Weapon* act : mWeaponList)
+    {
+
+    }
     //자기가 갖고있는 웨펀리스트vector
     //각자 업데이트 올림
     //각자 필요한 블릿(탄창) 생성 및 발사
