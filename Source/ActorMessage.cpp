@@ -17,23 +17,19 @@ void SendAcotrMessage(Actor* r, ActorMessage msg)
     switch (msg.msgType)
     {
     case ActorMessage::MoveToTarget:
-    {
-
         r->mMoveComp->MessageProc(msg);
-    }
-    break;
+        break;
     case ActorMessage::AddToNextTarget:
-    {
         r->mMoveComp->MessageProc(msg);
-    }
-    break;
+        break;
     case ActorMessage::StopMoving:
-    {
         r->mMoveComp->MessageProc(msg);
-    }
-    break;
+        break;
     case ActorMessage::Key:
         r->mInputComp->MessageProc(msg);
+        break;
+    case ActorMessage::Contacted:
+        r->mUnitComp->MessageProc(msg);
     }
 }
 
