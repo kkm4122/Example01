@@ -39,7 +39,7 @@ public:
     ax::Vec2 getVelocity() const { return mVelocity; }
 
 public:
-    float mSpeed     = 50.f;
+    float mSpeed     = 100.f;
     double m경과시간 = -1.0;
 
     
