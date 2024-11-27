@@ -18,23 +18,6 @@ public:
     INodeAnimationController* mCharAnimController = nullptr;
     //유닛이 가지고 있는 애니메이션ff
 
-    std::string_view getPoseName()
-    {
-        switch (mUnitPose)
-        {
-        case E_UnitPose::None:
-            return "None";
-        case E_UnitPose::Idle:
-            return "Idle";
-        case E_UnitPose::Move:
-            return "Move";
-        case E_UnitPose::Attack:
-            return "Attack";
-        case E_UnitPose::Die:
-            return "Die";
-        case E_UnitPose::Pos_Count:
-            return "Pos_Count";
-        }
-        return "None00";
-    }
+    std::string_view getPoseName();
+    
 };
