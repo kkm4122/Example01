@@ -8,7 +8,7 @@ class WeaponComp : public IActorComponent
 public:
     const static std::string COMPONENT_NAME;
 
-    bool IsTargetForce = false;
+    //bool IsTargetForce = false;
 
 public:
     WeaponComp(Actor* actor);
@@ -16,6 +16,10 @@ public:
 
     void update(float delta);
     virtual void MessageProc(ActorMessage& msg) override;
+    Weapon_Gun* testGun=nullptr;
 
+public:
+    void shot();
+    void addGun();
     std::vector<Weapon*> mWeaponList;
 };
