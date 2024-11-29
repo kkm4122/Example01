@@ -4,18 +4,23 @@
 #include "World.h"
 #include "SceneComp.h"
 #include "AniInfo.h"
-#include "preDefines.h"
+
 #include "MainScene.h"
 
 #include "BarComponent.h"
 #include "MovementComp.h"
 #include "FarmerComp.h"
 #include "InputKeyComp.h"
+#include "ProjectileC.h"
 #include "GoalComp.h"
 #include "AnimalComp.h"
+#include "WeaponComp.h"
+
 #include "animController.h"
 #include "FarmerCharactorNode.h"
 #include "CowCharactorNode.h"
+#include "NoChangeAnimController.h"
+
 using namespace ax;
 
 Vec2 getPhysicsBodySize(ECharName charName);
@@ -40,6 +45,9 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
     auto inputkey = new InputKeyComp(actor);
     auto Farmer    = new FarmerComp(actor);
     auto goalComp = new GoalComp(actor);
+    auto weaponComp = new WeaponComp(actor);
+    weaponComp->addGun();
+    Farmer->mCharAnimController = FarmerCharactorNode::create(actor);
     /*
     auto root = sceneComp->CreateRootNodeWithPhysics(getPhysicsBodySize(ECharName::Farmer));
     root->setPosition(actor->getPosition());
@@ -50,20 +58,22 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
     auto comp = animController::create(actor);
     node->addComponent(comp);
     */
-    Farmer->mCharAnimController = FarmerCharactorNode::create(actor);
     
+    /*
     /////////
     //auto noded = Sprite::createWithSpriteFrame(Farmer->mCharAnimController->mCurrentAnimInfo->animation->getFrames().front()->getSpriteFrame());
     //auto pol = ax::PolygonInfo::PolygonInfo(Farmer->mCharAnimController->mCurrentAnimInfo->animation->getFrames().front()->getSpriteFrame()->getPolygonInfo());
 //    auto pol2 = AutoPolygon::AutoPolygon("");
-    
+    */
     auto dr   = DrawNode::create();
     dr->setPosition(actor->getPosition());
+    root->addChild(dr);
+    /*
     //dr->drawPoly
     //dr->drawPolygon(, pol.getVertCount(),1.f, Color4B::RED);
-    root->addChild(dr);
     //auto body = ax::PhysicsBody::createEdgePolygon(&pos, pol.getVertCount());
     ////////////////
+    */
     ax::Sprite* Hnode = SpawnHPbar_OnScene(root, Vec2(0, 16));
     auto hcomp = BarComponent::create(actor);
     Hnode->addComponent(hcomp);
@@ -113,6 +123,38 @@ Actor* Spawn_Cow(ax::Node* parent, Vec2 worldPos)
     node->addComponent(comp);
     */
     actor->mMoveComp->setSpeed(30.f);
+    return actor;
+}
+Actor* Spawn_Bullet(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 targetPos)
+{
+    static unsigned int i = 0;
+
+    Actor* actor      = World::get()->NewBullet();
+    actor->mActorType = ActorType::Ball;
+    actor->mActorName = "Ball";
+    actor->mActorName += std::to_string(i);
+    i++;
+    actor->setPosition(worldPos);
+
+    auto sceneComp = new SceneComp(actor);
+    sceneComp->setParent(parent);
+
+    auto physicsNode = sceneComp->NewPhysicsNode("Ball", getPhysicsBodySize(ECharName::Ball));
+    sceneComp->addChild(physicsNode);
+    physicsNode->setPosition(Vec2(0, 0));
+
+    // Component 안에서 자동으로 적용됨
+    auto moveComp      = new MovementComp(actor);
+    auto projectile    = new ProjectileC(actor, targetPos);
+    projectile->archor = archor;
+
+    auto r = sceneComp->CreateNode_withNoChangeAnimController("Body", ECharName::Ball, ECharActName::Idle, ECharDir::Face);
+    projectile->mAnimController = r;
+    
+
+
+
+
     return actor;
 }
 /*
