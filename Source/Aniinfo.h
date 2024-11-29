@@ -114,9 +114,10 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos);
 Actor* Spawn_Cow(ax::Node* parent, Vec2 worldPos);
 Actor* Spawn_TownHall(ax::Node* parent, Vec2 worldPos);
 Actor* Spawn_Torch(ax::Node* parent, Vec2 worldPos);
-Actor* Spawn_Ball(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 targetPos);
 Actor* Spawn_CropsGround(ax::Node* parent, Vec2 worldPos);
 Actor* Spawn_Skeleton(ax::Node* parent, Vec2 worldPos);
-
 Actor* Spawn_Mouse(ax::Node* parent, Vec2 worldPos);
 
+
+//weapon
+Actor* Spawn_Bullet(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 targetPos);
