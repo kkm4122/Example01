@@ -37,6 +37,7 @@ public:
     // Actor 정보
 
     unsigned int mActorID = UINT32_MAX;
+    unsigned int mBulletID = UINT32_MAX;
     std::string mActorName;
     std::string mTag;
     std::string mMapName;
@@ -58,6 +59,7 @@ public:// 컴포넌트
     // 좌표 이동계
     ax::Vec2 mPosition;
     Vec2 mTarget;
+    
 
   
     

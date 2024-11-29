@@ -4,6 +4,7 @@
 #include "MovementComp.h"
 #include "InputKeyComp.h"
 #include "GoalComp.h"
+#include "WeaponComp.h"
 #include "UnitComp.h"
 const char* getActorTypeName(ActorType type)
 {
@@ -43,25 +44,39 @@ Actor::~Actor()
 
     if (mMoveComp)
         delete mMoveComp;
+
     if (mUnitComp)
         delete mUnitComp;
+
     if (mGoalComp)
         delete mGoalComp;
-    
+
+    if (mInputComp)
+        delete mInputComp;
+    if (mWeaponComp)
+        delete mWeaponComp;
 }
 
 void Actor::update(float delta)
 {
     //좌표 최신화(이동)
     //update_world(delta);
+    if (mStatus == E_Died)
+    {
+        return;
+    }
     if (mInputComp)
         mInputComp->update(delta);
     if (mGoalComp)
         mGoalComp->update(delta);
+    if (mUnitComp)
+        mUnitComp->update(delta);
     if (mMoveComp)
         mMoveComp->update(delta);
-
-
+    
+    if (mWeaponComp)
+        mWeaponComp->update(delta);
+    
     if (currentHP > MaxHP)
     {
         currentHP = MaxHP;
