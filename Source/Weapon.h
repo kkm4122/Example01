@@ -17,8 +17,14 @@ public:
     Weapon(Actor* actor) : mActor(actor) {}
     virtual ~Weapon() {}
 
-    virtual void update(float delta) {};
-    void Shot();
+    virtual void update(float delta)
+    {
+        
+    }
+    virtual void Attack() {}
     Actor* mActor;
-    float ASps=1.0f;//AttackSpeed per second
+    Vec2 mAiming;
+    
+    float ASps=1.0f;//AttackSpeed per secondw
+    float dealay = 0;
 };
