@@ -13,12 +13,12 @@ public:
     long long getWorldTime() const { return mWorldTime; }
     void update(float dt);
     void updateActors(float dt);
-    void eraseActor(Actor* act);
-
-    void Delete_Actors();
-
-    Actor* NewActor();
     void EraseActor(Actor* act);
+    void EraseBullet(Actor* act);
+    void Delete_Actors();
+    void Delete_Bulletes();
+    Actor* NewActor();
+    Actor* NewBullet();
     void SetSelectActor(Actor* act) { WSeletedActer = act; }
     Actor* GetSeletedActor() { return WSeletedActer; }
 
@@ -30,10 +30,21 @@ public:
     long long mWorldUpdateCount = 0;
 
 
-    IDsystem<Actor> mIdList;
-
+   unsigned int RegisterBullet(Actor* aa);
+    void UnRegisterBullet(Actor* aa);
+    
+    unsigned int RegisterActor(Actor* aa);
+    void UnRegisterActor(Actor* aa);
     //std::vector<Wall2D*> m_Walls;
     Actor* WSeletedActer=nullptr;
+    std::vector<Actor*> mActorList;
     std::vector<Actor*> mDeleteActorList;
+    std::deque<unsigned int> mFreeActorIDList;
+
+    std::vector<Actor*> mBulletList;
+    std::vector<Actor*> mDeleteBulletList;
+    std::deque<unsigned int> mFreeBulletIDList;
+
     std::vector<Actor*> mUpdateList_Extra;
+    int x = 0;
 };
