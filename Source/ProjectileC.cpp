@@ -5,7 +5,7 @@
 #include "ProjectileC.h"
 #include "MovementComp.h"
 #include "SceneComp.h"
-#include "CharAnimController.h"
+#include "NoChangeAnimController.h"
 
 const std::string ProjectileC::COMPONENT_NAME = "ProjectileC";
 ProjectileC::ProjectileC(Actor* actor, Vec2 targetPos)
@@ -40,6 +40,26 @@ void ProjectileC::update(float delta)
 
 void ProjectileC::MessageProc(ActorMessage& msg) {}
 
+void ProjectileC::Attack() {}
+
+void ProjectileC::PlayExplosion()
+{
+    mActor->mMoveComp->isEnabled = false;
+
+    //
+    // 폭발 animation 으로  바꾸기
+    //
+    // mAnimController->ChangeAnimation(ECharName::Explosion, ECharActName::Attack, ECharDir::Left);
+    mAnimController->RemoveSelfNode();
+
+    mAnimController = mActor->mSceneComp->CreateNode_withNoChangeAnimController("Body", ECharName::Explosion,
+                                                                                ECharActName::Attack, ECharDir::Left);
+
+    mMode = E_Explosion;
+}
+
+void ProjectileC::Damage처리하라(Actor* other) {}
+
 void ProjectileC::Start(float delta)
 {
     mActor->mMoveComp->mSpeed = 300.f;
@@ -48,11 +68,24 @@ void ProjectileC::Start(float delta)
     mMode = E_Flying;
 }
 
-void ProjectileC::ExplosionUpdate(float delta) {}
+void ProjectileC::ExplosionUpdate(float delta)
+{
+    int idx = mAnimController->GetCurrentAnimFrameIndex();
+    if (idx == 9)
+        mMode = E_End;
+}
 
-void ProjectileC::FlyingUpdate(float delta) {}
+void ProjectileC::FlyingUpdate(float delta)
+{
+    if (3.f < timer)
+    {
+        mMode = E_End;
+    }
+}
 
 void ProjectileC::End(float delta)
 {
-    World::get()->EraseActor(mActor);
+   // mActor->mStatus = Actor::E_Died;
+    //mActor->mSceneComp->mRootNode->setVisible(false);
+    World::get()->EraseBullet(mActor);
 }

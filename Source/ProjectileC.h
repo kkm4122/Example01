@@ -1,6 +1,7 @@
 #pragma once
 #include "IActorComponent.h"
 #include "INodeAnimationController.h"
+
 #include "UnitDefines.h"
 #include "UnitComp.h"
 class Actor;
@@ -22,10 +23,10 @@ public:
 
     virtual void update(float delta) override;
     virtual void MessageProc(ActorMessage& msg) override;
-    //virtual void Attack();
+    virtual void Attack();
 
-    //void PlayExplosion();
-    //void Damage처리하라(Actor* other);
+    void PlayExplosion();
+    void Damage처리하라(Actor* other);
     void Start(float delta);
     void ExplosionUpdate(float delta);
     void FlyingUpdate(float delta);
@@ -37,5 +38,5 @@ public:
     Actor* archor;
     Vec2 mTargetPos;
 
-    INodeAnimationController* mAnimController = nullptr;//스프라이트
+    INodeAnimationController* mAnimController = nullptr;  // 스프라이트
 };
