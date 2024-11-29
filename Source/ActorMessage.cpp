@@ -8,7 +8,7 @@
 //#include "SkeletonComp.h"
 #include "MovementComp.h"
 #include "InputKeyComp.h"
-
+#include "WeaponComp.h"
 #include "GoalComp.h"
 
 void SendAcotrMessage(Actor* r, ActorMessage msg)
@@ -30,6 +30,10 @@ void SendAcotrMessage(Actor* r, ActorMessage msg)
         break;
     case ActorMessage::Contacted:
         r->mUnitComp->MessageProc(msg);
+        break;
+    case ActorMessage::Shot:
+        r->mWeaponComp->shot();
+        break;
     }
 }
 

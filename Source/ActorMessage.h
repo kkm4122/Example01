@@ -18,7 +18,8 @@ struct ActorMessage
         Damaged,
         Attack,
         StopMoving,
-        Key
+        Key,
+        Shot
     } msgType;
 
     Actor* sender;
