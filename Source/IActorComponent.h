@@ -11,7 +11,7 @@ public:
 	virtual void update(float delta) = 0;
     virtual void MessageProc(ActorMessage& msg){};
 
-    std::string_view getName() { return mCompName; }
+    const std::string_view getName() { return mCompName; }
 
 public:
     std::string_view mCompName;
