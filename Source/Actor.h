@@ -15,7 +15,7 @@ enum
     Watering,
     behavior_Count
 };
-
+class Moving;
 class Actor
 {
 public:
@@ -61,7 +61,7 @@ public:// 컴포넌트
     Vec2 mTarget;
     
 
-  
+    
     
     float mTimer=0;
 

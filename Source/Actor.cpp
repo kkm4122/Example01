@@ -87,7 +87,10 @@ void Actor::update(float delta)
     }
     //변경한 데이터값을 화면에 최신화
     if (mSceneComp)
+    {
+        
         mSceneComp->update(delta);
+    }
 }
 
 
