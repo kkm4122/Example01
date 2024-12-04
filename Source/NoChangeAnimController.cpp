@@ -12,7 +12,7 @@ const std::string NoChangeAnimController::COMPONENT_NAME = "NoChangeAnimControll
 NoChangeAnimController* NoChangeAnimController::create(Actor* ac)
 {
     auto body = new (std::nothrow) NoChangeAnimController();
-
+    body->mActor = ac;
     if (body->init())
     {
         body->autorelease();

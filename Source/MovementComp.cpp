@@ -82,6 +82,8 @@ void MovementComp::setTarget(ax::Vec2 target)
 {
     mTargetList.clear();
     _setTarget(target);
+    
+    
 }
 
 void MovementComp::SetTargetList(std::list<Vec2>& list)
