@@ -25,6 +25,8 @@
  1. [ ] weaponcomponent 제작
  1. [ ] vector weaponlist 를 actor에서 업데이트로 구현 가지고 있는 무기들을 나열해서 독자적인 투사체유닛들을 생성하고 발사함
 
+13.자동 조준,투사체 물리법칙 구현[ ]
+
 
 
 교육자료
@@ -45,3 +47,9 @@
 4.[Axmol API Reference      ][ax doc]
 
 [ax doc]:https://axmol.dev/manual/latest/
+
+
+
+피직스를 쓸경우
+엑터의 겟포지션을 호출할땐 씬컴포넌트의 노드의 포지션을 리턴한다.
+movementcomnent제거 및 씬컴포넌트에서 엑터의 포지션을 받는게 아니라 변경시킨다.
