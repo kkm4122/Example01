@@ -104,6 +104,7 @@ bool MainScene::init()
     _eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
     auto contactListener               = EventListenerPhysicsContact::create();
+    contactListener->onContactPreSolve = AX_CALLBACK_1(MainScene::onContactBegin, this);
     contactListener->onContactBegin    = AX_CALLBACK_1(MainScene::onContactBegin, this);
     contactListener->onContactSeparate = AX_CALLBACK_1(MainScene::onContactSeparate, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
@@ -115,6 +116,7 @@ bool MainScene::init()
 
     mExLayer                = ExLayer::create();
     mExLayer->mPhysicsWorld = getPhysicsWorld();
+    mExLayer->mPhysicsWorld->setGravity(Vec2(0, 0));
     this->addChild(mExLayer);
 
     setGameScale(mExLayer->getScale());
@@ -271,12 +273,12 @@ void MainScene::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
         SendAcotrMessage(mSelectedActor, msg);
         break;
     case ax::EventKeyboard::KeyCode::KEY_SPACE:
-        ActorMessage msg1 = {ActorMessage::StopMoving, nullptr, nullptr,
+        ActorMessage msg1 = {ActorMessage::Shot, nullptr, nullptr,
                             nullptr};  // voidpointer를 받아 참조자를 받아야한다.
         SendAcotrMessage(mSelectedActor, msg1);
         break;
     }
-    AXLOG("onKeyPressed, keycode: %d", static_cast<int>(code));
+    //AXLOG("onKeyPressed, keycode: %d", static_cast<int>(code));
 }
 
 void MainScene::onKeyReleased(EventKeyboard::KeyCode code, Event* event)
@@ -313,19 +315,7 @@ void MainScene::onKeyReleased(EventKeyboard::KeyCode code, Event* event)
 
 void MainScene::update(float delta)
 {
-    ++mSceneUpdateCount;
-    mSceneTime += delta;
-    if (mSceneTime > 2.0f)
-    {
-        
-        if (mSelectedActor)
-        {
-            Vec2 spos = mSelectedActor->getPosition();
-            AXLOG("액터 위치%f ,%f\n", spos.x, spos.y);
-        }
-        mSceneUpdateCount = 0;
-        mSceneTime        = 0;
-    }
+    //_director->convertToGL();
     switch (_gameState)
     {
     case GameState::init:
@@ -457,7 +447,7 @@ void MainScene::SpawnActor(Vec2 pos)
 {
     //auto actor      = Spawn_Farmer(this, pos);
     auto actor     = Spawn_Farmer(mExLayer, pos);
-    auto a = actor->mSceneComp->mRootNode->getParent();
+    //auto a = actor->mSceneComp->mRootNode->getParent();
     mSelectedActor = actor;
     World::get()->SetSelectActor(actor);
     if (mGameScale == 1.f)

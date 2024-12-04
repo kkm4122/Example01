@@ -83,6 +83,9 @@ void InputKeyComp::SetKey(EventKeyboard::KeyCode a, bool b)
         if (Key_s != b)
             Key_s = b;
         break;
+    case ax::EventKeyboard::KeyCode::KEY_SPACE:
+
+        break;
     default:
         break;
     }
