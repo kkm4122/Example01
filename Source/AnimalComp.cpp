@@ -23,6 +23,16 @@ AnimalComp::~AnimalComp() {}
 
 void AnimalComp::update(float delta) {}
 
-void AnimalComp::MessageProc(ActorMessage& msg) {}
+void AnimalComp::MessageProc(ActorMessage& msg)
+{
+    switch (msg.msgType)
+    {
+    case ActorMessage::Contacted:
+
+        break;
+    default:
+        break;
+    }
+}
 
 void AnimalComp::Attack() {}

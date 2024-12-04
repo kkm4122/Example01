@@ -34,6 +34,7 @@ void SendAcotrMessage(Actor* r, ActorMessage msg)
     case ActorMessage::Shot:
         r->mWeaponComp->shot();
         break;
+    
     }
 }
 
