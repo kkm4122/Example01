@@ -44,8 +44,8 @@ void ProjectileC::Attack() {}
 
 void ProjectileC::PlayExplosion()
 {
-    mActor->mMoveComp->isEnabled = false;
-
+    //mActor->mMoveComp->isEnabled = false;
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->resetForces();
     //
     // 폭발 animation 으로  바꾸기
     //
@@ -62,9 +62,12 @@ void ProjectileC::Damage처리하라(Actor* other) {}
 
 void ProjectileC::Start(float delta)
 {
-    mActor->mMoveComp->mSpeed = 300.f;
-    mActor->mMoveComp->setTarget(mTargetPos);
-
+    //mActor->mMoveComp->mSpeed = 300.f;
+    //mActor->mMoveComp->setTarget(mTargetPos);
+    mTargetPos -= mActor->getPosition();
+    mTargetPos.normalize();
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->setVelocity(mTargetPos*500);
+   //mActor->mSceneComp->mRootNode->getPhysicsBody()->applyForce(Vec2(100,100));
     mMode = E_Flying;
 }
 
@@ -77,9 +80,12 @@ void ProjectileC::ExplosionUpdate(float delta)
 
 void ProjectileC::FlyingUpdate(float delta)
 {
-    if (3.f < timer)
+    Vec2 vel = mActor->mSceneComp->mRootNode->getPhysicsBody()->getVelocity();
+    vel.normalize();
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->setVelocity(vel * 500);
+    if (15.f < timer)
     {
-        mMode = E_End;
+        PlayExplosion();
     }
 }
 

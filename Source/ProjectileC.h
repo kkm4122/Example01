@@ -37,6 +37,7 @@ public:
 
     Actor* archor;
     Vec2 mTargetPos;
-
+    int bounce_count = 1;
+    
     INodeAnimationController* mAnimController = nullptr;  // 스프라이트
 };

@@ -38,6 +38,9 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
     auto sceneComp = new SceneComp(actor);
     auto root      = sceneComp->CreateRootNodeWithPhysics(Vec2(16, 16));
     // auto root    = sceneComp->NewNode();
+    root->getPhysicsBody()->setContactTestBitmask(0xFFFFFFF0);
+    root->getPhysicsBody()->setCollisionBitmask(false);
+    root->getPhysicsBody()->setCategoryBitmask(false);
     root->setPosition(actor->getPosition());
     parent->addChild(root);
     //컴포넌트 등록
@@ -91,6 +94,7 @@ Actor* Spawn_Cow(ax::Node* parent, Vec2 worldPos)
 
     auto sceneComp = new SceneComp(actor);
     auto root      = sceneComp->CreateRootNodeWithPhysics(Vec2(16, 16));
+    
     // auto root    = sceneComp->NewNode();
     root->setPosition(actor->getPosition());
     parent->addChild(root);
@@ -137,14 +141,21 @@ Actor* Spawn_Bullet(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 targetP
     actor->setPosition(worldPos);
 
     auto sceneComp = new SceneComp(actor);
-    sceneComp->setParent(parent);
-
-    auto physicsNode = sceneComp->NewPhysicsNode("Ball", getPhysicsBodySize(ECharName::Ball));
-    sceneComp->addChild(physicsNode);
-    physicsNode->setPosition(Vec2(0, 0));
-
+    //getPhysicsBodySize(ECharName::Ball
+    sceneComp->mRootNode = sceneComp->NewPhysicsNode("Ball", Vec2(32, 32));
+   //
+    //sceneComp->addChild(physicsNode);
+    //sceneComp->mRootNode = physicsNode;
+    //sceneComp->setParent(parent);
+    parent->addChild(sceneComp->mRootNode.get());
+    //parent->addChild(physicsNode);
+    sceneComp->mRootNode->setPosition(worldPos);
+    sceneComp->mRootNode->getPhysicsBody()->setDynamic(true);
+    sceneComp->mRootNode->getPhysicsBody()->setRotationEnable(false);
+    sceneComp->mRootNode->getPhysicsBody()->getShape(0)->setMaterial(PhysicsMaterial(0,0,0));
+    //sceneComp->mRootNode->getPhysicsBody()
     // Component 안에서 자동으로 적용됨
-    auto moveComp      = new MovementComp(actor);
+    //auto moveComp      = new MovementComp(actor);
     auto projectile    = new ProjectileC(actor, targetPos);
     projectile->archor = archor;
 
