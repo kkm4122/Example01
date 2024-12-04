@@ -11,7 +11,7 @@ using namespace ax;
 #define anchor_Cow         Vec2(0.5, 1.f - (22.f / 32.f))
 #define anchor_Ball        Vec2(0.5, 0.5)
 #define anchor_CropsGround Vec2(0.5, 0.5)
-#define anchor_Explosion   Vec2(0.5, 0.5)
+#define anchor_Explosion   Vec2(0.5, 0.33625)
 #define anchor_HPBar       Vec2(0.5, 0.5)
 #define anchor_Skeleton    Vec2(0.5, 1.f - (22.f / 32.f))
 
