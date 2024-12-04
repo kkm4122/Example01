@@ -89,7 +89,7 @@ void ProjectileC::FlyingUpdate(float delta)
     Vec2 vel = mActor->mSceneComp->mRootNode->getPhysicsBody()->getVelocity();
     vel.normalize();
     mActor->mSceneComp->mRootNode->getPhysicsBody()->setVelocity(vel * 500);
-    if (5.f < timer)
+    if (3.f < timer)
     {
         mActor->mSceneComp->mRootNode->getPhysicsBody()->setVelocity(vel*0);
         PlayExplosion();
