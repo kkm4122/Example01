@@ -45,7 +45,11 @@ void ProjectileC::Attack() {}
 void ProjectileC::PlayExplosion()
 {
     //mActor->mMoveComp->isEnabled = false;
-    mActor->mSceneComp->mRootNode->getPhysicsBody()->resetForces();
+    Vec2 vel = mActor->mSceneComp->mRootNode->getPhysicsBody()->getVelocity();
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->setVelocity(vel * 0);
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->setDynamic(false);
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->setContactTestBitmask(false);
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->setCollisionBitmask(false);
     //
     // 폭발 animation 으로  바꾸기
     //
@@ -73,6 +77,8 @@ void ProjectileC::Start(float delta)
 
 void ProjectileC::ExplosionUpdate(float delta)
 {
+    Vec2 vel = mActor->mSceneComp->mRootNode->getPhysicsBody()->getVelocity();
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->setVelocity(vel * 0);
     int idx = mAnimController->GetCurrentAnimFrameIndex();
     if (idx == 9)
         mMode = E_End;
@@ -83,8 +89,9 @@ void ProjectileC::FlyingUpdate(float delta)
     Vec2 vel = mActor->mSceneComp->mRootNode->getPhysicsBody()->getVelocity();
     vel.normalize();
     mActor->mSceneComp->mRootNode->getPhysicsBody()->setVelocity(vel * 500);
-    if (15.f < timer)
+    if (5.f < timer)
     {
+        mActor->mSceneComp->mRootNode->getPhysicsBody()->setVelocity(vel*0);
         PlayExplosion();
     }
 }

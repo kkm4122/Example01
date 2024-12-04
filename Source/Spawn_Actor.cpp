@@ -94,7 +94,9 @@ Actor* Spawn_Cow(ax::Node* parent, Vec2 worldPos)
 
     auto sceneComp = new SceneComp(actor);
     auto root      = sceneComp->CreateRootNodeWithPhysics(Vec2(16, 16));
-    
+    //sceneComp->mRootNode->getPhysicsBody()->setDynamic(true);
+    //sceneComp->mRootNode->getPhysicsBody()->setRotationEnable(false);
+    //sceneComp->mRootNode->getPhysicsBody()->getShape(0)->setMaterial(PhysicsMaterial(0, 0, 1));
     // auto root    = sceneComp->NewNode();
     root->setPosition(actor->getPosition());
     parent->addChild(root);
