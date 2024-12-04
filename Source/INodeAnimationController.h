@@ -35,4 +35,5 @@ public:
     AnimInfo* mCurrentAnimInfo = nullptr;
     ECharName mAniCharName     = ECharName::None;
     ax::Animate* mAnimate      = nullptr;
+    int mAniFrameCount         = 0;
 };
