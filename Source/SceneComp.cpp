@@ -16,13 +16,23 @@ SceneComp::SceneComp(Actor* actor) : IActorComponent(actor)
 {
     mCompName         = COMPONENT_NAME;
     actor->mSceneComp = this;
-    
+    mNodedata.mActor  = actor;
+
+    mRootNode = NewNode("Root");
+    mRootNode->setPosition(actor->getPosition());
 }
 
 void SceneComp::update(float delta)
 {
     if (mRootNode.isNotNull())
+    {
+        if (mActor->mActorType == ActorType::Ball)
+        {
+            mActor->setPosition(mRootNode->getPosition());
+            return;
+        }
         mRootNode->setPosition(mActor->getPosition());
+    }
 }
 
 void SceneComp::MessageProc(ActorMessage& msg)
@@ -37,7 +47,8 @@ void SceneComp::MessageProc(ActorMessage& msg)
 
 SceneComp::~SceneComp()
 {
-    mRootNode->release();
+    if (mRootNode.isNotNull())
+        mRootNode->removeFromParent();
 }
 
 
@@ -61,11 +72,11 @@ ax::Node* SceneComp::NewPhysicsNode(std::string_view name, Vec2 body_size)
     body->setDynamic(false);
     node->setPhysicsBody(body);
     auto bodysize = body_size /2;
-   auto drawNode = ax::DrawNode::create();
+    auto drawNode = ax::DrawNode::create();
     Vec2 pos(0, 0);
     drawNode->setPosition(Vec2(0, 0));
     drawNode->drawCircle(pos, body_size.x/2, 0, 16, 5, ax::Color4F::RED);
-   // drawNode->drawRect(-bodysize, bodysize, ax::Color4F::RED);
+    //drawNode->drawRect(-bodysize, bodysize, ax::Color4F::RED);
     node->addChild(drawNode);
 
     return node;
@@ -152,4 +163,22 @@ IActorNodeController* SceneComp::getController(std::string_view name)
     }
     return nullptr;
 }
+
+
+
+
+
+NoChangeAnimController* SceneComp::CreateNode_withNoChangeAnimController(std::string_view name,
+                                                                         ECharName charName,
+                                                                         ECharActName actionName,
+                                                                         ECharDir dir)
+{
+    auto controller = NoChangeAnimController::create(mActor);
+    auto node       = NewAnimNode(name, charName, actionName, dir, controller);
+    mRootNode->addChild(node);
+    // NoChangeAnimController* comp = (NoChangeAnimController*)
+    // node->getComponent(NoChangeAnimController::COMPONENT_NAME);
+    return controller;
+}
+
 

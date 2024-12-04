@@ -64,7 +64,6 @@ void World::updateActors(float dt)
 
     for (Actor* act : mBulletList)
     {
-
         if (act != nullptr)
         {
             act->update(dt);

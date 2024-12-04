@@ -44,14 +44,15 @@ public:
                           ECharActName actionName,
                           ECharDir dir,
                           INodeAnimationController* controller);
-    
+    Nodedata mNodedata;
     
       //RootNode  관련
     ax::Node* getRootNode() { return mRootNode.get(); }
     Nodedata* getRootNodedata() { return (Nodedata*)mRootNode->getUserData(); }
     ax::Node* getAttackNode()   { return mAttackNode.get();}
     void addChild(ax::Node* node) { mRootNode->addChild(node); }
-    
+    void setParent(ax::Node* parent) { parent->addChild(mRootNode.get()); }
+
     ax::Node* CreateRootNode();
     ax::Node* CreateRootNodeWithPhysics(Vec2 body_size);
     Nodedata* CreateNodedata(Actor* actor, std::string_view name);
@@ -62,6 +63,13 @@ public:
     double mspeed      = 50.f;
     ax::Vec2 mWorldTargetPos;
     ax::Vec2 mPosition;
+
+
+    //공부용 함수
+    NoChangeAnimController* CreateNode_withNoChangeAnimController(std::string_view name,
+                                                                  ECharName charName,
+                                                                  ECharActName action,
+                                                                  ECharDir dir);
 
 public:
     
