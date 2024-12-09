@@ -37,9 +37,16 @@ void WeaponComp::MessageProc(ActorMessage& msg) {}
 
 void WeaponComp::shot()
 {
-    if (testGun)
+    for (Weapon* weapon : mWeaponList)
     {
-        testGun->Attack();
+        if (weapon->mMode == AimMode::NEAR_E)
+        {
+            weapon->mMode = AimMode::MOUSE_POS;
+        }
+        else
+        {
+            weapon->mMode = AimMode::NEAR_E;
+        }
     }
 }
 
@@ -47,6 +54,7 @@ void WeaponComp::addGun()
 {
     auto gun = new Weapon_Gun(mActor);
     Vec2 Pos(mActor->getPosition());
+
     Pos.x += 200;
     gun->mAiming=Pos;
     mWeaponList.push_back(gun);
