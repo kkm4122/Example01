@@ -70,6 +70,7 @@ void ProjectileC::Start(float delta)
     //mActor->mMoveComp->setTarget(mTargetPos);
     mTargetPos -= mActor->getPosition();
     mTargetPos.normalize();
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->resetForces();
     mActor->mSceneComp->mRootNode->getPhysicsBody()->setVelocity(mTargetPos*500);
    //mActor->mSceneComp->mRootNode->getPhysicsBody()->applyForce(Vec2(100,100));
     mMode = E_Flying;
@@ -78,6 +79,7 @@ void ProjectileC::Start(float delta)
 void ProjectileC::ExplosionUpdate(float delta)
 {
     Vec2 vel = mActor->mSceneComp->mRootNode->getPhysicsBody()->getVelocity();
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->resetForces();
     mActor->mSceneComp->mRootNode->getPhysicsBody()->setVelocity(vel * 0);
     int idx = mAnimController->GetCurrentAnimFrameIndex();
     if (idx == 9)
@@ -87,7 +89,10 @@ void ProjectileC::ExplosionUpdate(float delta)
 void ProjectileC::FlyingUpdate(float delta)
 {
     Vec2 vel = mActor->mSceneComp->mRootNode->getPhysicsBody()->getVelocity();
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->resetForces();
     vel.normalize();
+    
+    //mActor->mSceneComp->mRootNode->getPhysicsBody()->setRotationOffset(); 회전값 테스트
     mActor->mSceneComp->mRootNode->getPhysicsBody()->setVelocity(vel * 500);
     if (3.f < timer)
     {
