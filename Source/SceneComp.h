@@ -49,7 +49,7 @@ public:
       //RootNode  관련
     ax::Node* getRootNode() { return mRootNode.get(); }
     Nodedata* getRootNodedata() { return (Nodedata*)mRootNode->getUserData(); }
-    ax::Node* getAttackNode()   { return mAttackNode.get();}
+    ax::Node* getSensorNode()   { return mSensorNode.get();}
     void addChild(ax::Node* node) { mRootNode->addChild(node); }
     void setParent(ax::Node* parent) { parent->addChild(mRootNode.get()); }
 
@@ -91,7 +91,7 @@ public:
     IActorNodeController* getController(std::string_view name);
 public:
     Ptr<ax::Node> mRootNode;
-    Ptr<ax::Node> mAttackNode;
+    Ptr<ax::Node> mSensorNode;
     std::vector<IActorNodeController*> mControllerList;
 
 };

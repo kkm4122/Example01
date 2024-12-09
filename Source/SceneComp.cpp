@@ -33,6 +33,10 @@ void SceneComp::update(float delta)
         }
         mRootNode->setPosition(mActor->getPosition());
     }
+    if (mSensorNode.isNotNull())
+    {
+        mSensorNode->setPosition(mActor->getPosition());
+    }
 }
 
 void SceneComp::MessageProc(ActorMessage& msg)
@@ -57,6 +61,7 @@ ax::Node* SceneComp::NewNode(std::string_view name)
     ax::Node* node = ax::Node::create();
     node->setName(name);
     node->setUserData(CreateNodedata(mActor, name));
+
     return node;
 }
 ax::Node* SceneComp::NewPhysicsNode(std::string_view name, Vec2 body_size)
