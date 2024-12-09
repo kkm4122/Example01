@@ -104,7 +104,7 @@ bool MainScene::init()
     _eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
 
     auto contactListener               = EventListenerPhysicsContact::create();
-    contactListener->onContactPreSolve = AX_CALLBACK_1(MainScene::onContactBegin, this);
+    contactListener->onContactPreSolve = AX_CALLBACK_1(MainScene::onContactPreSolve, this);
     contactListener->onContactBegin    = AX_CALLBACK_1(MainScene::onContactBegin, this);
     contactListener->onContactSeparate = AX_CALLBACK_1(MainScene::onContactSeparate, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
@@ -211,13 +211,60 @@ bool MainScene::onContactBegin(ax::PhysicsContact& contact)
 
     auto nodeActorA = nodeDataA->mActor;
     auto nodeActorB = nodeDataB->mActor;
-
+    if (nodeDataA->mNodeName == "Sensor"&&nodeActorB->mTagname==Actor::Enemy)
+    {
+        if (nodeActorB->Lockon == false)
+        {
+        ActorMessage amsgA = {ActorMessage::SensorIn, nodeActorB, nullptr, nodeDataB};
+        SendAcotrMessage(nodeActorA, amsgA);
+        AXLOG("센서 감지");
+        }
+    }
+    else if (nodeDataB->mNodeName == "Sensor" && nodeActorA->mTagname == Actor::Enemy)
+    {
+        if (nodeActorA->Lockon == false)
+        {
+        ActorMessage amsgB = {ActorMessage::SensorIn, nodeActorA, nullptr, nodeDataA};
+        SendAcotrMessage(nodeActorB, amsgB);
+        AXLOG("센서 감지");
+        }
+    }
+    //AXLOG("%d,%d", nodeActorA->mActorType, nodeActorB->mActorType);
     ActorMessage amsgA = {ActorMessage::Contacted, nodeActorB, nullptr, nodeDataB};
     SendAcotrMessage(nodeActorA, amsgA);
 
     ActorMessage amsgB = {ActorMessage::Contacted, nodeActorA, nullptr, nodeDataA};
     SendAcotrMessage(nodeActorB, amsgB);
 
+    return true;
+}
+
+bool MainScene::onContactPreSolve(ax::PhysicsContact& contact)
+{
+    auto bodyA = contact.getShapeA()->getBody();
+    auto bodyB = contact.getShapeB()->getBody();
+
+    auto nodeDataA = (Nodedata*)bodyA->getOwner()->getUserData();
+    auto nodeDataB = (Nodedata*)bodyB->getOwner()->getUserData();
+
+    auto nodeActorA = nodeDataA->mActor;
+    auto nodeActorB = nodeDataB->mActor;
+    //contact.
+    if (nodeDataA->mNodeName == "Sensor")
+    {
+        //AXLOG("%d,%d", nodeActorA->mActorType, nodeActorB->mActorType);
+        return false;
+    }
+    if (nodeDataB->mNodeName == "Sensor")
+    {
+        //AXLOG("%d,%d", nodeActorA->mActorType, nodeActorB->mActorType);
+        return false;
+    }
+    if (nodeActorA->mActorType == ActorType::Ball && nodeActorA->mActorType == nodeActorB->mActorType)
+    {
+        //AXLOG("%d,%d", nodeActorA->mActorType, nodeActorB->mActorType);
+        return false;  // physcis 충돌을 무시
+    }
     return true;
 }
 
@@ -231,10 +278,24 @@ bool MainScene::onContactSeparate(ax::PhysicsContact& contact)
 
     auto nodeActorA = nodeDataA->mActor;
     auto nodeActorB = nodeDataB->mActor;
-
-    if (nodeActorA == nullptr || nodeActorB == nullptr)
-        return true;
-
+    if (nodeDataA->mNodeName == "Sensor" && nodeActorB->mTagname == Actor::Enemy)
+    {
+        if (nodeActorB->Lockon == true)
+        {
+            ActorMessage amsgA = {ActorMessage::SensorOut, nodeActorB, nullptr, nodeDataB};
+            SendAcotrMessage(nodeActorA, amsgA);
+            AXLOG("센서 탈출");
+        }
+    }
+    else if (nodeDataB->mNodeName == "Sensor" && nodeActorA->mTagname == Actor::Enemy)
+    {
+        if (nodeActorA->Lockon == true)
+        {
+            ActorMessage amsgB = {ActorMessage::SensorOut, nodeActorA, nullptr, nodeDataA};
+            SendAcotrMessage(nodeActorB, amsgB);
+            AXLOG("센서 탈출");
+        }
+    }
     return true;
 }
 
@@ -310,7 +371,7 @@ void MainScene::onKeyReleased(EventKeyboard::KeyCode code, Event* event)
         break;
     
     }
-    AXLOG("onKeyReleased, keycode: %d", static_cast<int>(code));
+    AXLOG("때짐 %d", static_cast<int>(code));
 }
 
 void MainScene::update(float delta)
@@ -474,6 +535,7 @@ void MainScene::setGameScale(float s)
     if (mGameScale > 2.f)
         mGameScale = 2.0f;
     mExLayer->setScale(mGameScale);
+    World::get()->SetScale(mGameScale);
 }
 
 void MainScene::menuCloseCallback(ax::Object* sender)

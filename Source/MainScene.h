@@ -93,6 +93,7 @@ public:
     void onMouseScroll(ax::Event* event);
     // Physics
     bool onContactBegin(ax::PhysicsContact& contact);
+    bool onContactPreSolve(ax::PhysicsContact& contact);
     bool onContactSeparate(ax::PhysicsContact& contact);
     // Keyboard
     void onKeyPressed(ax::EventKeyboard::KeyCode code, ax::Event* event);
