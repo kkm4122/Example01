@@ -15,12 +15,13 @@
 #include "GoalComp.h"
 #include "AnimalComp.h"
 #include "WeaponComp.h"
+#include "SensorComp.h"
 
 #include "animController.h"
 #include "FarmerCharactorNode.h"
 #include "CowCharactorNode.h"
 #include "NoChangeAnimController.h"
-
+//#include "box2d/box2d.h"
 using namespace ax;
 
 Vec2 getPhysicsBodySize(ECharName charName);
@@ -32,6 +33,7 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
     
     actor->mActorName = "Farmer";
     actor->mActorType = ActorType::Farmer;
+    actor->mTagname   = Actor::Player;
     actor->setPosition(worldPos);
 
    
@@ -41,15 +43,34 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
     root->getPhysicsBody()->setContactTestBitmask(0xFFFFFFF0);
     root->getPhysicsBody()->setCollisionBitmask(false);
     root->getPhysicsBody()->setCategoryBitmask(false);
+    root->getPhysicsBody()->setGravityEnable(false);
     root->setPosition(actor->getPosition());
     parent->addChild(root);
+    //sensor node
+    
+    auto Sensornode = sceneComp->NewNode("Sensor");
+    sceneComp->mSensorNode = Sensornode;
+    sceneComp->mSensorNode -> setPosition(actor->getPosition());
+    auto body = ax::PhysicsBody::createCircle(300);
+    body->setContactTestBitmask(0xFFFFFFFF);
+    Sensornode->setPhysicsBody(body);
+    body->setDynamic(true);
+    auto drawNode = ax::DrawNode::create();
+    Vec2 pos(0, 0);
+    drawNode->setPosition(Vec2(0, 0));
+    drawNode->drawCircle(pos, 300, 0, 32, 5, ax::Color4F::BLUE);
+    
+    Sensornode->addChild(drawNode);
+    parent->addChild(Sensornode);
     //컴포넌트 등록
     auto moveComp = new MovementComp(actor);
     auto inputkey = new InputKeyComp(actor);
     auto Farmer    = new FarmerComp(actor);
     auto goalComp = new GoalComp(actor);
     auto weaponComp = new WeaponComp(actor);
+    auto sensorComp = new SensorComp(actor);
     weaponComp->addGun();
+
     Farmer->mCharAnimController = FarmerCharactorNode::create(actor);
     /*
     auto root = sceneComp->CreateRootNodeWithPhysics(getPhysicsBodySize(ECharName::Farmer));
@@ -89,11 +110,13 @@ Actor* Spawn_Cow(ax::Node* parent, Vec2 worldPos)
     Actor* actor = World::get()->NewActor();
 
     actor->mActorName = "Cow";
-    actor->mActorType = ActorType::Farmer;
+    actor->mActorType = ActorType::Cow;
+    actor->mTagname   = Actor::Enemy;
     actor->setPosition(worldPos);
 
     auto sceneComp = new SceneComp(actor);
     auto root      = sceneComp->CreateRootNodeWithPhysics(Vec2(16, 16));
+    root->getPhysicsBody()->setGravityEnable(false);
     //sceneComp->mRootNode->getPhysicsBody()->setDynamic(true);
     //sceneComp->mRootNode->getPhysicsBody()->setRotationEnable(false);
     //sceneComp->mRootNode->getPhysicsBody()->getShape(0)->setMaterial(PhysicsMaterial(0, 0, 1));
@@ -140,6 +163,7 @@ Actor* Spawn_Bullet(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 targetP
     actor->mActorName = "Ball";
     actor->mActorName += std::to_string(i);
     i++;
+    actor->mTagname = Actor::Bullet;
     actor->setPosition(worldPos);
 
     auto sceneComp = new SceneComp(actor);
@@ -156,6 +180,7 @@ Actor* Spawn_Bullet(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 targetP
     sceneComp->mRootNode->getPhysicsBody()->setRotationEnable(false);
     sceneComp->mRootNode->getPhysicsBody()->getShape(0)->setMaterial(PhysicsMaterial(0,0,0));
     //sceneComp->mRootNode->getPhysicsBody()
+
     // Component 안에서 자동으로 적용됨
     //auto moveComp      = new MovementComp(actor);
     auto projectile    = new ProjectileC(actor, targetPos);
