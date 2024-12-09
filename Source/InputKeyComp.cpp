@@ -23,16 +23,17 @@ void InputKeyComp::update(float delta)
         ActorMessage msg      = {ActorMessage::StopMoving, nullptr, nullptr,
                                  };  // voidpointer를 받아 참조자를 받아야한다.
         SendAcotrMessage(mActor, msg);
+        
         return;
     }
     if (Key_a)
-        Pos.x--;
+        Pos.x-=2;
     if (Key_d)
-        Pos.x++;
+        Pos.x += 2;
     if (Key_s)
-        Pos.y--;
+        Pos.y -= 2;
     if (Key_w)
-        Pos.y++;
+        Pos.y += 2;
     /*
 
     wasd 활성화 되면
