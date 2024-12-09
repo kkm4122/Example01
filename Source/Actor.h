@@ -25,6 +25,12 @@ public:
         E_Active,
         E_InActive,
     } mStatus=E_Active;
+    enum
+    {
+        Player,
+        Bullet,
+        Enemy
+    } mTagname;
     Actor();
     ~Actor();
     // 에니메이션 및 스프라이트
@@ -48,6 +54,7 @@ public:
     int currentHP = 100;
     int getMax() const { return MaxHP; }
     int getCur() const { return currentHP; }
+    bool Lockon = false;
 
 public:// 컴포넌트
     SceneComp* mSceneComp = nullptr;
@@ -56,6 +63,7 @@ public:// 컴포넌트
     GoalComp* mGoalComp     = nullptr;
     InputKeyComp* mInputComp = nullptr;
     WeaponComp* mWeaponComp  = nullptr;
+    SensorComp* mSensorComp   = nullptr;
     // 좌표 이동계
     ax::Vec2 mPosition;
     Vec2 mTarget;
