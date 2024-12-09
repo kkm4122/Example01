@@ -5,7 +5,9 @@
 //#include ""
 Weapon_Gun::Weapon_Gun(Actor* actor) : Weapon(actor)
 {
-    ASps = 3.f;
+    ASps    = 3.f;
+    mLength = 300;
+    mMode   = AimMode::MOUSE_POS;
 }
 void Weapon_Gun::update(float delta)
 {
@@ -14,7 +16,10 @@ void Weapon_Gun::update(float delta)
     if (dealay >= a)
     {
         dealay = 0;
-        Attack();
+        if (setAim())
+        {
+            Attack();
+        }
     }
 }
 
