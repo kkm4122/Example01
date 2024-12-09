@@ -40,6 +40,7 @@ class WeaponComp;
 class InputKeyComp;
 class ProjectileC;
 class TownHallComp;
+class SensorComp;
 
 
 class Weapon;
