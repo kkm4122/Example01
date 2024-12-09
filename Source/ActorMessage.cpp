@@ -9,6 +9,7 @@
 #include "MovementComp.h"
 #include "InputKeyComp.h"
 #include "WeaponComp.h"
+#include "SensorComp.h"
 #include "GoalComp.h"
 
 void SendAcotrMessage(Actor* r, ActorMessage msg)
@@ -33,6 +34,12 @@ void SendAcotrMessage(Actor* r, ActorMessage msg)
         break;
     case ActorMessage::Shot:
         r->mWeaponComp->shot();
+        break;
+    case ActorMessage::SensorIn:
+        r->mSensorComp->addEnemy(msg);
+        break;
+    case ActorMessage::SensorOut:
+        r->mSensorComp->deleteEnemy(msg);
         break;
     
     }

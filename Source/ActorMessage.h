@@ -19,7 +19,9 @@ struct ActorMessage
         Attack,
         StopMoving,
         Key,
-        Shot
+        Shot,
+        SensorIn,
+        SensorOut
     } msgType;
 
     Actor* sender;
