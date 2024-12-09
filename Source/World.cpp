@@ -2,6 +2,7 @@
 #include "World.h"
 #include "Actor.h"
 #include "MovementComp.h"
+#include "Window.h"
 //#include "2dGeometryFunc.h"
 
 USING_NS_AX;
@@ -40,8 +41,20 @@ void World::destroy()
     SAFE_DELETE(g);
 }
 
+void World::GetWindowPosW(HWND hWnd, float* x, float* y)
+{
+    HWND hWndParent = GetParent(hWnd);
+    POINT p         = {0};
+
+    MapWindowPoints(hWnd, hWndParent, &p, 1);
+
+    (*x) = p.x;
+    (*y) = p.y;
+}
+
 void World::update(float dt)
 {
+    
     if (!mIsRunning)
         return;
     ++mWorldUpdateCount;
@@ -52,6 +65,31 @@ void World::update(float dt)
         mWorldTime = 0;
         mWorldUpdateCount = 0;
     }
+    POINT point;
+    if (GetCursorPos(&point))
+    {
+        wMousePos.x = point.x;
+        wMousePos.y   = point.y;
+        float positionX;
+        float positionY;
+        auto director = Director::getInstance();
+        auto glview   = director->getGLView();
+        Vec2 GL      = director->getVisibleSize();
+        if (!glview)
+        {
+            glview = GLViewImpl::create("Mr Big Two");
+            director->setGLView(glview);
+        }
+        GetWindowPosW(director->getGLView()->getWin32Window(), &positionX, &positionY);
+        
+        wMousePos.x -= positionX;
+        wMousePos.y -= positionY;
+        wMousePos.y = GL.y - wMousePos.y;
+        wMousePos -= (GL / 2);
+        
+        //AXLOG("Mouse Pos: %f %f", wMousePos.x, wMousePos.y);
+    }
+
 
     Delete_Actors();
     Delete_Bulletes();

@@ -10,6 +10,8 @@ public:
     static World* get();
     static void destroy();
 
+    void GetWindowPosW(HWND hWnd, float* x, float* y);
+
     long long getWorldTime() const { return mWorldTime; }
     void update(float dt);
     void updateActors(float dt);
@@ -21,14 +23,15 @@ public:
     Actor* NewBullet();
     void SetSelectActor(Actor* act) { WSeletedActer = act; }
     Actor* GetSeletedActor() { return WSeletedActer; }
-
+    Vec2 wMousePos;
+    void SetScale(float scale) { mWorldScale = scale; }
 
 public:
     bool mIsRunning = true;
 
     float mWorldTime        = 0;
     long long mWorldUpdateCount = 0;
-
+    float mWorldScale;
 
    unsigned int RegisterBullet(Actor* aa);
     void UnRegisterBullet(Actor* aa);
