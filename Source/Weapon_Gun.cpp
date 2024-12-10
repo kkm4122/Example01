@@ -8,6 +8,7 @@ Weapon_Gun::Weapon_Gun(Actor* actor) : Weapon(actor)
     ASps    = 3.f;
     mLength = 300;
     mMode   = AimMode::MOUSE_POS;
+    mTimes  = 7;
 }
 void Weapon_Gun::update(float delta)
 {
@@ -25,6 +26,19 @@ void Weapon_Gun::update(float delta)
 
 void Weapon_Gun::Attack()
 {
-    
-    auto bullet = Spawn_Bullet(mActor->mSceneComp->mRootNode->getParent(), mActor->getPosition(), mActor, mAiming);
+    Vec2 target;
+    float x = M_PI / 180 * 3;
+    float currenttimes = 0;
+    float a            = 1;
+    if (mTimes % 2 == 0)
+    {
+        currenttimes += x;
+    }
+    for (int i = 0; i < mTimes; i++)
+    {
+        a = i * (-1 + (((i + 1) % 2) * 2));
+        currenttimes += x * 2 * a;
+        target      = mAiming.rotateByAngle(mActor->mPosition, currenttimes);
+        auto bullet = Spawn_Bullet(mActor->mSceneComp->mRootNode->getParent(), mActor->getPosition(), mActor, target);
+    }
 }
