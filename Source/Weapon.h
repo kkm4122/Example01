@@ -35,5 +35,6 @@ public:
     float dealay = 0;
     float mLength;
     float TL = -1;
+    int mTimes = 1;
     bool setAim();
 };
