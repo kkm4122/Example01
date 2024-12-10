@@ -1,5 +1,6 @@
 #pragma once
 #include "IDsystem.h"
+#include "ActorList.h"
 class Actor;
 
 class World
@@ -50,4 +51,11 @@ public:
 
     std::vector<Actor*> mUpdateList_Extra;
     int x = 0;
+
+private:
+    ActorList m_ActorList;
+    ActorList m_ProjectileList;
+    ActorList m_ItemList;
+
+    unsigned int m_ActorMaxIdx = 0;
 };

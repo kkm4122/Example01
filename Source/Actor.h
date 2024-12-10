@@ -21,6 +21,7 @@ class Actor
 public:
     enum
     {//엑터 상태
+        E_Destroyed,
         E_Died,
         E_Active,
         E_InActive,
