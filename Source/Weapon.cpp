@@ -9,8 +9,10 @@ bool Weapon::setAim()
     {
         mAiming = World::get()->wMousePos;
         
+
+        
         mAiming += mActor->mPosition;
-       
+        //mAiming = mAiming.rotateByAngle(mActor->mPosition, M_PI / 2);
         return true;
     }
     else if(mMode == AimMode::NEAR_E)
@@ -37,6 +39,24 @@ bool Weapon::setAim()
     }
     else 
     {
+        TL = 0;
+        for (Actor* act : mActor->mSensorComp->mAimList)
+        {
+            if (act != nullptr)
+            {
 
+                Vec2 le = mActor->mPosition - act->mPosition;
+                if (le.length() > TL)
+                {
+                    mAiming = act->mPosition;
+                    TL      = le.length();
+                }
+            }
+        }
+        if (TL == 0)
+        {
+            return false;
+        }
+        return true;
     }
 }
