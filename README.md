@@ -15,7 +15,10 @@
     - [x] 메인씬에서 충돌체크
     - [x] 센서 컴포넌트 및 월드에 센서리스트-> 센서 컴포넌트가 자체적으로 리스트를 가짐
     - [x] 리스트 검색 및 가장 가까운 거리 체크
-
+    10. Weapon
+    - [x] weaponcomponent 제작
+    - [x] vector weaponlist 를 actor에서 업데이트로 구현 가지고 있는 무기들을 나열해서 독자적인 투사체유닛들을 생성하고 발사함      
+   
 
    
     
@@ -54,11 +57,11 @@
     
     7. audio엔진 습득
    - [ ] 서버에서도 따로 받는 상태 구현
-   - [ ] weaponcomponent 제작
-   - [ ] vector weaponlist 를 actor에서 업데이트로 구현 가지고 있는 무기들을 나열해서 독자적인 투사체유닛들을 생성하고 발사함      
    
+    
             
-    8. world actorlist 수정   [ ]
+    8. world actorlist 수정   [x]
+    9. MovementCompnent 수정 physicsbody에 맞게
 
 
 
@@ -84,6 +87,6 @@
 
 
 
-피직스를 쓸경우
-엑터의 겟포지션을 호출할땐 씬컴포넌트의 노드의 포지션을 리턴한다.
-movementcomnent제거 및 씬컴포넌트에서 엑터의 포지션을 받는게 아니라 변경시킨다.
+physicsBody를 쓸경우
+Actor의 mPosition을 호출할땐 Scenecomp의 rootNode의 Position을 리턴한다.
+movementcomnent제거 및 Scenecomp에서 Actor의 mPosition을 받는게 아니라 변경시킨다.
