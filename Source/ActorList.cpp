@@ -51,7 +51,7 @@ void ActorList::Created_Actors()
     }
 
     mCreatedActorList.clear();
-    }
+}
 
 Actor* ActorList::NewActor()
 {
@@ -74,7 +74,6 @@ Actor* ActorList::FindActorByTag(std::string_view tagname)
         if (act->mTag == tagname)
             return act;
     }
-
     return nullptr;
 }
 
