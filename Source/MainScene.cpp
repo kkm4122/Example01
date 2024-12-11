@@ -530,10 +530,10 @@ void MainScene::SpawnCow(ax::Vec2 pos)
 void MainScene::setGameScale(float s)
 {
     mGameScale = s;
-    if (mGameScale < 1.f)
-        mGameScale = 1.0f;
-    if (mGameScale > 2.f)
-        mGameScale = 2.0f;
+    if (mGameScale < 0.7f)
+        mGameScale = 0.7f;
+    if (mGameScale > 3.f)
+        mGameScale = 3.0f;
     mExLayer->setScale(mGameScale);
     World::get()->SetScale(mGameScale);
 }
