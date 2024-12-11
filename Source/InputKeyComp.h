@@ -22,4 +22,6 @@ public:
     bool Key_s=false;
     bool Key_w=false;
     bool Key_d=false;
+    bool dash  = false;
+    float dashtime = 0.f;
 };

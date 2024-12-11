@@ -12,6 +12,7 @@ struct ActorMessage
 {
     enum
     {
+        Dash,
         MoveToTarget,
         AddToNextTarget,
         Contacted,
