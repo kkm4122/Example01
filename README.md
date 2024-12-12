@@ -19,7 +19,7 @@
     - [x] weaponcomponent 제작
     - [x] vector weaponlist 를 actor에서 업데이트로 구현 가지고 있는 무기들을 나열해서 독자적인 투사체유닛들을 생성하고 발사함      
    
-
+    11. world actorlist 수정   [x]
    
     
     
@@ -56,13 +56,10 @@
     6. ImGuI 추가 
     
     7. audio엔진 습득
-   - [ ] 서버에서도 따로 받는 상태 구현
    
-    
-            
-    8. world actorlist 수정   [x]
-    9. MovementCompnent 수정 physicsbody에 맞게
+    8. MovementCompnent 수정 physicsbody에 맞게
 
+    9. 몬스터 웨이브 구현
 
 
 
