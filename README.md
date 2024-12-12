@@ -82,7 +82,9 @@
 
 [ax doc]:https://axmol.dev/manual/latest/
 
+5.[cocos Physics body sprite][physics]
 
+[physics]:https://m.blog.naver.com/game_studyz/220886309728?recommendTrackingCode=2
 
 physicsBody를 쓸경우
 Actor의 mPosition을 호출할땐 Scenecomp의 rootNode의 Position을 리턴한다.
