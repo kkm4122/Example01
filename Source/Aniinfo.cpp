@@ -48,12 +48,15 @@ void create_frameAnimation(AnimInfo& info)
     if (info.animation.isNull())
     {
         auto spritecache = ax::SpriteFrameCache::getInstance();
-        spritecache->addSpriteFramesWithFile(info.strPlist);
+        char str[128]    = "Plist/";
+        strcat(str, info.strPlist);    
+        //sprintf(str, info.strPlist);
+        spritecache->addSpriteFramesWithFile(str);
 
         // frame 모으기
         ax::Vector<ax::SpriteFrame*> animFrames;
 
-        char str[128];
+        
         for (int i = 1; i <= info.frameCount; i++)
         {
             sprintf(str, info.format, i);

@@ -138,7 +138,10 @@ AnimInfo g_AnimInfo_Skeleton_Die[]  = {
     {ECharName::Skeleton, ECharActName::Die, ECharDir::Face, "Skeleton.plist", "Skeleton/Die/%04d.png", 1, 4, (1.f / 4),
       anchor_Skeleton, nullptr},
 };
-
+AnimInfo g_AnimInfo_Coin[] = {
+    {ECharName::Coin, ECharActName::Move, ECharDir::Face, "Coin.plist", "%d.png", 1, 14, (1.f / 14), anchor_HPBar,
+     nullptr},
+};
 
 void AnimInfo::CreateAnimation()
 {
@@ -146,7 +149,11 @@ void AnimInfo::CreateAnimation()
         return;
 
     auto spritecache = ax::SpriteFrameCache::getInstance();
-    spritecache->addSpriteFramesWithFile(strPlist);
+    char tstr[128]    = "Plist/";
+    //char ttstr[256]  = tstr + strPlist;
+    strcat(tstr, strPlist);    
+    //sprintf(tstr,  strPlist);
+    spritecache->addSpriteFramesWithFile(tstr);
 
     // frame 모으기
     ax::Vector<ax::SpriteFrame*> animFrames;
@@ -314,6 +321,8 @@ AnimInfo& FindAnimInfo(ECharName charName, ECharActName action, ECharDir dir)
                 return noneAnimInfo;
         }
         break;
+    case ECharName::Coin:
+        return g_AnimInfo_Coin[0];
     }
 
     return noneAnimInfo;

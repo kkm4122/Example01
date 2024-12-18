@@ -29,7 +29,8 @@ enum class ECharName
     Skeleton,
     HPBar,
     Carrot,
-    Cow
+    Cow,
+    Coin
 };
 
 enum class ECharActName
@@ -121,3 +122,5 @@ Actor* Spawn_Mouse(ax::Node* parent, Vec2 worldPos);
 
 //weapon
 Actor* Spawn_Bullet(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 targetPos);
+Actor* Spawn_Bullet2(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 targetPos);
+Actor* SetCamp(Actor* actor);
