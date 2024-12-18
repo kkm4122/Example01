@@ -43,6 +43,10 @@ void WeaponComp::shot()
         {
             weapon->mMode = AimMode::MOUSE_POS;
         }
+        else if (weapon->mMode == AimMode::MOUSE_POS)
+        {
+            weapon->mMode = AimMode::FAR_E;
+        }
         else
         {
             weapon->mMode = AimMode::NEAR_E;
@@ -52,12 +56,11 @@ void WeaponComp::shot()
 
 void WeaponComp::addGun()
 {
-    auto gun = new Weapon_Gun(mActor);
-    Vec2 Pos(mActor->getPosition());
-
-    Pos.x += 200;
-    gun->mAiming=Pos;
+    auto gun = new Weapon_Gun(mActor);    
     mWeaponList.push_back(gun);
-    testGun = new Weapon_Gun(mActor);
-    testGun->mAiming = Pos;
+}
+void WeaponComp::addGun2()
+{
+    auto gun = new Weapon_Gun2(mActor);
+    mWeaponList.push_back(gun);
 }

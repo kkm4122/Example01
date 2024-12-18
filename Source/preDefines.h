@@ -41,8 +41,8 @@ class InputKeyComp;
 class ProjectileC;
 class TownHallComp;
 class SensorComp;
-
-
+class CoinCharactorNode;
+class CowCharactorNode;
 class Weapon;
 class Weapon_Gun;
     // 씬에다 그리기 기능,axmol node를 참조하고 mactor와 상호참조

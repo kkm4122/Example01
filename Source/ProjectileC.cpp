@@ -107,3 +107,83 @@ void ProjectileC::End(float delta)
     //mActor->mSceneComp->mRootNode->setVisible(false);
     World::get()->EraseBullet(mActor);
 }
+
+
+
+
+
+//----------------------------------------------------------------
+
+
+
+const std::string ProjectileC2::COMPONENT_NAME = "ProjectileC2";
+ProjectileC2::ProjectileC2(Actor* actor, Vec2 targetPos)
+    : UnitComp(actor), mTargetPos(targetPos), timer(0), mMode(E_Start)
+{
+    mCompName        = COMPONENT_NAME;
+    actor->mUnitComp = this;
+}
+ProjectileC2::~ProjectileC2() {}
+
+void ProjectileC2::update(float delta)
+{
+    timer += delta;
+
+    switch (mMode)
+    {
+    case E_Start:
+        Start(delta);
+        break;
+    case E_Flying:
+        FlyingUpdate(delta);
+        break;
+    case E_End:
+        End(delta);
+        break;
+    }
+}
+
+void ProjectileC2::MessageProc(ActorMessage& msg)
+{
+    //msg.data
+    if (msg.sender->mTagname == Actor::Enemy)
+    {
+        if (!Piercing) Piercing_count--;
+
+    }
+}
+
+void ProjectileC2::Attack() {}
+
+void ProjectileC2::PlayExplosion() {}
+
+void ProjectileC2::Damage처리하라(Actor* other) {}
+
+void ProjectileC2::Start(float delta)
+{
+    mTargetPos -= mActor->getPosition();
+    mTargetPos.normalize();
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->resetForces();
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->setVelocity(mTargetPos * 500);
+    // mActor->mSceneComp->mRootNode->getPhysicsBody()->applyForce(Vec2(100,100));
+    mMode = E_Flying;
+}
+
+void ProjectileC2::ExplosionUpdate(float delta) {}
+
+void ProjectileC2::FlyingUpdate(float delta)
+{
+    Vec2 vel = mActor->mSceneComp->mRootNode->getPhysicsBody()->getVelocity();
+    mActor->mSceneComp->mRootNode->getPhysicsBody()->resetForces();
+    vel.normalize();
+    if (3.f < timer || (Piercing_count<=0&&Piercing==false))
+    {
+        mActor->mSceneComp->mRootNode->getPhysicsBody()->setVelocity(vel * 0);
+        End(delta);
+    }
+}
+
+void ProjectileC2::End(float delta)
+{
+    World::get()->EraseBullet(mActor);
+}

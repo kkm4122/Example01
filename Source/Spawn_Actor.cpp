@@ -20,6 +20,7 @@
 #include "animController.h"
 #include "FarmerCharactorNode.h"
 #include "CowCharactorNode.h"
+#include "CoinCharactorNode.h"
 #include "NoChangeAnimController.h"
 //#include "box2d/box2d.h"
 using namespace ax;
@@ -70,7 +71,7 @@ Actor* Spawn_Farmer(ax::Node* parent, Vec2 worldPos)
     auto weaponComp = new WeaponComp(actor);
     auto sensorComp = new SensorComp(actor);
     weaponComp->addGun();
-
+    weaponComp->addGun2();
     Farmer->mCharAnimController = FarmerCharactorNode::create(actor);
     /*
     auto root = sceneComp->CreateRootNodeWithPhysics(getPhysicsBodySize(ECharName::Farmer));
@@ -163,12 +164,12 @@ Actor* Spawn_Bullet(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 targetP
     actor->mActorName = "Ball";
     actor->mActorName += std::to_string(i);
     i++;
-    actor->mTagname = Actor::Bullet;
+    actor->mTagname = Actor::pBullet;
     actor->setPosition(worldPos);
 
     auto sceneComp = new SceneComp(actor);
     //getPhysicsBodySize(ECharName::Ball
-    sceneComp->mRootNode = sceneComp->NewPhysicsNode("Ball", Vec2(32, 32));
+    sceneComp->mRootNode = sceneComp->NewPhysicsNode("Ball", Vec2(16, 16));
    //
     //sceneComp->addChild(physicsNode);
     //sceneComp->mRootNode = physicsNode;
@@ -194,6 +195,55 @@ Actor* Spawn_Bullet(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 targetP
 
 
     return actor;
+}
+Actor* Spawn_Bullet2(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 targetPos)
+{
+    static unsigned int i = 0;
+
+    Actor* actor      = World::get()->NewBullet();
+    actor->mActorType = ActorType::Ball;
+    actor->mActorName = "Ball";
+    actor->mActorName += std::to_string(i);
+    i++;
+    actor->mTagname = Actor::pBullet;
+    actor->setPosition(worldPos);
+
+    auto sceneComp = new SceneComp(actor);
+    // getPhysicsBodySize(ECharName::Ball
+    sceneComp->mRootNode = sceneComp->NewPhysicsNode("Ball", Vec2(32, 32));
+    //
+    // sceneComp->addChild(physicsNode);
+    // sceneComp->mRootNode = physicsNode;
+    // sceneComp->setParent(parent);
+    parent->addChild(sceneComp->mRootNode.get());
+    // parent->addChild(physicsNode);
+    sceneComp->mRootNode->setPosition(worldPos);
+    sceneComp->mRootNode->getPhysicsBody()->setDynamic(true);
+    Vec2 a = targetPos-worldPos;
+    a.normalize();
+   // a.getAngle();
+    //float v = atan2(a.y, a.x) * 180 / M_PI;
+    sceneComp->mRootNode->getPhysicsBody()->setRotationEnable(false);
+    //sceneComp->mRootNode->getPhysicsBody()->setRotationOffset(a);
+    float x = (a.getAngle() * 180) / M_PI;
+    //float y = 180 / M_PI;
+    sceneComp->mRootNode->setRotation(-x-(90));
+    sceneComp->mRootNode->getPhysicsBody()->getShape(0)->setMaterial(PhysicsMaterial(0, 0, 0));
+    // sceneComp->mRootNode->getPhysicsBody()
+    sceneComp->mRootNode->setScale(0.5f);
+    // Component 안에서 자동으로 적용됨
+    // auto moveComp      = new MovementComp(actor);
+    auto projectile2    = new ProjectileC2(actor, targetPos);
+    projectile2->archor = archor;
+
+    //auto c                          = new CoinCharactorNode::create(actor);
+    projectile2->mCharAnimController = CoinCharactorNode::create(actor);
+    //projectile->mCharAnimController->create(actor);
+    return actor;
+}
+Actor* SetCamp(Actor* actor)
+{
+    return nullptr;
 }
 /*
 Actor* Spawn_Animal(ax::Node* parent, Vec2 worldPos)

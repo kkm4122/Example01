@@ -45,6 +45,7 @@ void FarmerCharactorNode::update(float delta)
     {
         // 이동이 정지한거 아닌지 검사한다.
         Vec2 dirV = mActor->mMoveComp->mCurrentFrameMovement;
+        //dirV      = mActor->mSceneComp->mRootNode->getPhysicsBody()->getVelocity();
         if (dirV.length() < 0.01f)
         {
             // 정지했다.

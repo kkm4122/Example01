@@ -3,23 +3,18 @@
 #include "INodeAnimationController.h"
 #include "UnitDefines.h"
 
-
-
-
-
-
-class CowCharactorNode : public INodeAnimationController
+class CoinCharactorNode : public INodeAnimationController
 {
 public:
     const static std::string COMPONENT_NAME;
+    CREATE_FUNC(CoinCharactorNode);
+    static CoinCharactorNode* create(Actor* ac);
 
-    static CowCharactorNode* create(Actor* ac) ;
-
-    CowCharactorNode() { _name = COMPONENT_NAME; }
-    ~CowCharactorNode() {}
+    CoinCharactorNode() { _name = COMPONENT_NAME; }
+    ~CoinCharactorNode() {}
     virtual bool init() override;
     virtual void update(float delta) override;
-   
+
     ECharDir CalcAniDir(Vec2 dir);
 
 public:

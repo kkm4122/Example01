@@ -21,5 +21,6 @@ public:
 public:
     void shot();
     void addGun();
+    void addGun2();
     std::vector<Weapon*> mWeaponList;
 };
