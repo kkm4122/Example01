@@ -61,6 +61,8 @@
 
     9. 몬스터 웨이브 구현
 
+    10. get Physics node 추가 설정 및 쉐이프를 통한 피직스 바디 얻어오기
+
 
 
 교육자료
@@ -86,6 +88,9 @@
 
 [physics]:https://m.blog.naver.com/game_studyz/220886309728?recommendTrackingCode=2
 
+6.[cocos포럼][coocs]
+
+[coocs]:https://forum.cocosengine.org/
 physicsBody를 쓸경우
 Actor의 mPosition을 호출할땐 Scenecomp의 rootNode의 Position을 리턴한다.
 movementcomnent제거 및 Scenecomp에서 Actor의 mPosition을 받는게 아니라 변경시킨다.
