@@ -3,6 +3,7 @@
 #include "Actor.h"
 #include "MovementComp.h"
 #include "Window.h"
+#include "ActorList.h"
 //#include "2dGeometryFunc.h"
 
 USING_NS_AX;
@@ -90,10 +91,18 @@ void World::update(float dt)
         //AXLOG("Mouse Pos: %f %f", wMousePos.x, wMousePos.y);
     }
 
+    m_ActorList.Delete_Actors();
+    m_BulletList.Delete_Actors();
+    m_ItemList.Delete_Actors();
 
-    Delete_Actors();
-    Delete_Bulletes();
-    updateActors(dt);
+    m_ActorList.updateActors(dt);
+    m_BulletList.updateActors(dt);
+    m_ItemList.updateActors(dt);
+
+    m_ActorList.Created_Actors();
+    m_BulletList.Created_Actors();
+    m_ItemList.Created_Actors();
+
 }
 
 void World::updateActors(float dt)
@@ -135,121 +144,144 @@ void World::updateActors(float dt)
 
 
 
-void World::Delete_Actors()
-{
-    if (mDeleteActorList.size() == 0)
-        return;
-
-    for (Actor* act : mDeleteActorList)
-    {
-        UnRegisterActor(act);
-        
-        delete act;
-        act = nullptr;
-    }
-
-    mDeleteActorList.clear();
-}
-
-void World::Delete_Bulletes()
-{
-    if (mDeleteBulletList.size() == 0)
-        return;
-
-    for (Actor* act : mDeleteBulletList)
-    {
-        UnRegisterBullet(act);
-
-        delete act;
-        act = nullptr;
-    }
-
-    mDeleteBulletList.clear();
-}
+//void World::Delete_Actors()
+//{
+//    if (mDeleteActorList.size() == 0)
+//        return;
+//
+//    for (Actor* act : mDeleteActorList)
+//    {
+//        UnRegisterActor(act);
+//        
+//        delete act;
+//        act = nullptr;
+//    }
+//
+//    mDeleteActorList.clear();
+//}
+//
+//void World::Delete_Bulletes()
+//{
+//    if (mDeleteBulletList.size() == 0)
+//        return;
+//
+//    for (Actor* act : mDeleteBulletList)
+//    {
+//        UnRegisterBullet(act);
+//
+//        delete act;
+//        act = nullptr;
+//    }
+//
+//    mDeleteBulletList.clear();
+//}
+//
+//void World::Delete_Items() {}
 
 Actor* World::NewActor()
 {
-    Actor* act    = new Actor;
-    act->mActorID = RegisterActor(act);  // return unsigned int idx(몇번째 액터인지)
-    return act;
+    //Actor* act    = new Actor;              no actorlist >>vector구현 리스트들
+    //act->mActorID = RegisterActor(act);  // return unsigned int idx(몇번째 액터인지)
+    //return act;
+    return m_ActorList.NewActor();
 }
 
 Actor* World::NewBullet()
 {
-    Actor* act    = new Actor;
-    act->mBulletID = RegisterBullet(act);  // return unsigned int idx(몇번째 액터인지)
-    return act;
+    // Actor* act    = new Actor;                no actorlist >>vector구현 리스트들
+    // act->mBulletID = RegisterBullet(act);  // return unsigned int idx(몇번째 액터인지)
+    // return act;
+    return m_BulletList.NewActor();
+}
+
+Actor* World::NewItem()
+{
+    return m_ItemList.NewActor();
 }
 
 void World::EraseActor(Actor* act)
 {
-    x++;
+    /*x++;
     act->mStatus = Actor::E_Died;
-    mDeleteActorList.push_back(act);
+    mDeleteActorList.push_back(act);*/
+    m_ActorList.EraseActor(act);
 }
 
 void World::EraseBullet(Actor* act)
 {
-    act->mStatus = Actor::E_Died;
-    mDeleteBulletList.push_back(act);
+    /*act->mStatus = Actor::E_Died;
+    mDeleteBulletList.push_back(act);*/
+    m_BulletList.EraseActor(act);
 }
 
-unsigned int World::RegisterBullet(Actor* aa)
+void World::EraseItem(Actor* act)
 {
-    unsigned int bidx;
-
-    if (mBulletList.size() >= 1024 && mFreeBulletIDList.size() > 0)
-    {
-        bidx = mFreeBulletIDList.front();
-        mFreeBulletIDList.pop_front();
-        mBulletList[bidx] = aa;
-    }
-    else
-    {
-        bidx = mBulletList.size();
-        mBulletList.push_back(aa);
-    }
-
-    return bidx;
+    m_ItemList.EraseActor(act);
 }
 
-void World::UnRegisterBullet(Actor* aa)
-{
-    unsigned int idx = aa->mBulletID;
-
-    if (idx == UINT32_MAX)
-        return;
-
-    mBulletList[idx] = nullptr;
-    mFreeBulletIDList.push_back(idx);
-}
-
-unsigned int World::RegisterActor(Actor* aa)
-{
-    unsigned int idx;
-
-    if (mActorList.size() >= 1024 && mFreeActorIDList.size() > 0)
-    {
-        idx = mFreeActorIDList.front();
-        mFreeActorIDList.pop_front();
-        mActorList[idx] = aa;
-    }
-    else
-    {
-        idx = mActorList.size();
-        mActorList.push_back(aa);
-    }
-
-    return idx;
-}
-
-void World::UnRegisterActor(Actor* aa)
-{
-    unsigned int idx = aa->mActorID;
-
-    if (idx == UINT32_MAX)
-        return;
-
-    mActorList[idx] = nullptr;
-    mFreeActorIDList.push_back(idx);
-}
+//unsigned int World::RegisterBullet(Actor* aa)
+//{
+//    unsigned int bidx;
+//
+//    if (mBulletList.size() >= 1024 && mFreeBulletIDList.size() > 0)
+//    {
+//        bidx = mFreeBulletIDList.front();
+//        mFreeBulletIDList.pop_front();
+//        mBulletList[bidx] = aa;
+//    }
+//    else
+//    {
+//        bidx = mBulletList.size();
+//        mBulletList.push_back(aa);
+//    }
+//
+//    return bidx;
+//}
+//
+////void World::UnRegisterBullet(Actor* aa)
+////{
+////    unsigned int idx = aa->mBulletID;
+////
+////    if (idx == UINT32_MAX)
+////        return;
+////
+////    mBulletList[idx] = nullptr;
+////    mFreeBulletIDList.push_back(idx);
+////}
+////
+////unsigned int World::RegisterItem(Actor* aa)
+////{
+////    return 0;
+////}
+////
+////void World::UnRegisterItem(Actor* aa) {}
+////
+////unsigned int World::RegisterActor(Actor* aa)
+////{
+////    unsigned int idx;
+////
+////    if (mActorList.size() >= 1024 && mFreeActorIDList.size() > 0)
+////    {
+////        idx = mFreeActorIDList.front();
+////        mFreeActorIDList.pop_front();
+////        mActorList[idx] = aa;
+////    }
+////    else
+////    {
+////        idx = mActorList.size();
+////        mActorList.push_back(aa);
+////    }
+////
+////    return idx;
+////}
+////
+////void World::UnRegisterActor(Actor* aa)
+////{
+////    unsigned int idx = aa->mActorID;
+////
+////    if (idx == UINT32_MAX)
+////        return;
+////
+////    mActorList[idx] = nullptr;
+////    mFreeActorIDList.push_back(idx);
+////}
