@@ -29,7 +29,8 @@ public:
     enum
     {
         Player,
-        Bullet,
+        pBullet,
+        eBullet,
         Enemy
     } mTagname;
     Actor();

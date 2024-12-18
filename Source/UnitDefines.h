@@ -5,7 +5,12 @@ enum class Team
     Player,
     Enemy,
 };
-
+enum class Unit
+{
+    Item,
+    Bullet,
+    Actor
+};
 enum class E_UnitPose
 {
     None,

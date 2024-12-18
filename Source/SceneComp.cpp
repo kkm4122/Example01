@@ -82,6 +82,7 @@ ax::Node* SceneComp::NewPhysicsNode(std::string_view name, Vec2 body_size)
     drawNode->setPosition(Vec2(0, 0));
     drawNode->drawCircle(pos, body_size.x/2, 0, 16, 5, ax::Color4F::RED);
     //drawNode->drawRect(-bodysize, bodysize, ax::Color4F::RED);
+    drawNode->setGlobalZOrder(1.f);
     node->addChild(drawNode);
 
     return node;

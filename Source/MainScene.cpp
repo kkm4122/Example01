@@ -37,7 +37,7 @@
 #include "A_RandomMoving.h"
 #include "ActorMessage.h"
 #include "ImGui/ImGuiPresenter.h"
-
+#include "UnitComp.h"
 using namespace ax::extension;
 using namespace ax;
 class AnimInfo;
@@ -264,6 +264,14 @@ bool MainScene::onContactPreSolve(ax::PhysicsContact& contact)
     {
         //AXLOG("%d,%d", nodeActorA->mActorType, nodeActorB->mActorType);
         return false;  // physcis 충돌을 무시
+    }
+    if (nodeActorA->mUnitComp->getName() == "ProjectileC2")
+    {
+        return false;
+    }
+    if (nodeActorB->mUnitComp->getName() == "ProjectileC2")
+    {
+        return false;
     }
     return true;
 }

@@ -4,7 +4,15 @@
 #include "UnitDefines.h"
 class Actor;
 
-
+struct
+{
+    int Lv;
+    float MaxHP;
+    float CurHP;
+    float MaxExp;
+    float CurExp;
+    float Speed=10.f;
+};
 
 class UnitComp : public IActorComponent
 {
