@@ -209,36 +209,22 @@ Actor* Spawn_Bullet2(ax::Node* parent, Vec2 worldPos, Actor* archor, Vec2 target
     actor->setPosition(worldPos);
 
     auto sceneComp = new SceneComp(actor);
-    // getPhysicsBodySize(ECharName::Ball
+    auto projectile2     = new ProjectileC2(actor, targetPos);
     sceneComp->mRootNode = sceneComp->NewPhysicsNode("Ball", Vec2(32, 32));
-    //
-    // sceneComp->addChild(physicsNode);
-    // sceneComp->mRootNode = physicsNode;
-    // sceneComp->setParent(parent);
+    
     parent->addChild(sceneComp->mRootNode.get());
-    // parent->addChild(physicsNode);
     sceneComp->mRootNode->setPosition(worldPos);
     sceneComp->mRootNode->getPhysicsBody()->setDynamic(true);
+    sceneComp->mRootNode->getPhysicsBody()->setRotationEnable(false);
     Vec2 a = targetPos-worldPos;
     a.normalize();
-   // a.getAngle();
-    //float v = atan2(a.y, a.x) * 180 / M_PI;
-    sceneComp->mRootNode->getPhysicsBody()->setRotationEnable(false);
-    //sceneComp->mRootNode->getPhysicsBody()->setRotationOffset(a);
     float x = (a.getAngle() * 180) / M_PI;
-    //float y = 180 / M_PI;
     sceneComp->mRootNode->setRotation(-x-(90));
     sceneComp->mRootNode->getPhysicsBody()->getShape(0)->setMaterial(PhysicsMaterial(0, 0, 0));
-    // sceneComp->mRootNode->getPhysicsBody()
     sceneComp->mRootNode->setScale(0.5f);
     // Component 안에서 자동으로 적용됨
-    // auto moveComp      = new MovementComp(actor);
-    auto projectile2    = new ProjectileC2(actor, targetPos);
     projectile2->archor = archor;
-
-    //auto c                          = new CoinCharactorNode::create(actor);
     projectile2->mCharAnimController = CoinCharactorNode::create(actor);
-    //projectile->mCharAnimController->create(actor);
     return actor;
 }
 Actor* SetCamp(Actor* actor)

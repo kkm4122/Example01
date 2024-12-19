@@ -319,7 +319,7 @@ void MainScene::onKeyPressed(EventKeyboard::KeyCode code, Event* event)
         break;
     case ax::EventKeyboard::KeyCode::KEY_X:
         mSelectedActor->currentHP += 10;
-        
+       // mSelectedActor->mSceneComp->mRootNode->setScale(2.f);
         break;
     case ax::EventKeyboard::KeyCode::KEY_W:
         
@@ -532,6 +532,7 @@ void MainScene::SpawnFamer(ax::Vec2 pos) {}
 void MainScene::SpawnCow(ax::Vec2 pos)
 {
     auto actor2 = Spawn_Cow(mExLayer, pos);
+    Vec2 a=actor2->mSceneComp->mRootNode->getContentSize();
     PushGoal<A_RandomMoving>(actor2);
 }
 

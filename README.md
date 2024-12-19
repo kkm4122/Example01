@@ -44,7 +44,7 @@
   
     4. 투사체 구현및 여러 종류의 투사체를 발사 할 수 있게 만들기
    - [x]튕기는 투사체 구현
-   - [ ]관통 투사체 구현
+   - [x]관통 투사체 구현
    - [x]멀티샷 구현
    
     5. 게임시스템 구현
@@ -94,3 +94,9 @@
 physicsBody를 쓸경우
 Actor의 mPosition을 호출할땐 Scenecomp의 rootNode의 Position을 리턴한다.
 movementcomnent제거 및 Scenecomp에서 Actor의 mPosition을 받는게 아니라 변경시킨다.
+https://m.blog.naver.com/ktm0122/20194094073
+
+https://velog.io/@yayar98/COCOS2D-X
+
+
+https://www.hanbit.co.kr/media/openbook/cocos2d-x/06-4.html

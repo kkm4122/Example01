@@ -52,6 +52,7 @@ public:
     unsigned int RegisterActor(Actor* aa);
     void UnRegisterActor(Actor* aa);
     //std::vector<Wall2D*> m_Walls;
+    
     Actor* WSeletedActer=nullptr;
     std::vector<Actor*> mActorList;
     std::vector<Actor*> mDeleteActorList;
