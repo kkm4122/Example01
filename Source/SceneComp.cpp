@@ -87,6 +87,47 @@ ax::Node* SceneComp::NewPhysicsNode(std::string_view name, Vec2 body_size)
 
     return node;
 }
+ax::Node* SceneComp::NewPhysicsRectNode(std::string_view name, Vec2 body_size)
+{
+    ax::Node* node = NewNode(name);
+
+    auto body = ax::PhysicsBody::createBox(body_size);
+    body->setContactTestBitmask(0xFFFFFFFF);
+    body->setDynamic(false);
+    node->setPhysicsBody(body);
+    
+    auto drawNode = ax::DrawNode::create();
+    Vec2 pos(0, 0);
+    drawNode->setPosition(Vec2(0, 0));
+    drawNode->drawRect(pos,body_size, ax::Color4F::RED);
+    // drawNode->drawRect(-bodysize, bodysize, ax::Color4F::RED);
+    drawNode->setGlobalZOrder(1.f);
+    node->addChild(drawNode);
+    return node;
+}
+ax::Node* SceneComp::NewPhysicsCircleNode(std::string_view name, float radius)
+{
+    ax::Node* node = NewNode(name);
+
+    // auto ma = ax::PhysicsMaterial()
+    // auto body = ax::PhysicsBody::createPolygon();
+
+    auto body = ax::PhysicsBody::createCircle(radius);
+    // auto bodyp = AutoPolygon::generatePolygon("");
+    body->setContactTestBitmask(0xFFFFFFFF);
+    body->setDynamic(false);
+    node->setPhysicsBody(body);
+    auto bodysize = radius;
+    auto drawNode = ax::DrawNode::create();
+    Vec2 pos(0, 0);
+    drawNode->setPosition(Vec2(0, 0));
+    drawNode->drawCircle(pos, radius, 0, 16, 5, ax::Color4F::RED);
+    // drawNode->drawRect(-bodysize, bodysize, ax::Color4F::RED);
+    drawNode->setGlobalZOrder(1.f);
+    node->addChild(drawNode);
+
+    return node;
+}
 ax::Node* SceneComp::NewAnimNode(std::string_view name,
                                  ECharName charName,
                                  ECharActName actionName,

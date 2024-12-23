@@ -39,6 +39,8 @@ public:
     ax::Node* NewNode(NodeType type = NodeType::Root);
     ax::Node* NewNode(std::string_view name);
     ax::Node* NewPhysicsNode(std::string_view name, Vec2 body_size);
+    ax::Node* NewPhysicsRectNode(std::string_view name, Vec2 body_size);
+    ax::Node* NewPhysicsCircleNode(std::string_view name, float radius);
     ax::Node* NewAnimNode(std::string_view name,
                           ECharName charName,
                           ECharActName actionName,
